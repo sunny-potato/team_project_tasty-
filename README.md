@@ -58,3 +58,5 @@ npm start
 ```sh
 npm test
 ```
+
+### This version also includes automatic reload

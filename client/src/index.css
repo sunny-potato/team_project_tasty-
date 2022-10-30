@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@200;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.NavMain {
+  background-color: rgb(41, 211, 118);
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 3rem;
+
+  padding: 0 2rem;
+}
+.NavList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  text-decoration: none;
+}
+.NavList li:active {
+  background-color: rgb(241, 250, 245);
+}
+
+.NavList li:hover {
+  background-color: rgb(3, 190, 88);
+}
+
+.Link {
+  font-family: 'Prompt', sans-serif;
+  font-weight: 200;
+  height: 100%;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.Logo_title {
+  font-family: 'Prompt', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 2.5rem;
+}

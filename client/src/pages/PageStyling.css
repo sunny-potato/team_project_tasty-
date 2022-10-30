@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@200;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: white;
+  padding: 0;
+  text-align: center;
+}
+.Content-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+  padding: 1rem;
+}
+p {
+  max-width: 750px;
+  margin: 1.5rem;
+  padding: 1rem;
+}
+.Ingredients-main {
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5rem;
+}
+.Ingredients-header {
+  padding: 1rem 1rem;
+  text-align: left;
+}
+.Ingredients-cell {
+  padding: 0.2rem;
+  text-align: left;
+}
+.Ingredients-name {
+  text-align: left;
+}
+.Recipe-popular {
+  margin: 0.2rem;
+  background-color: rgba(255, 182, 139, 0.377);
+  font-size: 0.8rem;
+  padding: 0.3rem;
+  border-radius: 2rem;
+  font-family: 'Prompt';
+  font-weight: 200;
+}
+.Recipe-new {
+  content: none;
+  margin: 0.4rem;
+  background-color: rgba(125, 230, 139, 0.452);
+  font-size: 0.8rem;
+  padding: 0.3rem;
+  border-radius: 2rem;
+  font-family: 'Prompt';
+  font-weight: 200;
+}
+.Recipe-tags {
+  margin: 0.5rem;
+}
+.Button-navigation {
+  padding: 0.5rem;
+  margin: 1.5rem;
+  width: fit-content;
+  background-color: rgb(41, 211, 118);
+  border: none;
+  border-radius: 3px;
+  font-family: 'Prompt';
+  font-weight: 500;
+  cursor: pointer;
+}
+.Button-navigation:hover {
+  background-color: rgba(41, 211, 117, 0.418);
+}
+
+.Button-action {
+  padding: 0.5rem;
+  margin: 2.5rem;
+  background-color: rgb(41, 211, 118);
+  border: none;
+  border-radius: 3px;
+  font-family: 'Prompt';
+  font-weight: 500;
+  cursor: pointer;
+}
+.Button-action:hover {
+  background-color: rgba(41, 211, 117, 0.418);
+}
+.User-input {
+  padding: 0;
+  margin: 1rem;
+}
+.Button-recipe-navigation {
+  padding: 1rem;
+  margin: 1.5rem;
+  width: 20rem;
+  background-color: rgb(41, 211, 118);
+  border: none;
+  border-radius: 3px;
+  font-family: 'Prompt';
+  font-weight: 500;
+  cursor: pointer;
+}
+.Button-recipe-navigation:hover {
+  background-color: rgba(41, 211, 117, 0.418);
+}
