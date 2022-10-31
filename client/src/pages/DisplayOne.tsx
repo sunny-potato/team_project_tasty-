@@ -31,7 +31,7 @@ export function DisplayOne() {
 
     newAmounts = defaultAmounts?.map((i) => ({
       ...i,
-      amount: parseFloat(((i.amount / 4) * portions).toPrecision(2)),
+      amount: parseFloat(((i.amount / 4) * portions).toPrecision(1)),
     }));
     setIngredients(newAmounts);
   }
@@ -85,7 +85,7 @@ export function DisplayOne() {
         <Link to="/">
           <button className="Button-navigation">Back</button>
         </Link>
-        <Link to="/edit">
+        <Link to={'/edit/' + params.id}>
           <button className="Button-navigation">Edit recipe</button>
         </Link>
         <button

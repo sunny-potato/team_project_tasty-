@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@200;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
   box-sizing: border-box;
@@ -101,10 +101,11 @@ p {
   background-color: rgb(41, 211, 118);
   border: none;
   border-radius: 3px;
-  font-family: 'Prompt';
-  font-weight: 500;
+  font-family: 'Prompt', sans-serif;
+  font-weight: 300;
   cursor: pointer;
 }
 .Button-recipe-navigation:hover {
   background-color: rgba(41, 211, 117, 0.418);
+  color: rgb(51, 5, 126);
 }

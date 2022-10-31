@@ -1,4 +1,4 @@
-# Client tests example
+### This version also includes automatic reload
 
 ## Setup database connections
 
@@ -58,5 +58,3 @@ npm start
 ```sh
 npm test
 ```
-
-### This version also includes automatic reload

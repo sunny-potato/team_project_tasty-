@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@200;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
   box-sizing: border-box;
@@ -46,17 +46,26 @@ code {
 
 .Link {
   font-family: 'Prompt', sans-serif;
-  font-weight: 200;
+  font-weight: 300;
   height: 100%;
   text-decoration: none;
   display: flex;
   align-items: center;
   padding: 0.5rem;
+  color: rgb(119, 27, 194);
+}
+.Link:hover {
+  color: rgb(119, 27, 194);
 }
 
 .Logo_title {
   font-family: 'Prompt', sans-serif;
   font-weight: 600;
   text-decoration: none;
+
   font-size: 2.5rem;
+  color: rgb(119, 27, 194);
+}
+.Logo_title:hover {
+  color: rgb(119, 27, 194);
 }
