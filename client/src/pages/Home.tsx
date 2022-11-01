@@ -14,22 +14,29 @@ export function Home() {
 
   return (
     <div className="Content-main">
-      <h1>Welcome to the homepage</h1>
+      <h1>Welcome to the Tasty</h1>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit laboriosam officia ad.
-        Magnam, itaque. Cum, libero natus? Ipsum, quod. Aut, fugit vel minus temporibus adipisci
-        architecto itaque eaque accusamus quibusdam?
+        Here you can explore your own recipes by adding new content, editing existing ones and
+        deleting the ones you don't care about anymore.
       </p>
-      <div>
+      <p>
+        This is also the place to discover more and get inspiration from, we have selected a few to
+        show you from [External API] below.
+      </p>
+      <div className="Content-second">
         <ul>
-          {allRecipes?.map((recipe: RecipeInfo) => (
-            <Link key={recipe.id} to={'/recipe/' + recipe.id}>
-              <button className="Button-recipe-navigation">{recipe.name}</button>
-            </Link>
-          ))}
+          {allRecipes ? (
+            allRecipes.map((recipe: RecipeInfo) => (
+              <Link key={recipe.id} to={'/recipe/' + recipe.id}>
+                <button className="Button-recipe-navigation">{recipe.name}</button>
+              </Link>
+            ))
+          ) : (
+            <b>Oops...You have no recipes to show here</b>
+          )}
         </ul>
-        <div>
-          <h5>Place for external API recipes here</h5>
+        <div className="Content-second">
+          <h5>[Place for external API recipes here]</h5>
         </div>
       </div>
     </div>
