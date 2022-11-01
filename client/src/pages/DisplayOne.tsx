@@ -85,7 +85,7 @@ export function DisplayOne() {
         <Link to="/">
           <button className="Button-navigation">Back</button>
         </Link>
-        <Link to="/edit">
+        <Link to={'/edit/' + id}>
           <button className="Button-navigation">Edit recipe</button>
         </Link>
         <button

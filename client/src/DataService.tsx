@@ -50,16 +50,34 @@ class DataService {
     //   });
     // });
 
-    return axios.get<Recipe>('/recipe/' + id).then((response) => response.data);
+    return axios
+      .get<Recipe>('/recipe/' + id)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
   }
   // Get an array of all recipes
 
   getAll() {
-    return axios.get<[]>('/recipe/').then((response) => response.data);
+    return axios
+      .get<[]>('/recipe/')
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
   }
   /* Post new recepie */
   create(data: Recipe) {
-    return axios.post<{ id: number }>('/recipe', { data }).then((response) => response.data.id);
+    return axios
+      .post<{ id: number }>('/recipe', { data })
+      .then((response) => response.data.id)
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
   }
   /* Edit an existing recipe by known id */
 
@@ -69,7 +87,13 @@ class DataService {
     /* Delete a recipe known id */
   }
   delete(id: number) {
-    return axios.delete('/recipe/' + id).then((response) => response.data);
+    return axios
+      .delete('/recipe/' + id)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
   }
 }
 
