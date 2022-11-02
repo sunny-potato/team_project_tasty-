@@ -3,18 +3,20 @@ import React, { useEffect, useState, useRef, Component } from 'react';
 import dataService, { Recipe, Ingredient, RecipeInfo } from '../DataService';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
+import { RiShoppingCart2Line } from 'react-icons/ri';
 
 export function DisplayOne() {
   const [recipe, setRecipe] = useState<Recipe>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
   const [liked, setliked] = useState<Element | any>();
+  const [list, setList] = useState<Ingredient[]>();
+
   //To get navigation by page and id
   const params = useParams();
   const id: string = params.id;
 
   // Get inital value in load, uses recipe id as source
   // Also loads values recipe and ingredients by setState
-
   useEffect(() => {
     let id: string = params.id;
 
@@ -25,7 +27,6 @@ export function DisplayOne() {
   }, []);
 
   // Updates ingredients according to value chosen by user
-
   function changePortions(portions: number) {
     let newAmounts: Ingredient[];
     let defaultAmounts: Ingredient[] = recipe!.ingredients;
@@ -35,6 +36,14 @@ export function DisplayOne() {
       amount: parseFloat(((i.amount / 4) * portions).toPrecision(1)),
     }));
     setIngredients(newAmounts);
+  }
+
+  //Add to shopping list
+  function addCart() {
+    setList(ingredients!);
+    localStorage.setItem('cart', JSON.stringify(ingredients));
+
+    console.log(list);
   }
 
   //Like the recipe and updates the database
@@ -50,13 +59,14 @@ export function DisplayOne() {
       <h5 className="Recipe-tags">Tags: {recipe?.recipeInfo.meal_type}</h5>
       <h6 className="Recipe-new">{recipe?.recipeInfo.new ? 'This is a new recipe!' : null}</h6>
       <h6 className="Recipe-popular">
-        {recipe?.recipeInfo.popular ? 'This item is popular right now!' : null}
+        {recipe?.recipeInfo.popular ? 'This item is popular' : null}
       </h6>
       <p className="Recipe-description>">{recipe?.recipeInfo.description}</p>
       <div>
         <div>
           <label>Number of portions:&nbsp;</label>
           <select
+            title="Number of portions"
             name="portions"
             defaultValue={4}
             onChange={(e) => changePortions(parseInt(e.currentTarget.value))}
@@ -90,14 +100,8 @@ export function DisplayOne() {
             ))}
           </tbody>
         </table>
-
-        <Link to={'/edit/' + params.id}>
-          <button className="Button-navigation">Edit recipe</button>
-        </Link>
-        <button className="Button-navigation" onClick={() => alert('Add the shopping list here')}>
-          Add to shopping list
-        </button>
         <button
+          title="Like the recipe"
           className="Button-navigation"
           onClick={() => {
             likeRecipe();
@@ -110,10 +114,30 @@ export function DisplayOne() {
         >
           {recipe?.recipeInfo.popular ? <BsHandThumbsUpFill /> : <BsHandThumbsUp />}
         </button>
+        <Link to={'/edit/' + params.id}>
+          <button title="Edit recipe" className="Button-navigation">
+            Edit recipe
+          </button>
+        </Link>
+        <button
+          title="Add recipe to shopping list"
+          className="Button-navigation"
+          onClick={() => {
+            addCart();
+          }}
+        >
+          {' '}
+          shopping
+          {/* <Link to={'/cart'}>
+            <RiShoppingCart2Line />{' '}
+          </Link>   */}
+        </button>
       </div>
       <div>
         <Link to="/">
-          <button className="Button-navigation">Back</button>
+          <button title="Back" className="Button-navigation">
+            Back
+          </button>
         </Link>
       </div>
     </div>
