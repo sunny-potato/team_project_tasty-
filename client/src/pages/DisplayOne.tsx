@@ -42,8 +42,6 @@ export function DisplayOne() {
   function addCart() {
     setList(ingredients!);
     localStorage.setItem('cart', JSON.stringify(ingredients));
-
-    console.log(list);
   }
 
   //Like the recipe and updates the database
@@ -119,19 +117,17 @@ export function DisplayOne() {
             Edit recipe
           </button>
         </Link>
-        <button
-          title="Add recipe to shopping list"
-          className="Button-navigation"
-          onClick={() => {
-            addCart();
-          }}
-        >
-          {' '}
-          shopping
-          {/* <Link to={'/cart'}>
+        <Link to={'/cart'}>
+          <button
+            title="Add recipe to shopping list"
+            className="Button-navigation"
+            onClick={() => {
+              addCart();
+            }}
+          >
             <RiShoppingCart2Line />{' '}
-          </Link>   */}
-        </button>
+          </button>
+        </Link>
       </div>
       <div>
         <Link to="/">
