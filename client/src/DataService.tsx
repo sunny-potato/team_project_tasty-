@@ -23,11 +23,27 @@ export type Recipe = {
   recipeInfo: RecipeInfo;
   ingredients: Ingredient[];
 };
+export type Unit = {
+  id: number;
+  unit: string;
+};
+export type UnitsList = {
+  units: Unit[];
+};
+
+export type EachIngredient = {
+  id: number;
+  ingredient: string;
+};
+
+export type IngredientsList = {
+  ingredients: EachIngredient[];
+};
 
 class DataService {
   /* Get a specific recipe with known id */
 
-  get(id: string) {
+  get(id: number | string) {
     // Use this for testing locally only
     // return new Promise<Recipe>((resolve, reject) => {
     //   resolve({
@@ -89,6 +105,27 @@ class DataService {
   delete(id: number) {
     return axios
       .delete('/recipe/' + id)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
+  }
+  /* Get all ingredients */
+  getAllIngredients() {
+    return axios
+      .get('/ingredient')
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
+  }
+
+  /* Get all units */
+  getAllUnits() {
+    return axios
+      .get<[]>('/unit')
       .then((response) => response.data)
       .catch((error) => {
         console.error(error);
