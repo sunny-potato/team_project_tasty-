@@ -37,11 +37,37 @@ export function DisplayOne() {
     }));
     setIngredients(newAmounts);
   }
+  // useEffect to load contents of cart on load
+  useEffect(() => {
+    const cartMemory = JSON.parse(localStorage.getItem('cart')!);
 
-  //Add to shopping list
+    if (cartMemory) {
+      setList(cartMemory);
+    }
+  }, []);
+
+  //Add to shopping list and no duplicates adds content if choosing recipes with same ingredients
   function addCart() {
-    setList(ingredients!);
-    localStorage.setItem('cart', JSON.stringify(ingredients));
+    const cart: Ingredient[] = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const result = Object.values(
+      [...cart, ...ingredients!].reduce<Ingredient[]>(
+        (acc, { ingredients_id, ingredient, amount, unit_id, unit }) => {
+          acc[ingredients_id] = {
+            ingredients_id,
+            ingredient,
+            amount: acc[ingredients_id] ? acc[ingredients_id].amount : 0 + amount,
+            unit_id,
+            unit,
+          };
+          return acc;
+        },
+        []
+      )
+    );
+    //ingredients?.map((e) => cart.push(e));
+
+    localStorage.setItem('cart', JSON.stringify(result));
   }
 
   //Like the recipe and updates the database
