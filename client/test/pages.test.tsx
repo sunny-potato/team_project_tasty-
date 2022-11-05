@@ -3,6 +3,10 @@ import { Recipe, RecipeInfo, Ingredient } from '../src/DataService';
 import { shallow } from 'enzyme';
 import { NavLink } from 'react-router-dom';
 import { Home } from '../src/pages/Home';
+import { DisplayOne } from '../src/pages/DisplayOne';
+import { EditRecipes } from '../src/pages/EditRecipes';
+import Explore from '../src/pages/Explore';
+import { ShoppingCart } from '../src/pages/ShoppingCart';
 
 jest.mock('../src/DataService', () => {
   class DataService {
@@ -120,6 +124,46 @@ jest.mock('../src/DataService', () => {
 describe('Home page tests', () => {
   test('Home page draws correctly', (done) => {
     const wrapper = shallow(<Home />);
+    setTimeout(() => {
+      expect(wrapper).toMatchSnapshot();
+      done();
+    });
+  });
+});
+
+describe('DisplayOne page tests', () => {
+  test('DisplayOne page draws correctly', (done) => {
+    const wrapper = shallow(<DisplayOne />);
+    setTimeout(() => {
+      expect(wrapper).toMatchSnapshot();
+      done();
+    });
+  });
+});
+
+describe('EditRecipes page tests', () => {
+  test('EditRecipes page draws correctly', (done) => {
+    const wrapper = shallow(<EditRecipes />);
+    setTimeout(() => {
+      expect(wrapper).toMatchSnapshot();
+      done();
+    });
+  });
+});
+
+describe('Explore page tests', () => {
+  test('Explore page draws correctly', (done) => {
+    const wrapper = shallow(<Explore />);
+    setTimeout(() => {
+      expect(wrapper).toMatchSnapshot();
+      done();
+    });
+  });
+});
+
+describe('ShoppingCart page tests', () => {
+  test('ShoppingCart page draws correctly', (done) => {
+    const wrapper = shallow(<ShoppingCart />);
     setTimeout(() => {
       expect(wrapper).toMatchSnapshot();
       done();
