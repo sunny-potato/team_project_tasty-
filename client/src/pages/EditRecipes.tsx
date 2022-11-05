@@ -8,11 +8,6 @@ import dataService, {
   IngredientLight,
 } from '../DataService';
 import SearchIngredient from '../components/SearchIngredient';
-// import EditRecipeInfo from '../components/EditRecipeInfo';
-
-/* what to do 
-3. check if change of input are shown 
-4. send the changed data when "save" -> delete all registered recipe og post again */
 
 export function EditRecipes() {
   const id = Number(useParams().id);
@@ -43,9 +38,7 @@ export function EditRecipes() {
   const [searchKeyword, setSearchKeyword] = useState<string>(''); // searchkeyword
   const [isVisible, setIsVisible] = useState<boolean>(false); // searchfunction visible
   const [ingredientIndex, setingredientIndex] = useState<number>(); // serachfunction
-  // const [selectedIngredient, setSelectedIngredient] = useState<IngredientLight>();
 
-  // console.log(ingredients);
   const getRecipe = (id: number) => {
     dataService
       .get(id)
@@ -72,7 +65,7 @@ export function EditRecipes() {
   };
   useEffect(() => {
     if (id) getRecipe(id);
-  }, [id]); // refresh when id changed
+  }, [id]);
 
   const toggleTag = (tag: string) => {
     if (activeTag === tag) {
@@ -92,7 +85,6 @@ export function EditRecipes() {
     let key: string = event.target.name;
     let newIngredient;
 
-    // console.log(id);
     if (key == 'amount') {
       keyValue = event.target.valueAsNumber;
       newIngredient = {
@@ -146,7 +138,6 @@ export function EditRecipes() {
     <div>
       <h1 className="page-title">Edit recipe!</h1>
       <div className="content-main">
-        {/* <EditRecipeInfo recipeInfo={recipe.recipeInfo} changeName={} /> */}
         <form>
           <label>
             Name :{' '}
