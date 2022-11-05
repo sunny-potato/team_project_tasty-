@@ -7,6 +7,7 @@ import { DisplayOne } from '../src/pages/DisplayOne';
 import { EditRecipes } from '../src/pages/EditRecipes';
 import Explore from '../src/pages/Explore';
 import { ShoppingCart } from '../src/pages/ShoppingCart';
+import { CreateNew } from '../src/pages/CreateNew';
 
 jest.mock('../src/DataService', () => {
   class DataService {
@@ -164,6 +165,16 @@ describe('Explore page tests', () => {
 describe('ShoppingCart page tests', () => {
   test('ShoppingCart page draws correctly', (done) => {
     const wrapper = shallow(<ShoppingCart />);
+    setTimeout(() => {
+      expect(wrapper).toMatchSnapshot();
+      done();
+    });
+  });
+});
+
+describe('CreateNew page tests', () => {
+  test('CreateNew page draws correctly', (done) => {
+    const wrapper = shallow(<CreateNew />);
     setTimeout(() => {
       expect(wrapper).toMatchSnapshot();
       done();
