@@ -1,4 +1,3 @@
-import { react } from '@babel/types';
 import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import dataService, {
@@ -6,32 +5,25 @@ import dataService, {
   RecipeInfo,
   Ingredient,
   UnitsList,
-  IngredientsList,
+  IngredientLight,
 } from '../DataService';
+import SearchIngredient from '../components/SearchIngredient';
+// import EditRecipeInfo from '../components/EditRecipeInfo';
 
 /* what to do 
-3. check if change of input are shown
-4. send the changed data when "save"*/
+3. check if change of input are shown 
+4. send the changed data when "save" -> delete all registered recipe og post again */
 
 export function EditRecipes() {
-  // const { id } = useParams();
   const id = Number(useParams().id);
 
   // temporarily use manual list of unit & tag
   let tagList: string[] = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert'];
 
-  const initialInfo = {
-    id: id,
-    name: '',
-    meal_type: '',
-    new: false,
-    popular: false,
-    description: '',
-  };
   const initialValues = {
-    recipeInfo: initialInfo,
+    recipeInfo: { id: id, name: '', meal_type: '', new: false, popular: false, description: '' },
     ingredients: [],
-    ingredients_length: 0,
+    // ingredients_length: 0,
   };
 
   const intialIngredient = {
@@ -42,23 +34,24 @@ export function EditRecipes() {
     unit: undefined,
   };
 
-  const [recipe, setRecipe] = useState<Recipe>(initialValues);
-  // const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>(initialValues.recipeInfo ?? '');
-  const [ingredients, setIngredients] = useState<Ingredient[]>(initialValues.ingredients ?? '');
-  // const [isTagActive, setIsTagActive] = useState<boolean>(false);
-  // const [numberOfRows, setNumberOfRows] = useState<number>(initialValues.ingredients_length);
-  // const [tableRows, setTableRows] = useState<any[]>([]);
-  const [activeTag, setActiveTag] = useState(initialValues.recipeInfo.meal_type);
-  const [units, setUnits] = useState<UnitsList[]>([]);
-  const [AllIngredients, setAllIngredients] = useState<IngredientsList[]>([]);
-  // console.log(AllIngredients);
+  const [recipe, setRecipe] = useState<Recipe>(initialValues); // recipeinfo
+  const [ingredients, setIngredients] = useState<Ingredient[]>(initialValues.ingredients ?? ''); // ingredients
+  const [activeTag, setActiveTag] = useState(initialValues.recipeInfo.meal_type); //tag
+
+  const [allUnits, setAllUnits] = useState<UnitsList>([]); // display units
+  const [allIngredients, setAllIngredients] = useState<IngredientLight[]>([]); // display ingredients
+  const [searchKeyword, setSearchKeyword] = useState<string>(''); // searchkeyword
+  const [isVisible, setIsVisible] = useState<boolean>(false); // searchfunction visible
+  const [ingredientIndex, setingredientIndex] = useState<number>(); // serachfunction
+  // const [selectedIngredient, setSelectedIngredient] = useState<IngredientLight>();
+
+  // console.log(ingredients);
   const getRecipe = (id: number) => {
     dataService
       .get(id)
       .then((response) => {
         setRecipe(response);
         setIngredients(response.ingredients);
-        // setNumberOfRows(response.ingredients.length);
         setActiveTag(response.recipeInfo.meal_type);
       })
       .catch((error) => console.log(error));
@@ -66,7 +59,7 @@ export function EditRecipes() {
     dataService
       .getAllUnits()
       .then((response) => {
-        setUnits(response);
+        setAllUnits(response);
       })
       .catch((error) => console.log(error));
 
@@ -94,21 +87,37 @@ export function EditRecipes() {
     setIngredients(updatedIngredients);
   };
 
-  console.log(ingredients);
-
-  const updatedIngredients = (event: any, index: number) => {
+  const updatedIngredients = (event: any, index: number, id?: number) => {
     let keyValue: string | number;
     let key: string = event.target.name;
+    let newIngredient;
 
+    // console.log(id);
     if (key == 'amount') {
       keyValue = event.target.valueAsNumber;
+      newIngredient = {
+        ...ingredients[index],
+        [key]: keyValue,
+      };
     } else {
       keyValue = event.target.value;
+      if (key == 'unit') {
+        newIngredient = {
+          ...ingredients[index],
+          [key]: keyValue,
+          ['unit_id']: id,
+        };
+      }
+      if (key == 'ingredient') {
+        setSearchKeyword(keyValue as string);
+        newIngredient = {
+          ...ingredients[index],
+          [key]: keyValue,
+          ['ingredients_id']: id,
+        };
+      }
     }
-    const newIngredient = {
-      ...ingredients[index],
-      [key]: keyValue,
-    };
+
     const newIngredients = [
       ...ingredients.slice(0, index),
       newIngredient,
@@ -117,6 +126,19 @@ export function EditRecipes() {
 
     setIngredients(newIngredients);
   };
+
+  const createOptions = () => {
+    let option = [];
+    for (let i = 1; i < 11; i++) {
+      option.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
+    }
+    return option;
+  };
+
   if (recipe === undefined) {
     return <div>Loading</div>;
   }
@@ -124,6 +146,7 @@ export function EditRecipes() {
     <div>
       <h1 className="page-title">Edit recipe!</h1>
       <div className="content-main">
+        {/* <EditRecipeInfo recipeInfo={recipe.recipeInfo} changeName={} /> */}
         <form>
           <label>
             Name :{' '}
@@ -182,16 +205,7 @@ export function EditRecipes() {
         <form className="content-portions">
           <label>Number of portions </label>
           <select name="portions" defaultValue={4}>
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
-            <option value={6}>6</option>
-            <option value={7}>7</option>
-            <option value={8}>8</option>
-            <option value={9}>9</option>
-            <option value={10}>10</option>
+            {createOptions()}
           </select>
         </form>
         <div className="content-ingredients">
@@ -219,17 +233,16 @@ export function EditRecipes() {
                       name="unit"
                       value={each.unit}
                       onChange={(event) => {
-                        const updatedUnit = units.find((each) => {
-                          if (each.unit === event.target.value) {
-                            return each;
-                          }
-                        });
-                        console.log(updatedUnit.id, updatedUnit.unit);
-                        // id & value
-                        updatedIngredients(event, index);
+                        const matchId = allUnits.find((each) => each.unit == event.target.value);
+
+                        if (matchId === undefined) {
+                          return console.log('no found matched Id');
+                        }
+                        const updatedId = matchId.id;
+                        updatedIngredients(event, index, updatedId);
                       }}
                     >
-                      {units.map((each) => (
+                      {allUnits.map((each) => (
                         <option key={each.id} value={each.unit}>
                           {each.unit}
                         </option>
@@ -242,14 +255,33 @@ export function EditRecipes() {
                       name="ingredient"
                       value={each.ingredient}
                       onChange={(event) => {
-                        // const updatedIngredients = units.find((each) => {
-                        //   if (each.unit === event.target.value) {
-                        //     return each;
-                        //   }
-                        // });
+                        setIsVisible(true);
+                        setingredientIndex(index);
                         updatedIngredients(event, index);
                       }}
                     />
+                    {index == ingredientIndex && (
+                      <SearchIngredient
+                        searchKeyword={searchKeyword}
+                        isVisible={isVisible}
+                        sendSelectedData={(ingredient) => {
+                          const newIngredient: Ingredient = {
+                            ...each,
+                            ingredients_id: ingredient.id,
+                            ingredient: ingredient.ingredient,
+                          };
+
+                          const newIngredients = [
+                            ...ingredients.slice(0, index),
+                            newIngredient,
+                            ...ingredients.slice(index + 1),
+                          ];
+
+                          setIngredients(newIngredients);
+                          setIsVisible(false);
+                        }}
+                      />
+                    )}
                   </td>
                   <td>
                     <button

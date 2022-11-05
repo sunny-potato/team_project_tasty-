@@ -19,26 +19,20 @@ export type Ingredient = {
   unit: string;
 };
 
-export type Recipe = {
-  recipeInfo: RecipeInfo;
-  ingredients: Ingredient[];
-};
-export type Unit = {
-  id: number;
-  unit: string;
-};
-export type UnitsList = {
-  units: Unit[];
-};
-
-export type EachIngredient = {
+export type IngredientLight = {
   id: number;
   ingredient: string;
 };
 
-export type IngredientsList = {
-  ingredients: EachIngredient[];
+export type Recipe = {
+  recipeInfo: RecipeInfo;
+  ingredients: Ingredient[];
 };
+// export type Unit = {
+//   id: number;
+//   unit: string;
+// };
+export type UnitsList = { id: number; unit: string }[];
 
 class DataService {
   /* Get a specific recipe with known id */
@@ -112,7 +106,7 @@ class DataService {
       });
   }
   /* Get all ingredients */
-  getAllIngredients() {
+  getAllIngredients(): Promise<IngredientLight[]> {
     return axios
       .get('/ingredient')
       .then((response) => response.data)
