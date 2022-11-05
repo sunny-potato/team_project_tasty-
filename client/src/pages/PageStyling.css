@@ -26,16 +26,17 @@ body {
   padding: 2rem;
 }
 p {
-  max-width: 750px;
+  max-width: 60rem;
   margin: 1.5rem;
   padding: 0.5rem;
 }
 h1 {
   margin: 1.5rem;
   padding: 1rem;
+  font-family: 'Prompt', sans-serif;
 }
 .Ingredients-main {
-  width: max-content;
+  max-width: max-content;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2rem;
@@ -51,6 +52,7 @@ h1 {
 }
 .Ingredients-name {
   text-align: left;
+  padding-left: 1rem;
 }
 .Recipe-popular {
   margin: 0.2rem;
@@ -134,4 +136,76 @@ h1 {
 }
 .Shopping-unit {
   padding: 0 1rem;
+}
+.Icon-increase {
+  margin: 0.5rem;
+  color: rgba(0, 128, 0, 0.5);
+}
+.Icon-increase:hover {
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: green;
+  color: white;
+}
+.Icon-decrease {
+  margin: 0.5rem;
+  color: rgba(255, 0, 0, 0.5);
+}
+.Icon-decrease:hover {
+  cursor: pointer;
+  color: white;
+  border-radius: 50%;
+  background-color: red;
+}
+.Icon-remove {
+  margin: 0.4rem 2rem;
+}
+.Icon-remove:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 15%;
+}
+@media (max-width: 700px) {
+}
+@media (max-width: 550px) {
+  .Button-recipe-navigation {
+    width: 80%;
+    margin: 1rem 0rem;
+    padding: 1rem 0rem;
+  }
+  .Content-second {
+    margin: 0;
+    padding: 0;
+  }
+  .Content-main {
+    margin: 0;
+    padding: 0;
+  }
+  p {
+    margin: 0;
+    padding: 5%;
+  }
+  h1 {
+    margin: 0;
+  }
+  .Icon-increase {
+    margin: 0;
+    padding: 2%;
+  }
+  .Icon-decrease {
+    margin: 0;
+    padding: 2%;
+  }
+  .Ingredients-cell {
+    margin: 0;
+    padding: auto;
+  }
+  .Shopping-unit {
+    display: none;
+  }
+  .Icon-remove {
+    margin: 5%;
+    padding: 0;
+  }
 }

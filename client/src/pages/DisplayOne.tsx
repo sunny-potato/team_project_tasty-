@@ -33,7 +33,7 @@ export function DisplayOne() {
 
     newAmounts = defaultAmounts?.map((i) => ({
       ...i,
-      amount: parseFloat(((i.amount / 4) * portions).toPrecision(1)),
+      amount: parseFloat(((i.amount / 4) * portions).toFixed(1)),
     }));
     setIngredients(newAmounts);
   }
@@ -52,15 +52,17 @@ export function DisplayOne() {
 
     const result = Object.values(
       [...cart, ...ingredients!].reduce<Ingredient[]>(
-        (acc, { ingredients_id, ingredient, amount, unit_id, unit }) => {
-          acc[ingredients_id] = {
+        (upd, { ingredients_id, ingredient, amount, unit_id, unit }) => {
+          upd[ingredients_id] = {
             ingredients_id,
             ingredient,
-            amount: acc[ingredients_id] ? acc[ingredients_id].amount : 0 + amount,
+            amount: parseFloat(
+              (upd[ingredients_id] ? upd[ingredients_id].amount : 0 + amount).toFixed(1)
+            ),
             unit_id,
             unit,
           };
-          return acc;
+          return upd;
         },
         []
       )

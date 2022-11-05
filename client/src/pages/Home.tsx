@@ -35,9 +35,7 @@ export function Home() {
             <b>Oops...You have no recipes to show here</b>
           )}
         </ul>
-        <div className="Content-second">
-          <h5>[Place for external API recipes here]</h5>
-        </div>
+        <div className="Content-second"></div>
       </div>
     </div>
   );
