@@ -34,28 +34,8 @@ class DataService {
   /* Get a specific recipe with known id */
 
   get(id: number | string) {
-    // Use this for testing locally only
-    // return new Promise<Recipe>((resolve, reject) => {
-    //   resolve({
-    //     recipeInfo: {
-    //       id: 1,
-    //       name: 'The best pasta in the world',
-    //       meal_type: 'Vegan',
-    //       new: true,
-    //       popular: true,
-    //       description:
-    //         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, corporis. Distinctio deserunt aperiam hic voluptatum, ut a molestias cumque tenetur consequatur, ad dolores voluptatem provident eveniet, porro magnam est veritatis.',
-    //     },
-    //     ingredients: [
-    //       { name: 'Olive oil', amount: 3, unit: 'tbsp' },
-    //       { name: 'Onion', amount: 1, unit: 'pcs' },
-    //       { name: 'Garlic', amount: 3, unit: 'cloves' },
-    //       { name: 'Chopped Tomato', amount: 400, unit: 'g' },
-    //       { name: 'Dried spaghetti', amount: 300, unit: 'g' },
-    //     ],
-    //   });
-    // });
-
+    //since it is defined as number, typescript makes error when it is used as string.
+    //to use it as string, it should be "number | string" -> this comment will be deleted later
     return axios
       .get<Recipe>('/recipe/' + id)
       .then((response) => response.data)

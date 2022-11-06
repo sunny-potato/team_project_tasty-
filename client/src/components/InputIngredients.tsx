@@ -24,7 +24,7 @@ type Props = {
   ) => void;
   selectedOneInfo: (param: SelectedOneInfo) => void;
   deleteIngredient: (param: number) => void;
-  addnewIngredientRow: () => void;
+  addnewIngredient: () => void;
 };
 
 const InputIngredients = (props: Props) => {
@@ -74,7 +74,7 @@ const InputIngredients = (props: Props) => {
       <div>
         <select
           name="unit"
-          value={ingredient.unit}
+          value={ingredient.unit || ''}
           onChange={(event) => {
             const matchedId = findMachedId(event);
             props.onChangeValue(event, index, matchedId);
@@ -98,7 +98,7 @@ const InputIngredients = (props: Props) => {
         <input
           type="text"
           name="ingredient"
-          value={ingredient.ingredient}
+          value={ingredient.ingredient || ''}
           onChange={(event) => {
             // console.log('index', index);
             setActiveRow(index);
@@ -130,7 +130,7 @@ const InputIngredients = (props: Props) => {
               <th></th>
               <th>{props.tableName}</th>
               <th>
-                <button onClick={props.addnewIngredientRow}>+ Add</button>
+                <button onClick={props.addnewIngredient}>+ Add</button>
               </th>
             </tr>
             <tr>

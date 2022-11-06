@@ -21,7 +21,7 @@ const InputRecipeInfo = (props: Props) => {
           <input
             type="text"
             name="name"
-            value={props.nameValue}
+            value={props.nameValue || ''}
             onChange={props.onChangeValue}
             required
           ></input>
@@ -51,7 +51,7 @@ const InputRecipeInfo = (props: Props) => {
           <input
             type="text"
             name="description"
-            value={props.descriptionValue}
+            value={props.descriptionValue || ''}
             onChange={props.onChangeValue}
           ></input>
         </label>

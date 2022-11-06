@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import dataService, { Recipe, RecipeInfo, Ingredient, EachIngredient } from '../DataService';
 import InputRecipeInfo from '../components/InputRecipeInfo';
 import InputIngredients from '../components/InputIngredients';
@@ -33,9 +33,19 @@ export function EditRecipes() {
     getData();
   }, []);
 
-  if (recipeInfo === undefined) {
-    return <div>Roading...</div>;
-  }
+  useEffect(() => {
+    SetDataInRecipe('meal_type', activeTag);
+  }, [activeTag]);
+
+  const ToggleTag = (tag: string) => {
+    if (activeTag === tag) {
+      setActiveTag('');
+    } else {
+      setActiveTag(tag);
+    }
+  };
+  // console.log(recipeInfo);
+  console.log(ingredients);
 
   const SetDataInRecipe = (key: string, value: any) => {
     setRecipeInfo({
@@ -90,27 +100,11 @@ export function EditRecipes() {
     const newIngredients = [...ingredients.slice(0, index), ...ingredients.slice(index + 1)];
     setIngredients(newIngredients);
   };
-  const addnewIngredientRow = () => {
+
+  const addnewIngredient = () => {
     const updatedIngredients: Ingredient[] = [...ingredients, initialIngredient!];
     setIngredients(updatedIngredients);
   };
-
-  //--------------------------------------
-
-  const ToggleTag = (tag: string) => {
-    if (activeTag === tag) {
-      setActiveTag('');
-    } else {
-      setActiveTag(tag);
-    }
-  };
-  //   useEffect(() => {
-  //     console.log('activetag', activeTag);
-  //   }, [activeTag]);
-
-  //   SetDataInRecipe("meal_type", activeTag); ??????????????????????
-
-  //-------------------------------------
 
   const saveEditedData = () => {
     // console.log('get data', recipe);
@@ -125,6 +119,10 @@ export function EditRecipes() {
     //   .catch((error) => console.log(error));
   };
 
+  if (recipeInfo === undefined) {
+    return <div>Roading...</div>;
+  }
+
   return (
     <div>
       <h1 className="page-title">Edit recipe</h1>
@@ -138,7 +136,7 @@ export function EditRecipes() {
         />
         <InputIngredients
           tableName={'Ingredients'}
-          addnewIngredientRow={addnewIngredientRow}
+          addnewIngredient={addnewIngredient}
           ingredients={ingredients}
           onChangeValue={SetOnChangeValue}
           selectedOneInfo={(selected: any) => {
@@ -149,7 +147,9 @@ export function EditRecipes() {
       </div>
       <div className="btn-group">
         <button onClick={saveEditedData}>Save</button>
-        <button>Cancel</button>
+        <Link to={`/recipe/${id}`}>
+          <button className="cancelButton">Cancel</button>
+        </Link>
       </div>
     </div>
   );
