@@ -162,40 +162,4 @@ router.delete('/unit/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-
-//api stuff under here
-//get key to Explore
-router.get('/explore', (request, response) => {
-  recipeService
-    .apiKey()
-    .then((data) => response.send(data))
-    .catch((error) => response.status(500).send(error));
-});
-
-//get key to Home
-router.get('/', (request, response) => {
-  recipeService
-    .apiKey()
-    .then((data) => response.send(data))
-    .catch((error) => response.status(500).send(error));
-});
-
-//get data to Explore
-router.post('/explore', (request, response) => {
-  const data = request.body;
-  recipeService
-    .apiData(data)
-    .then((data) => response.send(data))
-    .catch((error) => response.status(500).send(error)); //needs request errors here
-});
-
-//get data to Home
-router.post('/', (request, response) => {
-  const data = request.body;
-  recipeService
-    .apiData(data)
-    .then((data) => response.send(data))
-    .catch((error) => response.status(500).send(error));//needs request errors here
-});
-
 export default router;

@@ -14,8 +14,6 @@ process.env.MYSQL_HOST = 'mysql.stud.ntnu.no';
 process.env.MYSQL_USER = 'username_todo';
 process.env.MYSQL_PASSWORD = 'username_todo';
 process.env.MYSQL_DATABASE = 'username_todo_dev';
-
-process.env.REACT_API_KEY = '7859d90a7de34b15afed1a781d9e38c9';
 ```
 
 `server/test/config.ts`:
