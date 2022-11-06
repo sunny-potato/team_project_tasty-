@@ -51,7 +51,8 @@ export function Home() {
         show you from [External API] below.
       </p>
       <div className="Content-second">
-        <ul>
+        <div>
+          {' '}
           {allRecipes ? (
             allRecipes.map((recipe: RecipeInfo) => (
               <Link key={recipe.id} to={'/recipe/' + recipe.id}>
