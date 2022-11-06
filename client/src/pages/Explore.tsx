@@ -3,7 +3,7 @@ import React, { useEffect, useState} from "react";
 import dataService, { Recipe, Ingredient, RecipeInfo } from "../DataService";
 import { NavLink } from "react-router-dom";
 
-export function Explore() {
+function Explore() {
 
   const [items, setItems] = useState<Recipe[]>([]);
 
@@ -58,3 +58,4 @@ export function Explore() {
   );
 }
 // <img src={recipe.image} alt={recipeinfo.name}></img>
+export default Explore;
