@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import dataService, { Recipe, RecipeInfo, Ingredient } from '../DataService';
 
-export const ChangePortions = (portions: number, defaultAmounts: Ingredient[] | undefined) => {
+const ChangePortions = (portions: number, defaultAmounts: Ingredient[] | undefined) => {
   let newAmounts: Ingredient[] | undefined;
 
   newAmounts = defaultAmounts?.map((i) => ({
@@ -11,3 +11,5 @@ export const ChangePortions = (portions: number, defaultAmounts: Ingredient[] | 
   }));
   return newAmounts;
 };
+
+export default ChangePortions;

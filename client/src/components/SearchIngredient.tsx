@@ -1,29 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import dataService, {
-  Recipe,
-  RecipeInfo,
-  Ingredient,
-  UnitsList,
-  IngredientLight,
-} from '../DataService';
+import dataService, { EachIngredient } from '../DataService';
 
-// export type EachIngredient = {
-//   id: number;
-//   ingredient: string;
-// };
-
-type SearchProps = {
+type Props = {
   searchKeyword: string;
   isVisible: boolean;
-  sendSelectedData: (value: IngredientLight) => void;
+  setIsVisible: (value: boolean) => void;
+  activeRow: number;
+  sendSelectedData: (param: SelectedOneInfo) => void;
 };
+export type SelectedOneInfo = {
+  id: number | null;
+  ingredient: string;
+  index: number | null;
+};
+const SearchIngredient = (props: Props) => {
+  const [allIngredients, setAllIngredients] = useState<EachIngredient[]>([]);
 
-const SearchIngredient = ({ searchKeyword, isVisible, sendSelectedData }: SearchProps) => {
-  const [allIngredients, setAllIngredients] = useState<IngredientLight[]>([]);
-  //   const [searchKeyword, setSearchKeyword] = useState<string>('');
-
-  // console.log(searchKeyword);
-  // console.log('index', ingredientIndex);
   const getAllIngredients = () => {
     dataService
       .getAllIngredients()
@@ -38,11 +30,11 @@ const SearchIngredient = ({ searchKeyword, isVisible, sendSelectedData }: Search
 
   const disPlayAllingredients = allIngredients
     .filter((each) => {
-      if (searchKeyword == '') {
+      if (props.searchKeyword == '') {
         // setIsVisible(true);
         return each;
       } else {
-        if (each.ingredient.includes(searchKeyword.toLowerCase())) {
+        if (each.ingredient.includes(props.searchKeyword.toLowerCase())) {
           return each;
         }
       }
@@ -52,8 +44,9 @@ const SearchIngredient = ({ searchKeyword, isVisible, sendSelectedData }: Search
         <div key={each.id}>
           <button
             onClick={() => {
-              console.log(each.ingredient);
-              sendSelectedData(each);
+              const selectedOneInfo: SelectedOneInfo = { ...each, ...{ index: props.activeRow } };
+              props.sendSelectedData(selectedOneInfo);
+              props.setIsVisible(false);
             }}
           >
             {each.ingredient}
@@ -62,7 +55,7 @@ const SearchIngredient = ({ searchKeyword, isVisible, sendSelectedData }: Search
       );
     });
 
-  return <div style={{ display: isVisible ? 'block' : 'none' }}>{disPlayAllingredients}</div>;
+  return <div style={{ display: props.isVisible ? 'block' : 'none' }}>{disPlayAllingredients}</div>;
 };
 
 export default SearchIngredient;
