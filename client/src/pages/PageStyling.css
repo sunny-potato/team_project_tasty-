@@ -18,10 +18,13 @@ body {
   margin: 1rem;
   padding: 1rem;
 }
+.Extra-information {
+  color: grey;
+}
 .Content-second {
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-wrap: wrap;
   margin: 1rem;
   padding: 2rem;
 }
@@ -35,6 +38,7 @@ h1 {
   padding: 1rem;
   font-family: 'Prompt', sans-serif;
 }
+
 .Ingredients-main {
   max-width: max-content;
   margin-left: auto;
@@ -112,6 +116,7 @@ h1 {
   margin: 1rem;
 }
 .Button-recipe-navigation {
+  text-align: center;
   padding: 1rem;
   margin: 1.5rem;
   width: 20rem;
@@ -134,8 +139,19 @@ h1 {
   margin-left: 2rem;
   background-color: rgba(243, 44, 44, 0.514);
 }
+.Icon-print {
+  cursor: pointer;
+  margin: 0.5rem 0rem;
+}
+.Icon-print:hover {
+  color: grey;
+}
+
+/* Shoppin List CSS*/
+
 .Shopping-unit {
   padding: 0 1rem;
+  text-align: left;
 }
 .Icon-increase {
   margin: 0.5rem;
@@ -159,10 +175,10 @@ h1 {
 }
 .Icon-remove {
   margin: 0.4rem 2rem;
+  color: lightgrey;
 }
 .Icon-remove:hover {
-  background-color: black;
-  color: white;
+  color: rgb(73, 73, 73);
   cursor: pointer;
   border-radius: 15%;
 }
@@ -172,7 +188,7 @@ h1 {
   .Button-recipe-navigation {
     width: 80%;
     margin: 1rem 0rem;
-    padding: 1rem 0rem;
+    padding: 0.5rem;
   }
   .Content-second {
     margin: 0;
@@ -180,15 +196,15 @@ h1 {
   }
   .Content-main {
     margin: 0;
-    padding: 0;
   }
   p {
     margin: 0;
-    padding: 5%;
+    padding: 8% 2%;
   }
   h1 {
     margin: 0;
   }
+
   .Icon-increase {
     margin: 0;
     padding: 2%;
@@ -207,5 +223,8 @@ h1 {
   .Icon-remove {
     margin: 5%;
     padding: 0;
+  }
+  .Button-navigation {
+    margin: 3%;
   }
 }

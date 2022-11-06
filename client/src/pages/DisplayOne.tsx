@@ -2,14 +2,14 @@ import './PageStyling.css';
 import React, { useEffect, useState, useRef, Component } from 'react';
 import dataService, { Recipe, Ingredient, RecipeInfo } from '../DataService';
 import { Link, useParams, useLocation } from 'react-router-dom';
-import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
+import { BsHandThumbsUp, BsHandThumbsUpFill, BsPrinter } from 'react-icons/bs';
 import { RiShoppingCart2Line } from 'react-icons/ri';
 
 export function DisplayOne() {
   const [recipe, setRecipe] = useState<Recipe>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
   const [liked, setliked] = useState<Element | any>();
-  const [list, setList] = useState<Ingredient[]>();
+  const [list, setList] = useState<Ingredient[]>([]);
 
   //To get navigation by page and id
   const params = useParams();
@@ -43,6 +43,8 @@ export function DisplayOne() {
 
     if (cartMemory) {
       setList(cartMemory);
+    } else {
+      localStorage.setItem('cart', JSON.stringify([]));
     }
   }, []);
 
@@ -50,7 +52,7 @@ export function DisplayOne() {
   function addCart() {
     const cart: Ingredient[] = JSON.parse(localStorage.getItem('cart') || '[]');
 
-    const result = Object.values(
+    const addToCart = Object.values(
       [...cart, ...ingredients!].reduce<Ingredient[]>(
         (upd, { ingredients_id, ingredient, amount, unit_id, unit }) => {
           upd[ingredients_id] = {
@@ -69,7 +71,8 @@ export function DisplayOne() {
     );
     //ingredients?.map((e) => cart.push(e));
 
-    localStorage.setItem('cart', JSON.stringify(result));
+    localStorage.setItem('cart', JSON.stringify(addToCart));
+    document.dispatchEvent(new Event('storage'));
   }
 
   //Like the recipe and updates the database
@@ -87,6 +90,11 @@ export function DisplayOne() {
       <h6 className="Recipe-popular">
         {recipe?.recipeInfo.popular ? 'This item is popular' : null}
       </h6>
+      <BsPrinter
+        className="Icon-print"
+        title="Print the shopping list"
+        onClick={() => window.print()}
+      />
       <p className="Recipe-description>">{recipe?.recipeInfo.description}</p>
       <div>
         <div>

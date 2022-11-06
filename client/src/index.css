@@ -63,6 +63,22 @@ code {
 .Logo_title:hover {
   color: rgb(119, 27, 194);
 }
+.Cart-shopping-list {
+  display: flex;
+}
+.Cart-notification {
+  color: white;
+  background-color: rgb(119, 27, 194);
+
+  width: 1rem;
+  height: 1rem;
+  font-size: 0.6rem;
+  border-radius: 50%;
+}
+.Shopping-cart {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 @media (max-width: 700px) {
   .NavMain {
     flex-wrap: wrap;

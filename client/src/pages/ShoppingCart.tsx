@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './PageStyling.css';
 import { IoMdAddCircleOutline, IoMdRemoveCircleOutline } from 'react-icons/io';
 import { CiSquareRemove } from 'react-icons/ci';
+import { BsPrinter } from 'react-icons/bs';
 
 export function ShoppingCart() {
   const [cart, setCart] = useState<Ingredient[]>();
@@ -19,7 +20,7 @@ export function ShoppingCart() {
     if (cartMemory) {
       setCart(cartMemory);
     } else {
-      ('');
+      setCart([]);
     }
   }
 
@@ -47,7 +48,8 @@ export function ShoppingCart() {
 
   //Function to delete contents of cart and local memory
   function clearList() {
-    localStorage.clear();
+    localStorage.setItem('cart', JSON.stringify([]));
+    document.dispatchEvent(new Event('storage'));
     setCart([]);
   }
 
@@ -56,13 +58,19 @@ export function ShoppingCart() {
     const removedCart = cart?.filter((d) => d.ingredients_id != id);
     setCart(removedCart);
     localStorage.setItem('cart', JSON.stringify(removedCart));
+    document.dispatchEvent(new Event('storage'));
   }
   function updateCart() {}
   return (
     <div className="Content-main">
       <h1>Shopping list</h1>
+      <BsPrinter
+        className="Icon-print"
+        title="Print the shopping list"
+        onClick={() => window.print()}
+      />
       <table className="Ingredients-main">
-        {cart ? (
+        {cart?.length ? (
           <tbody>
             {cart?.map((e) => (
               <tr key={e.ingredients_id}>
@@ -98,11 +106,14 @@ export function ShoppingCart() {
           'You have not added anything to the shopping list yet...'
         )}
       </table>
+      <div className="Extra-information">
+        {cart?.length ? 'Total number of items: ' + cart?.length : ''}
+      </div>
       <div>
         <Link to={'/'}>
           <button className="Button-navigation">Back</button>
         </Link>
-        <button className="Button-action" title="Clear shopping list" onClick={clearList}>
+        <button className="Button-navigation" title="Clear shopping list" onClick={clearList}>
           Clear list
         </button>
       </div>
