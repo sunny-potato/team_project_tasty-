@@ -32,7 +32,7 @@ export function DisplayOne() {
 
     newAmounts = defaultAmounts?.map((i) => ({
       ...i,
-      amount: parseFloat(((i.amount / 4) * portions).toPrecision(1)),
+      amount: parseFloat(((i.amount / 4) * portions).toPrecision(2)),
     }));
     setIngredients(newAmounts);
   }
