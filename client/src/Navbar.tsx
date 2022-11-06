@@ -11,7 +11,7 @@ export function Navbar() {
       <ul className="NavList">
         <li>
           <Link to="/" className="Link">
-            My recepies
+            Home
           </Link>
         </li>
         <li>
@@ -22,6 +22,11 @@ export function Navbar() {
         <li>
           <Link to="new" className="Link">
             Create new
+          </Link>
+        </li>
+        <li>
+          <Link to="cart" className="Link">
+            Shopping list
           </Link>
         </li>
       </ul>

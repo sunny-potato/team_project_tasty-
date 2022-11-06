@@ -87,8 +87,8 @@ class DataService {
   }
   /* Edit an existing recipe by known id */
 
-  edit(id: number) {
-    return alert('function not implementet yet');
+  edit(data: Recipe) {
+    return axios.put<void>('/recipe', data).then((response) => response.statusText);
 
     /* Delete a recipe known id */
   }

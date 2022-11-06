@@ -7,6 +7,7 @@ import { Home } from './pages/Home';
 import { Navbar } from './Navbar';
 import './index.css';
 import Explore from './pages/Explore';
+import { ShoppingCart } from './pages/ShoppingCart';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/edit/:id" element={<EditRecipes />} />
         <Route path="/new" element={<CreateNew />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/cart" element={<ShoppingCart />} />
       </Routes>
     </div>
   );

@@ -2,11 +2,12 @@ import './PageStyling.css';
 import React, { useEffect, useState, useRef, Component } from 'react';
 import dataService, { Recipe, Ingredient, RecipeInfo } from '../DataService';
 import { Link, useParams, useLocation } from 'react-router-dom';
+import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
 
 export function DisplayOne() {
   const [recipe, setRecipe] = useState<Recipe>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
-
+  const [liked, setliked] = useState<Element | any>();
   //To get navigation by page and id
   const params = useParams();
   const id: string = params.id;
@@ -31,11 +32,18 @@ export function DisplayOne() {
 
     newAmounts = defaultAmounts?.map((i) => ({
       ...i,
-      amount: parseFloat(((i.amount / 4) * portions).toPrecision(2)),
+      amount: parseFloat(((i.amount / 4) * portions).toPrecision(1)),
     }));
     setIngredients(newAmounts);
   }
 
+  //Like the recipe and updates the database
+  function likeRecipe() {
+    let thisRecipe: Recipe = recipe!;
+
+    thisRecipe.recipeInfo.popular = !thisRecipe.recipeInfo.popular;
+    dataService.edit(thisRecipe);
+  }
   return (
     <div className="Content-main">
       <h1 className="Recipe-title">{recipe?.recipeInfo.name}</h1>
@@ -82,18 +90,30 @@ export function DisplayOne() {
             ))}
           </tbody>
         </table>
+        <Link to={'/edit/' + params.id}>
+          <button className="Button-navigation">Edit recipe</button>
+        </Link>
+        <button className="Button-navigation" onClick={() => alert('Add the shopping list here')}>
+          Add to shopping list
+        </button>
+        <button
+          className="Button-navigation"
+          onClick={() => {
+            likeRecipe();
+            if (!recipe?.recipeInfo.popular) {
+              setliked(<BsHandThumbsUpFill />);
+            } else {
+              setliked(<BsHandThumbsUp />);
+            }
+          }}
+        >
+          {recipe?.recipeInfo.popular ? <BsHandThumbsUpFill /> : <BsHandThumbsUp />}
+        </button>
+      </div>
+      <div>
         <Link to="/">
           <button className="Button-navigation">Back</button>
         </Link>
-        <Link to={'/edit/' + id}>
-          <button className="Button-navigation">Edit recipe</button>
-        </Link>
-        <button
-          className="Button-navigation"
-          onClick={() => alert('Here will the like function be, not implemented yet')}
-        >
-          Like
-        </button>
       </div>
     </div>
   );
