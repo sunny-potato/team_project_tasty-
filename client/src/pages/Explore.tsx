@@ -58,3 +58,4 @@ export function Explore() {
   );
 }
 // <img src={recipe.image} alt={recipeinfo.name}></img>
+export default Explore;
