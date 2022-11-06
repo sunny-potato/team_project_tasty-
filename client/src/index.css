@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,6 +24,7 @@ code {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
+  gap: 3rem;
 
   padding: 0 2rem;
 }
@@ -62,53 +68,4 @@ code {
 }
 .Logo_title:hover {
   color: rgb(119, 27, 194);
-}
-.Cart-shopping-list {
-  display: flex;
-}
-.Cart-notification {
-  color: white;
-  background-color: rgb(119, 27, 194);
-
-  width: 1rem;
-  height: 1rem;
-  font-size: 0.6rem;
-  border-radius: 50%;
-}
-.Shopping-cart {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-@media (max-width: 700px) {
-  .NavMain {
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
-  }
-  .NavList {
-    gap: auto;
-  }
-}
-@media (max-width: 550px) {
-  .NavMain {
-    padding: 0;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .NavList {
-    padding: 2%;
-    margin: 0;
-    width: auto;
-    flex-direction: column;
-    gap: 0;
-  }
-  .Link {
-    padding: 0;
-    margin: 0.2rem;
-  }
-  .Logo_title {
-    align-self: center;
-    margin: 0.3rem;
-  }
 }

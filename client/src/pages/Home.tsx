@@ -5,7 +5,6 @@ import './PageStyling.css';
 import { RecipeInfo } from '../DataService';
 
 export function Home() {
-  //Get all recipes and update variable allRecipes with data
   const [allRecipes, setallRecipes] = useState<[]>();
   useEffect(() => {
     dataService.getAll().then((data) => {
@@ -25,8 +24,7 @@ export function Home() {
         show you from [External API] below.
       </p>
       <div className="Content-second">
-        <div>
-          {' '}
+        <ul>
           {allRecipes ? (
             allRecipes.map((recipe: RecipeInfo) => (
               <Link key={recipe.id} to={'/recipe/' + recipe.id}>
@@ -37,8 +35,6 @@ export function Home() {
             <b>Oops...You have no recipes to show here</b>
           )}
         </div>
-
-        <div className="Content-second"></div>
       </div>
     </div>
   );

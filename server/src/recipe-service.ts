@@ -31,9 +31,6 @@ class RecipeService {
       pool.query('SELECT * FROM recipes WHERE id = ?', [id], (error, results: RowDataPacket[]) => {
         if (error) return reject(error);
 
-        // return empty if no recipe found
-        if (!results[0]) resolve(results[0]);
-
         let recipeInfo = results[0] as RecipeInfo;
 
         pool.query(
