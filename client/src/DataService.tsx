@@ -71,6 +71,25 @@ class DataService {
   delete(id: number) {
     return axios.delete('/recipe/' + id).then((response) => response.data);
   }
+
+
+  //api stuff
+  //get key to Explore
+  apiExploreKey() {
+    return axios.get('/explore').then((response) => response.data);
+  }
+  //get key to Home
+  apiHomeKey() {
+    return axios.get('/').then((response) => response.data);
+  }
+  //get data to Explore
+  apiExploreData(data:any) {
+    return axios.post('/explore', data).then((response) => response.data);
+  }
+  //get data to Home
+  apiHomeData(data:any) {
+    return axios.post('/', data).then((response) => response.data);
+  }
 }
 
 const dataService = new DataService();
