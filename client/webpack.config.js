@@ -12,7 +12,7 @@ const path = require('path');
 module.exports = {
   entry: './src/index.tsx', // Initial file to bundle
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', 'css'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.css'],
   },
   output: {
     // Output file: ./public/bundle.js

@@ -5,6 +5,7 @@ import './PageStyling.css';
 import { NavLink } from "react-router-dom";
 
 export function Home() {
+  //Get all recipes and update variable allRecipes with data
   const [allRecipes, setallRecipes] = useState<[]>();
   const [items, setItems] = useState<Recipe[]>([]);
 
@@ -50,7 +51,8 @@ export function Home() {
         show you from [External API] below.
       </p>
       <div className="Content-second">
-        <ul>
+        <div>
+          {' '}
           {allRecipes ? (
             allRecipes.map((recipe: RecipeInfo) => (
               <Link key={recipe.id} to={'/recipe/' + recipe.id}>
@@ -78,6 +80,8 @@ export function Home() {
         })}
           </h5>
         </div>
+
+        <div className="Content-second"></div>
       </div>
     </div>
   );
