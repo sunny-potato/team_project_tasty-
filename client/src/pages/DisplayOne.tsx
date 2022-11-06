@@ -2,19 +2,21 @@ import './PageStyling.css';
 import React, { useEffect, useState, useRef, Component } from 'react';
 import dataService, { Recipe, Ingredient, RecipeInfo } from '../DataService';
 import { Link, useParams, useLocation } from 'react-router-dom';
-import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
+import { BsHandThumbsUp, BsHandThumbsUpFill, BsPrinter } from 'react-icons/bs';
+import { RiShoppingCart2Line } from 'react-icons/ri';
 
 export function DisplayOne() {
   const [recipe, setRecipe] = useState<Recipe>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
   const [liked, setliked] = useState<Element | any>();
+  const [list, setList] = useState<Ingredient[]>([]);
+
   //To get navigation by page and id
   const params = useParams();
   const id: string = params.id;
 
   // Get inital value in load, uses recipe id as source
   // Also loads values recipe and ingredients by setState
-
   useEffect(() => {
     let id: string = params.id;
 
@@ -25,16 +27,52 @@ export function DisplayOne() {
   }, []);
 
   // Updates ingredients according to value chosen by user
-
   function changePortions(portions: number) {
     let newAmounts: Ingredient[];
     let defaultAmounts: Ingredient[] = recipe!.ingredients;
 
     newAmounts = defaultAmounts?.map((i) => ({
       ...i,
-      amount: parseFloat(((i.amount / 4) * portions).toPrecision(1)),
+      amount: parseFloat(((i.amount / 4) * portions).toFixed(1)),
     }));
     setIngredients(newAmounts);
+  }
+  // useEffect to load contents of cart on load
+  useEffect(() => {
+    const cartMemory = JSON.parse(localStorage.getItem('cart')!);
+
+    if (cartMemory) {
+      setList(cartMemory);
+    } else {
+      localStorage.setItem('cart', JSON.stringify([]));
+    }
+  }, []);
+
+  //Add to shopping list and no duplicates adds content if choosing recipes with same ingredients
+  function addCart() {
+    const cart: Ingredient[] = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const addToCart = Object.values(
+      [...cart, ...ingredients!].reduce<Ingredient[]>(
+        (upd, { ingredients_id, ingredient, amount, unit_id, unit }) => {
+          upd[ingredients_id] = {
+            ingredients_id,
+            ingredient,
+            amount: parseFloat(
+              (upd[ingredients_id] ? upd[ingredients_id].amount : 0 + amount).toFixed(1)
+            ),
+            unit_id,
+            unit,
+          };
+          return upd;
+        },
+        []
+      )
+    );
+    //ingredients?.map((e) => cart.push(e));
+
+    localStorage.setItem('cart', JSON.stringify(addToCart));
+    document.dispatchEvent(new Event('storage'));
   }
 
   //Like the recipe and updates the database
@@ -50,13 +88,19 @@ export function DisplayOne() {
       <h5 className="Recipe-tags">Tags: {recipe?.recipeInfo.meal_type}</h5>
       <h6 className="Recipe-new">{recipe?.recipeInfo.new ? 'This is a new recipe!' : null}</h6>
       <h6 className="Recipe-popular">
-        {recipe?.recipeInfo.popular ? 'This item is popular right now!' : null}
+        {recipe?.recipeInfo.popular ? 'This item is popular' : null}
       </h6>
+      <BsPrinter
+        className="Icon-print"
+        title="Print the shopping list"
+        onClick={() => window.print()}
+      />
       <p className="Recipe-description>">{recipe?.recipeInfo.description}</p>
       <div>
         <div>
           <label>Number of portions:&nbsp;</label>
           <select
+            title="Number of portions"
             name="portions"
             defaultValue={4}
             onChange={(e) => changePortions(parseInt(e.currentTarget.value))}
@@ -90,14 +134,8 @@ export function DisplayOne() {
             ))}
           </tbody>
         </table>
-
-        <Link to={'/edit/' + params.id}>
-          <button className="Button-navigation">Edit recipe</button>
-        </Link>
-        <button className="Button-navigation" onClick={() => alert('Add the shopping list here')}>
-          Add to shopping list
-        </button>
         <button
+          title="Like the recipe"
           className="Button-navigation"
           onClick={() => {
             likeRecipe();
@@ -110,10 +148,28 @@ export function DisplayOne() {
         >
           {recipe?.recipeInfo.popular ? <BsHandThumbsUpFill /> : <BsHandThumbsUp />}
         </button>
+        <Link to={'/edit/' + params.id}>
+          <button title="Edit recipe" className="Button-navigation">
+            Edit recipe
+          </button>
+        </Link>
+        <Link to={'/cart'}>
+          <button
+            title="Add recipe to shopping list"
+            className="Button-navigation"
+            onClick={() => {
+              addCart();
+            }}
+          >
+            <RiShoppingCart2Line />{' '}
+          </button>
+        </Link>
       </div>
       <div>
         <Link to="/">
-          <button className="Button-navigation">Back</button>
+          <button title="Back" className="Button-navigation">
+            Back
+          </button>
         </Link>
       </div>
     </div>
