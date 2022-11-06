@@ -46,6 +46,7 @@ const SearchIngredient = (props: Props) => {
             onClick={() => {
               const selectedOneInfo: SelectedOneInfo = { ...each, ...{ index: props.activeRow } };
               props.sendSelectedData(selectedOneInfo);
+              console.log('selectedOneInfo', selectedOneInfo);
               props.setIsVisible(false);
             }}
           >

@@ -15,7 +15,6 @@ export function EditRecipes() {
   const id = Number(useParams().id);
   // const [recipe, setRecipe] = useState<Recipe>();
   const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>();
-  const [activeTag, setActiveTag] = useState('');
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   const getData = () => {
@@ -24,7 +23,6 @@ export function EditRecipes() {
       .then((response) => {
         // setRecipe(response);
         setRecipeInfo(response.recipeInfo);
-        setActiveTag(response.recipeInfo.meal_type);
         setIngredients(response.ingredients);
       })
       .catch((error) => console.log(error));
@@ -34,7 +32,7 @@ export function EditRecipes() {
   }, []);
 
   // console.log(recipeInfo);
-  console.log(ingredients);
+  // console.log(ingredients);
 
   if (recipeInfo === undefined) {
     return <div>Roading...</div>;
@@ -111,37 +109,25 @@ export function EditRecipes() {
     //   .catch((error) => console.log(error));
   };
 
-  const ToggleTag = (tag: string) => {
-    if (activeTag === tag) {
-      setActiveTag('');
-      SetDataInRecipe('meal_type', '');
-    } else {
-      setActiveTag(tag);
-      SetDataInRecipe('meal_type', tag);
-    }
-  };
-
   return (
     <div>
       <h1 className="page-title">Edit recipe</h1>
       <div className="content-main">
         <form>
           <InputRecipeInfo
-            nameValue={recipeInfo.name}
-            descriptionValue={recipeInfo.description}
-            onChangeValue={SetOnChangeValue}
-            activeTag={activeTag}
-            toggleTag={ToggleTag}
+            recipeInfo={recipeInfo}
+            sendUpdatedRecipeInfo={(updatedRecipeInfo) => setRecipeInfo(updatedRecipeInfo)}
           />
           <InputIngredients
-            tableName={'Ingredients'}
-            addnewIngredient={addnewIngredient}
             ingredients={ingredients}
-            onChangeValue={SetOnChangeValue}
-            selectedOneInfo={(selected: any) => {
-              SetDataIngredients('ingredient', selected.ingredient, selected.index, selected.id);
-            }}
-            deleteIngredient={deleteIngredient}
+            setIngredients={setIngredients}
+            // sendUpdatedIngredients={(updatedIngredients: any) => setIngredients(updatedIngredients)}
+            // addnewIngredient={addnewIngredient}
+            // onChangeValue={SetOnChangeValue}
+            // selectedOneInfo={(selected: any) => {
+            //   SetDataIngredients('ingredient', selected.ingredient, selected.index, selected.id);
+            // }}
+            // deleteIngredient={deleteIngredient}
           />
         </form>
       </div>

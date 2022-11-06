@@ -1,24 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { RecipeInfo } from 'src/DataService';
 
 type Props = {
-  nameValue: string;
-  descriptionValue: string;
-  onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  activeTag: string;
-  toggleTag: (param: string) => void;
+  recipeInfo: RecipeInfo;
+  sendUpdatedRecipeInfo: (param: RecipeInfo) => void;
+  // nameValue: string;
+  // descriptionValue: string;
+  // onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  // activeTag: string;
+  // toggleTag: (param: string) => void;
 };
 
 const InputRecipeInfo = (props: Props) => {
   // temporarily use tagList -> later get tagsList from the database
   let tagsList: string[] = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert'];
 
-  // const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   let { name, value } = event.target;
-  //   const id = matchedId;
-  //   if (name == 'name' || name == 'description') {
-  //     SetDataInRecipe(name, value);
-  //   }
-  // };
+  const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>(props.recipeInfo);
+  const [activeTag, setActiveTag] = useState(props.recipeInfo.meal_type);
+  const [isNameValid, setIsNameValid] = useState<boolean>(true);
+  const [isDescriptionValid, setIsDescriptionValid] = useState<boolean>(true);
+  const [isTagValid, setIsTagValid] = useState<boolean>(true);
+  const [AllValidRecipeInfo, setAllValidRecipeInfo] = useState<any>('');
+  // console.log(test);
+  useEffect(() => {
+    props.sendUpdatedRecipeInfo(recipeInfo);
+    setAllValidRecipeInfo({
+      ['name']: isNameValid,
+      ['meal_typel']: isTagValid,
+      ['description']: isDescriptionValid,
+    });
+  }, [recipeInfo]);
+
+  const updateRecipeInfo = (key: string, value: any) => {
+    setRecipeInfo({
+      ...recipeInfo,
+      [key]: value,
+    });
+  };
+  const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let { name, value } = event.target;
+    updateRecipeInfo(name, value);
+    if (value === '') {
+      setIsNameValid(false); // message -> please enter title of recipe
+    } else {
+      setIsNameValid(true);
+    }
+  };
+  const onChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let { name, value } = event.target;
+    updateRecipeInfo(name, value);
+    if (value === '') {
+      setIsDescriptionValid(false); // message -> please enter description of recipe
+    } else {
+      setIsDescriptionValid(true);
+    }
+  };
+
+  const toggleTag = (tag: string) => {
+    // if (activeTag === tag) {
+    //   setActiveTag('');
+    //   updateRecipeInfo('meal_type', '');
+    //   setIsTagValid(false);
+    // } else {
+    setActiveTag(tag);
+    updateRecipeInfo('meal_type', tag);
+    // setIsTagValid(true);
+    // }
+  };
 
   return (
     <div>
@@ -28,8 +76,9 @@ const InputRecipeInfo = (props: Props) => {
         <input
           type="text"
           name="name"
-          value={props.nameValue}
-          onChange={props.onChangeValue}
+          value={recipeInfo.name}
+          // value={props.nameValue}
+          onChange={onChangeName}
           required
         ></input>
       </label>
@@ -41,9 +90,9 @@ const InputRecipeInfo = (props: Props) => {
               <button
                 key={index}
                 style={{
-                  backgroundColor: props.activeTag === tag ? 'lightblue' : 'white',
+                  backgroundColor: activeTag === tag ? 'lightblue' : 'white',
                 }}
-                onClick={() => props.toggleTag(tag)}
+                onClick={() => toggleTag(tag)}
               >
                 {tag}
               </button>
@@ -56,8 +105,8 @@ const InputRecipeInfo = (props: Props) => {
         <input
           type="text"
           name="description"
-          value={props.descriptionValue}
-          onChange={props.onChangeValue}
+          value={recipeInfo.description}
+          onChange={onChangeDescription}
         ></input>
       </label>
     </div>

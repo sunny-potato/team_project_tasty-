@@ -15,23 +15,34 @@ const createOptions = () => {
 };
 
 type Props = {
-  tableName: string;
   ingredients: Ingredient[];
-  onChangeValue: (
-    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
-    index: number,
-    matchedId?: number
-  ) => void;
-  selectedOneInfo: (param: SelectedOneInfo) => void;
-  deleteIngredient: (param: number) => void;
-  addnewIngredient: () => void;
+  setIngredients: (param: Ingredient[]) => void;
+  // tableName: string;
+  // ingredients: Ingredient[];
+  // sendUpdatedIngredients: (param: Ingredient[]) => void;
+  // onChangeValue: (
+  //   event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
+  //   index: number,
+  //   matchedId?: number
+  // ) => void;
+  // selectedOneInfo: (param: SelectedOneInfo) => void;
+  // deleteIngredient: (param: number) => void;
+  // addnewIngredient: () => void;
 };
 
 const InputIngredients = (props: Props) => {
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [unitsList, setUnitsList] = useState<EachUnit[]>([]);
   const [activeRow, setActiveRow] = useState<number>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [isAmountValid, setIsAmountValid] = useState<boolean>(true);
+  // const [isUnitValid, setIsUnitValid] = useState<boolean>(true);
+  const [isIngredientValid, setIsIngredientValid] = useState<boolean>(true);
+  const [AllValidRecipeInfo, setAllValidRecipeInfo] = useState<any>('');
+
+  console.log('parent', props.ingredients);
+  // console.log('local', ingredients);
 
   const getUnitsList = () => {
     dataService
@@ -41,7 +52,51 @@ const InputIngredients = (props: Props) => {
       })
       .catch((error) => console.log(error));
   };
-  useEffect(() => getUnitsList(), []);
+
+  useEffect(() => {
+    getUnitsList();
+  }, []);
+
+  useEffect(() => {
+    setAllValidRecipeInfo({
+      ['amount']: isAmountValid,
+      // ['meal_typel']: isTagValid,
+      // ['description']: isDescriptionValid,
+    });
+    // console.log(AllValidRecipeInfo);
+  }, [props.ingredients]);
+
+  const updateIngredients = (key: string, value: any, index: number, id?: number) => {
+    let newIngredient;
+
+    if (key == 'amount') {
+      value = Number(value);
+
+      newIngredient = {
+        ...props.ingredients[index],
+        [key]: value,
+      };
+    } else {
+      let keyId: string = '';
+      if (key == 'ingredient') {
+        keyId = key + 's_id';
+      }
+      if (key == 'unit') {
+        keyId = key + '_id';
+      }
+      newIngredient = {
+        ...props.ingredients[index],
+        [key]: value,
+        [keyId]: id,
+      };
+    }
+    const newIngredients = [
+      ...props.ingredients.slice(0, index),
+      newIngredient,
+      ...props.ingredients.slice(index + 1),
+    ];
+    props.setIngredients(newIngredients);
+  };
 
   const findMachedId = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const matchedUnit: EachUnit = unitsList.find((unit) => unit.unit === event.target.value);
@@ -49,22 +104,23 @@ const InputIngredients = (props: Props) => {
     return matchedId;
   };
 
-  const setAmount = (ingredient: any, index: number) => {
+  const displayAmount = (ingredient: Ingredient, index: number) => {
     return (
       <div>
         <input
           type="number"
           name="amount"
+          min={0} // thing to fix : show decimal number 0
           value={ingredient.amount || ''}
           onChange={(event) => {
-            props.onChangeValue(event, index);
+            onChangeAmount(event, index);
           }}
         />
       </div>
     );
   };
 
-  const setUnit = (ingredient: any, index: number) => {
+  const displayUnit = (ingredient: any, index: number) => {
     return (
       <div>
         <select
@@ -72,7 +128,7 @@ const InputIngredients = (props: Props) => {
           value={ingredient.unit}
           onChange={(event) => {
             const matchedId = findMachedId(event);
-            props.onChangeValue(event, index, matchedId);
+            onChangeUnit(event, index, matchedId);
           }}
         >
           {unitsList.map((unit) => {
@@ -87,7 +143,30 @@ const InputIngredients = (props: Props) => {
     );
   };
 
-  const setIngredient = (ingredient: any, index: number) => {
+  const onChangeAmount = (event: any, index: number) => {
+    let { name, value } = event.target;
+    if (value <= 0) {
+      setIsAmountValid(false);
+      alert('the amount should be bigger than 0'); // thing to fix : display message in html
+      return;
+    }
+    setIsAmountValid(true);
+    updateIngredients(name, value, index);
+  };
+
+  const onChangeUnit = (event: any, index: number, matchedId: number) => {
+    let { name, value } = event.target;
+    const id = matchedId;
+    updateIngredients(name, value, index as number, id);
+  };
+
+  const onChangeIngredient = (event: any, index: number, matchedId?: number) => {
+    let { name, value } = event.target;
+    const id = matchedId;
+    updateIngredients(name, value, index as number, id);
+  };
+
+  const displayIngredient = (ingredient: any, index: number) => {
     return (
       <div>
         <input
@@ -99,7 +178,7 @@ const InputIngredients = (props: Props) => {
             setActiveRow(index);
             setIsVisible(true);
             setSearchKeyword(event.target.value);
-            props.onChangeValue(event, index);
+            onChangeIngredient(event, index);
           }}
         />
       </div>
@@ -120,10 +199,8 @@ const InputIngredients = (props: Props) => {
             <tr className="table-headerRow">
               <th></th>
               <th></th>
-              <th>{props.tableName}</th>
-              <th>
-                <button onClick={props.addnewIngredient}>+ Add</button>
-              </th>
+              <th>Ingredients</th>
+              <th>{/* <button onClick={props.addnewIngredient}>+ Add</button> */}</th>
             </tr>
             <tr className="table-headerRow">
               <th>Amount</th>
@@ -134,17 +211,20 @@ const InputIngredients = (props: Props) => {
             {props.ingredients.map((ingredient, index) => {
               return (
                 <tr className="table-contentRow" key={index}>
-                  <td>{setAmount(ingredient, index)}</td>
-                  <td>{setUnit(ingredient, index)}</td>
+                  <td>{displayAmount(ingredient, index)}</td>
+                  <td>{displayUnit(ingredient, index)}</td>
                   <td>
-                    {setIngredient(ingredient, index)}
+                    {displayIngredient(ingredient, index)}
                     {index == activeRow && (
                       <SearchIngredient
                         searchKeyword={searchKeyword}
                         isVisible={isVisible}
                         setIsVisible={setIsVisible}
                         activeRow={activeRow}
-                        sendSelectedData={props.selectedOneInfo}
+                        sendSelectedData={(selected: any) => {
+                          console.log(selected);
+                          // updateIngredients('ingredient', selected.ingredient, selected.index, selected.id);
+                        }}
                       />
                     )}
                   </td>
