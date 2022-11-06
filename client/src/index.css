@@ -105,5 +105,10 @@ code {
   }
   .Link {
     padding: 0;
+    margin: 0.2rem;
+  }
+  .Logo_title {
+    align-self: center;
+    margin: 0.3rem;
   }
 }

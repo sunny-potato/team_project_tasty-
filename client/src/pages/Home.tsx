@@ -5,6 +5,7 @@ import './PageStyling.css';
 import { RecipeInfo } from '../DataService';
 
 export function Home() {
+  //Get all recipes and update variable allRecipes with data
   const [allRecipes, setallRecipes] = useState<[]>();
   useEffect(() => {
     dataService.getAll().then((data) => {
