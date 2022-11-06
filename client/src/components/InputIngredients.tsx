@@ -32,11 +32,6 @@ const InputIngredients = (props: Props) => {
   const [activeRow, setActiveRow] = useState<number>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  //   const [selectedSearchData, setSelectedSearchData] = useState<{
-  //     id: number;
-  //     ingredient: string;
-  //     index: number;
-  //   }>();
 
   const getUnitsList = () => {
     dataService
@@ -74,7 +69,7 @@ const InputIngredients = (props: Props) => {
       <div>
         <select
           name="unit"
-          value={ingredient.unit || ''}
+          value={ingredient.unit}
           onChange={(event) => {
             const matchedId = findMachedId(event);
             props.onChangeValue(event, index, matchedId);
@@ -113,19 +108,16 @@ const InputIngredients = (props: Props) => {
 
   return (
     <div>
-      {' '}
-      <form className="content-portions">
-        <label>
-          Number of portions :{' '}
-          <select name="portions" defaultValue={4}>
-            {createOptions()}
-          </select>
-        </label>
-      </form>
+      <label className="content-portions">
+        Number of portions :{' '}
+        <select name="portions" defaultValue={4}>
+          {createOptions()}
+        </select>
+      </label>
       <div className="content-ingredients">
-        <table style={{ backgroundColor: 'lightblue' }}>
+        <table className="table-ingredients" style={{ backgroundColor: 'lightblue' }}>
           <tbody>
-            <tr>
+            <tr className="table-headerRow">
               <th></th>
               <th></th>
               <th>{props.tableName}</th>
@@ -133,7 +125,7 @@ const InputIngredients = (props: Props) => {
                 <button onClick={props.addnewIngredient}>+ Add</button>
               </th>
             </tr>
-            <tr>
+            <tr className="table-headerRow">
               <th>Amount</th>
               <th>Unit</th>
               <th>Name</th>
@@ -141,7 +133,7 @@ const InputIngredients = (props: Props) => {
             </tr>
             {props.ingredients.map((ingredient, index) => {
               return (
-                <tr key={index}>
+                <tr className="table-contentRow" key={index}>
                   <td>{setAmount(ingredient, index)}</td>
                   <td>{setUnit(ingredient, index)}</td>
                   <td>

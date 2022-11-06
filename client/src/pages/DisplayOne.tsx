@@ -29,7 +29,7 @@ export function DisplayOne() {
   function changePortions(portions: number) {
     let newAmounts: Ingredient[];
     let defaultAmounts: Ingredient[] = recipe!.ingredients;
-
+    console.log(defaultAmounts);
     newAmounts = defaultAmounts?.map((i) => ({
       ...i,
       amount: parseFloat(((i.amount / 4) * portions).toPrecision(1)),

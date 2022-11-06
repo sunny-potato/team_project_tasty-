@@ -58,7 +58,8 @@ router.post('/recipe', (request, response) => {
 
 // update given recipe
 router.put('/recipe', (request, response) => {
-  const data = request.body;
+  const data = request.body.data;
+  console.log('express', data);
   if (!(data.recipeInfo && data.ingredients))
     response.status(400).send('Recipe info or ingredients list is missing');
   else if (!(data.recipeInfo.id && typeof data.recipeInfo.id == 'number'))

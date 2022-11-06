@@ -34,73 +34,38 @@ class DataService {
   /* Get a specific recipe with known id */
 
   get(id: number | string) {
-    //since it is defined as number, typescript makes error when it is used as string.
-    //to use it as string, it should be "number | string" -> this comment will be deleted later
-    return axios
-      .get<Recipe>('/recipe/' + id)
-      .then((response) => response.data)
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
+    return axios.get<Recipe>('/recipe/' + id).then((response) => response.data);
   }
   // Get an array of all recipes
 
   getAll() {
-    return axios
-      .get<[]>('/recipe/')
-      .then((response) => response.data)
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
+    return axios.get<[]>('/recipe/').then((response) => response.data);
   }
   /* Post new recepie */
   create(data: Recipe) {
-    return axios
-      .post<{ id: number }>('/recipe', { data })
-      .then((response) => response.data.id)
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
+    return axios.post<{ id: number }>('/recipe', { data }).then((response) => response.data.id);
   }
   /* Edit an existing recipe by known id */
 
   edit(data: Recipe) {
-    return axios.put<void>('/recipe', data).then((response) => response.statusText);
+    return axios.put<Recipe>('/recipe', { data }).then((response) => {
+      console.log('axios', response);
+      return response.statusText;
+    });
 
     /* Delete a recipe known id */
   }
   delete(id: number) {
-    return axios
-      .delete('/recipe/' + id)
-      .then((response) => response.data)
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
+    return axios.delete('/recipe/' + id).then((response) => response.data);
   }
   /* Get all ingredients */
   getAllIngredients(): Promise<EachIngredient[]> {
-    return axios
-      .get('/ingredient')
-      .then((response) => response.data)
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
+    return axios.get('/ingredient').then((response) => response.data);
   }
 
   /* Get all units */
   getAllUnits(): Promise<EachUnit[]> {
-    return axios
-      .get<[]>('/unit')
-      .then((response) => response.data)
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
+    return axios.get<[]>('/unit').then((response) => response.data);
   }
 }
 

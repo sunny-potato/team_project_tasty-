@@ -12,21 +12,27 @@ const InputRecipeInfo = (props: Props) => {
   // temporarily use tagList -> later get tagsList from the database
   let tagsList: string[] = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert'];
 
+  // const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   let { name, value } = event.target;
+  //   const id = matchedId;
+  //   if (name == 'name' || name == 'description') {
+  //     SetDataInRecipe(name, value);
+  //   }
+  // };
+
   return (
     <div>
-      <form className="recipe-name">
-        <label>
-          {' '}
-          Name :{' '}
-          <input
-            type="text"
-            name="name"
-            value={props.nameValue || ''}
-            onChange={props.onChangeValue}
-            required
-          ></input>
-        </label>
-      </form>
+      <label className="recipe-name">
+        {' '}
+        Name :{' '}
+        <input
+          type="text"
+          name="name"
+          value={props.nameValue}
+          onChange={props.onChangeValue}
+          required
+        ></input>
+      </label>
       <div className="recipe-tag">
         <div>
           Tag :
@@ -45,17 +51,15 @@ const InputRecipeInfo = (props: Props) => {
           })}
         </div>
       </div>
-      <form>
-        <label>
-          Description :{' '}
-          <input
-            type="text"
-            name="description"
-            value={props.descriptionValue || ''}
-            onChange={props.onChangeValue}
-          ></input>
-        </label>
-      </form>
+      <label className="recipe-description">
+        Description :{' '}
+        <input
+          type="text"
+          name="description"
+          value={props.descriptionValue}
+          onChange={props.onChangeValue}
+        ></input>
+      </label>
     </div>
   );
 };

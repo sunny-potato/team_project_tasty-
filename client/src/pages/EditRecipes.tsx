@@ -13,7 +13,7 @@ const initialIngredient: undefined = {
 };
 export function EditRecipes() {
   const id = Number(useParams().id);
-  //   const [recipe, setRecipe] = useState<Recipe>();
+  // const [recipe, setRecipe] = useState<Recipe>();
   const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>();
   const [activeTag, setActiveTag] = useState('');
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -33,19 +33,12 @@ export function EditRecipes() {
     getData();
   }, []);
 
-  useEffect(() => {
-    SetDataInRecipe('meal_type', activeTag);
-  }, [activeTag]);
-
-  const ToggleTag = (tag: string) => {
-    if (activeTag === tag) {
-      setActiveTag('');
-    } else {
-      setActiveTag(tag);
-    }
-  };
   // console.log(recipeInfo);
   console.log(ingredients);
+
+  if (recipeInfo === undefined) {
+    return <div>Roading...</div>;
+  }
 
   const SetDataInRecipe = (key: string, value: any) => {
     setRecipeInfo({
@@ -108,42 +101,49 @@ export function EditRecipes() {
 
   const saveEditedData = () => {
     // console.log('get data', recipe);
-    const gatherData = { ['recipeInfo']: recipeInfo, ['ingredient']: ingredients };
-    console.log(gatherData);
-    // console.log(recipeInfo, ingredients);
+    const editedRecipe: Recipe = { ['recipeInfo']: recipeInfo, ['ingredients']: ingredients };
+    console.log(editedRecipe);
     // dataService
-    //   .edit(id)
+    //   .edit(editedRecipe)
     //   .then((response) => {
     //     console.log('reseponse', response);
     //   })
     //   .catch((error) => console.log(error));
   };
 
-  if (recipeInfo === undefined) {
-    return <div>Roading...</div>;
-  }
+  const ToggleTag = (tag: string) => {
+    if (activeTag === tag) {
+      setActiveTag('');
+      SetDataInRecipe('meal_type', '');
+    } else {
+      setActiveTag(tag);
+      SetDataInRecipe('meal_type', tag);
+    }
+  };
 
   return (
     <div>
       <h1 className="page-title">Edit recipe</h1>
       <div className="content-main">
-        <InputRecipeInfo
-          nameValue={recipeInfo.name}
-          descriptionValue={recipeInfo.description}
-          onChangeValue={SetOnChangeValue}
-          activeTag={activeTag}
-          toggleTag={ToggleTag}
-        />
-        <InputIngredients
-          tableName={'Ingredients'}
-          addnewIngredient={addnewIngredient}
-          ingredients={ingredients}
-          onChangeValue={SetOnChangeValue}
-          selectedOneInfo={(selected: any) => {
-            SetDataIngredients('ingredient', selected.ingredient, selected.index, selected.id);
-          }}
-          deleteIngredient={deleteIngredient}
-        />
+        <form>
+          <InputRecipeInfo
+            nameValue={recipeInfo.name}
+            descriptionValue={recipeInfo.description}
+            onChangeValue={SetOnChangeValue}
+            activeTag={activeTag}
+            toggleTag={ToggleTag}
+          />
+          <InputIngredients
+            tableName={'Ingredients'}
+            addnewIngredient={addnewIngredient}
+            ingredients={ingredients}
+            onChangeValue={SetOnChangeValue}
+            selectedOneInfo={(selected: any) => {
+              SetDataIngredients('ingredient', selected.ingredient, selected.index, selected.id);
+            }}
+            deleteIngredient={deleteIngredient}
+          />
+        </form>
       </div>
       <div className="btn-group">
         <button onClick={saveEditedData}>Save</button>
@@ -154,3 +154,10 @@ export function EditRecipes() {
     </div>
   );
 }
+
+// saveData
+// 1. check if all the required information exist
+//-> what are required? name/ingredient name
+// 2. if missing, show message
+
+// input controll
