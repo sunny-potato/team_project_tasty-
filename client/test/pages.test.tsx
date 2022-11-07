@@ -13,6 +13,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { tupleExpression } from '@babel/types';
 import { screen, fireEvent } from '@testing-library/react';
+import { BsPrinter } from 'react-icons/bs';
 
 let container: any = null;
 beforeEach(() => {
@@ -28,6 +29,7 @@ afterEach(() => {
   container = null;
 });
 
+// mock axios api to server
 jest.mock('../src/DataService', () => {
   class DataService {
     /* Get a specific recipe with known id */
@@ -140,6 +142,36 @@ jest.mock('../src/DataService', () => {
   }
   return new DataService();
 });
+
+// mock localStorage
+const localStorageMock = (() => {
+  let cart: Ingredient[] = [
+    { ingredients_id: 1, ingredient: 'whole milk', amount: 1.5, unit_id: 2, unit: 'cup' },
+    { ingredients_id: 2, ingredient: 'water', amount: 3, unit_id: 2, unit: 'cup' },
+  ];
+
+  return {
+    getItem(key: string) {
+      console.log(JSON.stringify(cart));
+      return JSON.stringify(cart);
+    },
+
+    setItem(key: string, value: string) {
+      cart = JSON.parse(value);
+    },
+
+    clear() {
+      cart = [];
+    },
+
+    removeItem(key: string) {},
+
+    getAll() {
+      return cart;
+    },
+  };
+})();
+Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 describe('Home page tests', () => {
   test('Home page includes correct static elements', (done) => {
@@ -257,12 +289,58 @@ describe('Explore page tests', () => {
 });
 
 describe('ShoppingCart page tests', () => {
-  test('ShoppingCart page draws correctly', (done) => {
-    const wrapper = shallow(<ShoppingCart />);
-    setTimeout(() => {
-      expect(wrapper).toMatchSnapshot();
-      done();
+  test('ShoppingCart page draws correctly', async () => {
+    await act(async () => {
+      await render(
+        <MemoryRouter>
+          <ShoppingCart />
+        </MemoryRouter>,
+        container
+      );
     });
+    expect(container).toMatchSnapshot();
+  });
+  test('Increase and decrease amount', async () => {
+    await act(async () => {
+      await render(
+        <MemoryRouter>
+          <ShoppingCart />
+        </MemoryRouter>,
+        container
+      );
+    });
+    //get and check current amount on first ingredient
+    let amount1 = container.querySelector('td.Ingredients-cell')?.innerHTML;
+    expect(amount1).toBe('1.5');
+
+    // increase amount and then check value again
+    fireEvent.click(container.querySelector('.Icon-increase'));
+    amount1 = container.querySelector('td.Ingredients-cell')?.innerHTML;
+    expect(amount1).toBe('1.6');
+
+    // decrease amount by 0.2 and check value again
+    fireEvent.click(container.querySelector('.Icon-decrease'));
+    fireEvent.click(container.querySelector('.Icon-decrease'));
+    amount1 = container.querySelector('td.Ingredients-cell')?.innerHTML;
+    expect(amount1).toBe('1.4');
+  });
+  test('Delete ingredient', async () => {
+    await act(async () => {
+      await render(
+        <MemoryRouter>
+          <ShoppingCart />
+        </MemoryRouter>,
+        container
+      );
+    });
+    // get and check name of first ingredient
+    let ingredient1 = container.querySelector('.Ingredients-name')?.innerHTML;
+    expect(ingredient1).toBe('whole milk');
+
+    // delete the first ingredient and check that ingredient no longer is 'whole milk'
+    fireEvent.click(container.querySelector('.Icon-remove'));
+    ingredient1 = container.querySelector('.Ingredients-name')?.innerHTML;
+    expect(ingredient1).toBe('water');
   });
 });
 

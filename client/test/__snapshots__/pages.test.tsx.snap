@@ -420,42 +420,235 @@ exports[`Home page tests Home page draws correctly (snapshot) including list of 
 `;
 
 exports[`ShoppingCart page tests ShoppingCart page draws correctly 1`] = `
-<div
-  className="Content-main"
->
-  <h1>
-    Shopping list
-  </h1>
-  <BsPrinter
-    className="Icon-print"
-    onClick={[Function]}
-    title="Print the shopping list"
-  />
-  <table
-    className="Ingredients-main"
-  >
-    You have not added anything to the shopping list yet...
-  </table>
+<div>
   <div
-    className="Extra-information"
-  />
-  <div>
-    <Link
-      to="/"
+    class="Content-main"
+  >
+    <h1>
+      Shopping list
+    </h1>
+    <svg
+      class="Icon-print"
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      stroke-width="0"
+      viewBox="0 0 16 16"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <button
-        className="Button-navigation"
+      <title>
+        Print the shopping list
+      </title>
+      <path
+        d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"
+      />
+      <path
+        d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"
+      />
+    </svg>
+    <table
+      class="Ingredients-main"
+    >
+      <tbody>
+        <tr>
+          <td>
+            <svg
+              class="Icon-increase"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 512 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>
+                Increase amount
+              </title>
+              <path
+                d="M363 277h-86v86h-42v-86h-86v-42h86v-86h42v86h86v42z"
+              />
+              <path
+                d="M256 90c44.3 0 86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422c-44.3 0-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256c0-44.3 17.3-86 48.6-117.4C170 107.3 211.7 90 256 90m0-42C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48z"
+              />
+            </svg>
+          </td>
+          <td
+            class="Ingredients-cell"
+          >
+            1.5
+          </td>
+          <td>
+            <svg
+              class="Icon-decrease"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 512 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>
+                Decrease amount
+              </title>
+              <path
+                d="M256 90c44.3 0 86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422s-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256s17.3-86 48.6-117.4C170 107.3 211.7 90 256 90m0-42C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48z"
+              />
+              <path
+                d="M363 277H149v-42h214v42z"
+              />
+            </svg>
+          </td>
+          <td
+            class="Shopping-unit"
+          >
+            cup
+          </td>
+          <td
+            class="Ingredients-name"
+          >
+            whole milk
+          </td>
+          <td>
+            <svg
+              class="Icon-remove"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                dataName="Square Remove"
+                id="Square_Remove"
+              >
+                <g>
+                  <path
+                    d="M18.437,20.937H5.563a2.5,2.5,0,0,1-2.5-2.5V5.563a2.5,2.5,0,0,1,2.5-2.5H18.437a2.5,2.5,0,0,1,2.5,2.5V18.437A2.5,2.5,0,0,1,18.437,20.937ZM5.563,4.063a1.5,1.5,0,0,0-1.5,1.5V18.437a1.5,1.5,0,0,0,1.5,1.5H18.437a1.5,1.5,0,0,0,1.5-1.5V5.563a1.5,1.5,0,0,0-1.5-1.5Z"
+                  />
+                  <path
+                    d="M13.767,14.477a.5.5,0,0,0,.71-.71L12.707,12l1.77-1.77a.5.5,0,0,0-.71-.7L12,11.3l-1.77-1.77a.5.5,0,0,0-.7.7c.59.59,1.17,1.18,1.77,1.77l-1.77,1.77c-.46.45.25,1.16.7.71L12,12.707Z"
+                  />
+                </g>
+              </g>
+            </svg>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <svg
+              class="Icon-increase"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 512 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>
+                Increase amount
+              </title>
+              <path
+                d="M363 277h-86v86h-42v-86h-86v-42h86v-86h42v86h86v42z"
+              />
+              <path
+                d="M256 90c44.3 0 86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422c-44.3 0-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256c0-44.3 17.3-86 48.6-117.4C170 107.3 211.7 90 256 90m0-42C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48z"
+              />
+            </svg>
+          </td>
+          <td
+            class="Ingredients-cell"
+          >
+            3
+          </td>
+          <td>
+            <svg
+              class="Icon-decrease"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 512 512"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>
+                Decrease amount
+              </title>
+              <path
+                d="M256 90c44.3 0 86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422s-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256s17.3-86 48.6-117.4C170 107.3 211.7 90 256 90m0-42C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48z"
+              />
+              <path
+                d="M363 277H149v-42h214v42z"
+              />
+            </svg>
+          </td>
+          <td
+            class="Shopping-unit"
+          >
+            cup
+          </td>
+          <td
+            class="Ingredients-name"
+          >
+            water
+          </td>
+          <td>
+            <svg
+              class="Icon-remove"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                dataName="Square Remove"
+                id="Square_Remove"
+              >
+                <g>
+                  <path
+                    d="M18.437,20.937H5.563a2.5,2.5,0,0,1-2.5-2.5V5.563a2.5,2.5,0,0,1,2.5-2.5H18.437a2.5,2.5,0,0,1,2.5,2.5V18.437A2.5,2.5,0,0,1,18.437,20.937ZM5.563,4.063a1.5,1.5,0,0,0-1.5,1.5V18.437a1.5,1.5,0,0,0,1.5,1.5H18.437a1.5,1.5,0,0,0,1.5-1.5V5.563a1.5,1.5,0,0,0-1.5-1.5Z"
+                  />
+                  <path
+                    d="M13.767,14.477a.5.5,0,0,0,.71-.71L12.707,12l1.77-1.77a.5.5,0,0,0-.71-.7L12,11.3l-1.77-1.77a.5.5,0,0,0-.7.7c.59.59,1.17,1.18,1.77,1.77l-1.77,1.77c-.46.45.25,1.16.7.71L12,12.707Z"
+                  />
+                </g>
+              </g>
+            </svg>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      class="Extra-information"
+    >
+      Total number of items: 2
+    </div>
+    <div>
+      <a
+        href="/"
       >
-        Back
+        <button
+          class="Button-navigation"
+        >
+          Back
+        </button>
+      </a>
+      <button
+        class="Button-navigation"
+        title="Clear shopping list"
+      >
+        Clear list
       </button>
-    </Link>
-    <button
-      className="Button-navigation"
-      onClick={[Function]}
-      title="Clear shopping list"
-    >
-      Clear list
-    </button>
+    </div>
   </div>
 </div>
 `;
