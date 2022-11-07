@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import dataService, { EachUnit, Ingredient } from '../DataService';
 import SearchIngredient, { SelectedOneInfo } from './SearchIngredient';
 
+const initialIngredient: undefined = {
+  ingredients_id: undefined,
+  ingredient: undefined,
+  amount: undefined,
+  unit_id: undefined,
+  unit: undefined,
+};
+
 const createOptions = () => {
   let option = [];
   for (let i = 1; i < 11; i++) {
@@ -17,21 +25,10 @@ const createOptions = () => {
 type Props = {
   ingredients: Ingredient[];
   setIngredients: (param: Ingredient[]) => void;
-  // tableName: string;
-  // ingredients: Ingredient[];
-  // sendUpdatedIngredients: (param: Ingredient[]) => void;
-  // onChangeValue: (
-  //   event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>,
-  //   index: number,
-  //   matchedId?: number
-  // ) => void;
-  // selectedOneInfo: (param: SelectedOneInfo) => void;
-  // deleteIngredient: (param: number) => void;
-  // addnewIngredient: () => void;
 };
 
 const InputIngredients = (props: Props) => {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  // const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [unitsList, setUnitsList] = useState<EachUnit[]>([]);
   const [activeRow, setActiveRow] = useState<number>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -41,8 +38,8 @@ const InputIngredients = (props: Props) => {
   const [isIngredientValid, setIsIngredientValid] = useState<boolean>(true);
   const [AllValidRecipeInfo, setAllValidRecipeInfo] = useState<any>('');
 
-  console.log('parent', props.ingredients);
-  // console.log('local', ingredients);
+  // console.log('child component', props.ingredients);
+  console.log('local', props.ingredients);
 
   const getUnitsList = () => {
     dataService
@@ -57,14 +54,14 @@ const InputIngredients = (props: Props) => {
     getUnitsList();
   }, []);
 
-  useEffect(() => {
-    setAllValidRecipeInfo({
-      ['amount']: isAmountValid,
-      // ['meal_typel']: isTagValid,
-      // ['description']: isDescriptionValid,
-    });
-    // console.log(AllValidRecipeInfo);
-  }, [props.ingredients]);
+  // useEffect(() => {
+  // setAllValidRecipeInfo({
+  //   ['amount']: isAmountValid,
+  // ['meal_typel']: isTagValid,
+  // ['description']: isDescriptionValid,
+  // });
+  // console.log(AllValidRecipeInfo);
+  // }, [props.ingredients]);
 
   const updateIngredients = (key: string, value: any, index: number, id?: number) => {
     let newIngredient;
@@ -110,7 +107,7 @@ const InputIngredients = (props: Props) => {
         <input
           type="number"
           name="amount"
-          min={0} // thing to fix : show decimal number 0
+          // min={0} thing to fix : show decimal number 0
           value={ingredient.amount || ''}
           onChange={(event) => {
             onChangeAmount(event, index);
@@ -119,26 +116,86 @@ const InputIngredients = (props: Props) => {
       </div>
     );
   };
-
+  // const createConditionalUnitOptions = (unitId: number) => {
+  //   if (unitId == undefined) {
+  //   } else {
+  //     return (
+  //       <option key={unit.id} value={unit.unit}>
+  //         {unit.unit}
+  //       </option>
+  //     );
+  // {unitsList.map((unit) => {
+  //   return (
+  //     <option key={unit.id} value={unit.unit}>
+  //       {unit.unit}
+  //     </option>
+  //   );
+  // })}
+  //   }
+  // };
   const displayUnit = (ingredient: any, index: number) => {
+    console.log('unit', ingredient); // ->>>>>>>>>>>>> from here!!
+    if (ingredient.unit === undefined) {
+      console.log('undefined');
+      return (
+        <div>
+          <select
+            name="unit"
+            value={ingredient.unit}
+            onChange={(event) => {
+              const matchedId = findMachedId(event);
+              onChangeUnit(event, index, matchedId);
+            }}
+          >
+            {unitsList.map((unit) => {
+              return (
+                <option key={unit.id} value={unit.unit}>
+                  {unit.unit}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <select
+            name="unit"
+            value={ingredient.unit}
+            onChange={(event) => {
+              const matchedId = findMachedId(event);
+              onChangeUnit(event, index, matchedId);
+            }}
+          >
+            {unitsList.map((unit) => {
+              return (
+                <option key={unit.id} value={unit.unit}>
+                  {unit.unit}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      );
+    }
+  };
+
+  const displayIngredient = (ingredient: any, index: number) => {
     return (
       <div>
-        <select
-          name="unit"
-          value={ingredient.unit}
+        <input
+          type="text"
+          name="ingredient"
+          value={ingredient.ingredient || ''}
           onChange={(event) => {
-            const matchedId = findMachedId(event);
-            onChangeUnit(event, index, matchedId);
+            // console.log('index', index);
+            setActiveRow(index);
+            setIsVisible(true);
+            setSearchKeyword(event.target.value);
+            onChangeIngredient(event, index);
           }}
-        >
-          {unitsList.map((unit) => {
-            return (
-              <option key={unit.id} value={unit.unit}>
-                {unit.unit}
-              </option>
-            );
-          })}
-        </select>
+        />
       </div>
     );
   };
@@ -163,26 +220,26 @@ const InputIngredients = (props: Props) => {
   const onChangeIngredient = (event: any, index: number, matchedId?: number) => {
     let { name, value } = event.target;
     const id = matchedId;
+    if (value == '' || value == undefined || value == null) {
+      setIsIngredientValid(false);
+      alert('Please enter ingredient'); // thing to fix : display message in html
+      return;
+    }
+    setIsIngredientValid(true);
     updateIngredients(name, value, index as number, id);
   };
 
-  const displayIngredient = (ingredient: any, index: number) => {
-    return (
-      <div>
-        <input
-          type="text"
-          name="ingredient"
-          value={ingredient.ingredient || ''}
-          onChange={(event) => {
-            // console.log('index', index);
-            setActiveRow(index);
-            setIsVisible(true);
-            setSearchKeyword(event.target.value);
-            onChangeIngredient(event, index);
-          }}
-        />
-      </div>
-    );
+  const addIngredient = () => {
+    const updatedIngredients: Ingredient[] = [...props.ingredients, initialIngredient!];
+    props.setIngredients(updatedIngredients);
+  };
+
+  const deleteIngredient = (index: number) => {
+    const newIngredients = [
+      ...props.ingredients.slice(0, index),
+      ...props.ingredients.slice(index + 1),
+    ];
+    props.setIngredients(newIngredients);
   };
 
   return (
@@ -200,7 +257,9 @@ const InputIngredients = (props: Props) => {
               <th></th>
               <th></th>
               <th>Ingredients</th>
-              <th>{/* <button onClick={props.addnewIngredient}>+ Add</button> */}</th>
+              <th>
+                <button onClick={addIngredient}>+ Add</button>
+              </th>
             </tr>
             <tr className="table-headerRow">
               <th>Amount</th>
@@ -221,15 +280,19 @@ const InputIngredients = (props: Props) => {
                         isVisible={isVisible}
                         setIsVisible={setIsVisible}
                         activeRow={activeRow}
-                        sendSelectedData={(selected: any) => {
-                          console.log(selected);
-                          // updateIngredients('ingredient', selected.ingredient, selected.index, selected.id);
+                        sendSelectedData={(selected: SelectedOneInfo) => {
+                          updateIngredients(
+                            'ingredient',
+                            selected.ingredient,
+                            selected.index,
+                            selected.id
+                          );
                         }}
                       />
                     )}
                   </td>
                   <td>
-                    <button onClick={() => props.deleteIngredient(index)}>Delete</button>
+                    <button onClick={() => deleteIngredient(index)}>Delete</button>
                   </td>
                 </tr>
               );

@@ -4,13 +4,6 @@ import dataService, { Recipe, RecipeInfo, Ingredient, EachIngredient } from '../
 import InputRecipeInfo from '../components/InputRecipeInfo';
 import InputIngredients from '../components/InputIngredients';
 
-const initialIngredient: undefined = {
-  ingredients_id: undefined,
-  ingredient: undefined,
-  amount: undefined,
-  unit_id: undefined,
-  unit: undefined,
-};
 export function EditRecipes() {
   const id = Number(useParams().id);
   // const [recipe, setRecipe] = useState<Recipe>();
@@ -31,71 +24,12 @@ export function EditRecipes() {
     getData();
   }, []);
 
-  // console.log(recipeInfo);
-  // console.log(ingredients);
+  console.log('parent ', ingredients);
+  // console.log('parent', recipeInfo);
 
   if (recipeInfo === undefined) {
     return <div>Roading...</div>;
   }
-
-  const SetDataInRecipe = (key: string, value: any) => {
-    setRecipeInfo({
-      ...recipeInfo,
-      [key]: value,
-    });
-  };
-
-  const SetDataIngredients = (key: string, value: any, index: number, id?: number) => {
-    let newIngredient;
-
-    if (key == 'amount') {
-      value = Number(value);
-
-      newIngredient = {
-        ...ingredients[index],
-        [key]: value,
-      };
-    } else {
-      let keyId: string = '';
-      if (key == 'ingredient') {
-        keyId = key + 's_id';
-      }
-      if (key == 'unit') {
-        keyId = key + '_id';
-      }
-      newIngredient = {
-        ...ingredients[index],
-        [key]: value,
-        [keyId]: id,
-      };
-    }
-    const newIngredients = [
-      ...ingredients.slice(0, index),
-      newIngredient,
-      ...ingredients.slice(index + 1),
-    ];
-    setIngredients(newIngredients);
-  };
-
-  const SetOnChangeValue = (event: any, index?: number, matchedId?: number) => {
-    let { name, value } = event.target;
-    const id = matchedId;
-    if (name == 'name' || name == 'description') {
-      SetDataInRecipe(name, value);
-    } else {
-      SetDataIngredients(name, value, index as number, id);
-    }
-  };
-
-  const deleteIngredient = (index: number) => {
-    const newIngredients = [...ingredients.slice(0, index), ...ingredients.slice(index + 1)];
-    setIngredients(newIngredients);
-  };
-
-  const addnewIngredient = () => {
-    const updatedIngredients: Ingredient[] = [...ingredients, initialIngredient!];
-    setIngredients(updatedIngredients);
-  };
 
   const saveEditedData = () => {
     // console.log('get data', recipe);
@@ -118,17 +52,7 @@ export function EditRecipes() {
             recipeInfo={recipeInfo}
             sendUpdatedRecipeInfo={(updatedRecipeInfo) => setRecipeInfo(updatedRecipeInfo)}
           />
-          <InputIngredients
-            ingredients={ingredients}
-            setIngredients={setIngredients}
-            // sendUpdatedIngredients={(updatedIngredients: any) => setIngredients(updatedIngredients)}
-            // addnewIngredient={addnewIngredient}
-            // onChangeValue={SetOnChangeValue}
-            // selectedOneInfo={(selected: any) => {
-            //   SetDataIngredients('ingredient', selected.ingredient, selected.index, selected.id);
-            // }}
-            // deleteIngredient={deleteIngredient}
-          />
+          <InputIngredients ingredients={ingredients} setIngredients={setIngredients} />
         </form>
       </div>
       <div className="btn-group">

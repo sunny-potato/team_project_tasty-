@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import dataService, { EachIngredient } from '../DataService';
 
+export type SelectedOneInfo = {
+  id: number;
+  ingredient: string;
+  index: number;
+};
+
 type Props = {
   searchKeyword: string;
   isVisible: boolean;
@@ -8,11 +14,7 @@ type Props = {
   activeRow: number;
   sendSelectedData: (param: SelectedOneInfo) => void;
 };
-export type SelectedOneInfo = {
-  id: number | null;
-  ingredient: string;
-  index: number | null;
-};
+
 const SearchIngredient = (props: Props) => {
   const [allIngredients, setAllIngredients] = useState<EachIngredient[]>([]);
 
@@ -31,7 +33,7 @@ const SearchIngredient = (props: Props) => {
   const disPlayAllingredients = allIngredients
     .filter((each) => {
       if (props.searchKeyword == '') {
-        // setIsVisible(true);
+        // props.setIsVisible(true);
         return each;
       } else {
         if (each.ingredient.includes(props.searchKeyword.toLowerCase())) {
@@ -46,7 +48,6 @@ const SearchIngredient = (props: Props) => {
             onClick={() => {
               const selectedOneInfo: SelectedOneInfo = { ...each, ...{ index: props.activeRow } };
               props.sendSelectedData(selectedOneInfo);
-              console.log('selectedOneInfo', selectedOneInfo);
               props.setIsVisible(false);
             }}
           >

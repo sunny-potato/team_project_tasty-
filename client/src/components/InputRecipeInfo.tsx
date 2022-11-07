@@ -15,20 +15,32 @@ const InputRecipeInfo = (props: Props) => {
   // temporarily use tagList -> later get tagsList from the database
   let tagsList: string[] = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert'];
 
-  const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>(props.recipeInfo);
-  const [activeTag, setActiveTag] = useState(props.recipeInfo.meal_type);
+  // const getRecipeInfo: any = () => {
+  //   console.log('getData');
+  //   return props.recipeInfo;
+  // };
+
+  const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>(props.recipeInfo); //only first-rendering
+  const [activeTag, setActiveTag] = useState('');
   const [isNameValid, setIsNameValid] = useState<boolean>(true);
   const [isDescriptionValid, setIsDescriptionValid] = useState<boolean>(true);
   const [isTagValid, setIsTagValid] = useState<boolean>(true);
   const [AllValidRecipeInfo, setAllValidRecipeInfo] = useState<any>('');
-  // console.log(test);
+
+  //get data when page refreshed,
+  useEffect(() => {
+    setRecipeInfo(props.recipeInfo);
+    setActiveTag(props.recipeInfo.meal_type);
+  }, []);
+
+  // console.log('child', recipeInfo);
   useEffect(() => {
     props.sendUpdatedRecipeInfo(recipeInfo);
-    setAllValidRecipeInfo({
-      ['name']: isNameValid,
-      ['meal_typel']: isTagValid,
-      ['description']: isDescriptionValid,
-    });
+    // setAllValidRecipeInfo({
+    //   ['name']: isNameValid,
+    //   ['meal_typel']: isTagValid,
+    //   ['description']: isDescriptionValid,
+    // });
   }, [recipeInfo]);
 
   const updateRecipeInfo = (key: string, value: any) => {
@@ -57,15 +69,15 @@ const InputRecipeInfo = (props: Props) => {
   };
 
   const toggleTag = (tag: string) => {
-    // if (activeTag === tag) {
-    //   setActiveTag('');
-    //   updateRecipeInfo('meal_type', '');
-    //   setIsTagValid(false);
-    // } else {
-    setActiveTag(tag);
-    updateRecipeInfo('meal_type', tag);
-    // setIsTagValid(true);
-    // }
+    if (activeTag === tag) {
+      setActiveTag('');
+      updateRecipeInfo('meal_type', '');
+      setIsTagValid(false);
+    } else {
+      setActiveTag(tag);
+      updateRecipeInfo('meal_type', tag);
+      setIsTagValid(true);
+    }
   };
 
   return (
@@ -77,7 +89,6 @@ const InputRecipeInfo = (props: Props) => {
           type="text"
           name="name"
           value={recipeInfo.name}
-          // value={props.nameValue}
           onChange={onChangeName}
           required
         ></input>
