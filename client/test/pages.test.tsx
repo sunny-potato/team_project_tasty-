@@ -156,9 +156,7 @@ describe('Home page tests', () => {
             This is also the place to discover more and get inspiration from, we have selected a few
             to show you from [External API] below.
           </p>,
-          <div className="Content-second">
-            <h5>[Place for external API recipes here]</h5>
-          </div>,
+          <div className="Content-second"></div>,
         ])
       ).toEqual(true);
       done();
@@ -213,6 +211,28 @@ describe('DisplayOne page tests', () => {
     // update and check new amount on ingredient 1
     amount1 = container.querySelector('div table td')?.innerHTML.substring(0, 3);
     expect(amount1).toBe('2.3');
+  });
+
+  test('Like recipe', async () => {
+    await act(async () => {
+      await render(
+        <MemoryRouter>
+          <DisplayOne />
+        </MemoryRouter>,
+        container
+      );
+    });
+
+    // confirm that this is a popular recipe
+    let popular = container.querySelector('div h6.Recipe-popular');
+    expect(popular.innerHTML).toBe('This item is popular');
+
+    // click on popular icon (firing event using react test library)
+    fireEvent.click(container.querySelector("div button[title='Like the recipe']"));
+
+    // confirm that recipe is no longer popular
+    popular = container.querySelector('div h6.Recipe-popular');
+    expect(popular.innerHTML).toBe('');
   });
 });
 
