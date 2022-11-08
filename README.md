@@ -1,4 +1,10 @@
-### This version also includes automatic reload
+# Installing and running Tasty App
+
+### Includes
+
+- Automatic refresh on save
+- External API communication powered by Spoonacular
+- SQL request to NTNU database (Need to be connected via VPN to NTNU for it ti work)
 
 ## Setup database connections
 
@@ -14,6 +20,7 @@ process.env.MYSQL_HOST = 'mysql.stud.ntnu.no';
 process.env.MYSQL_USER = 'username_todo';
 process.env.MYSQL_PASSWORD = 'username_todo';
 process.env.MYSQL_DATABASE = 'username_todo_dev';
+process.env.REACT_API_KEY = 'Top-secret-key-here';
 ```
 
 `server/test/config.ts`:
