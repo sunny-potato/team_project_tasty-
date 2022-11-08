@@ -9,6 +9,7 @@ export function Home() {
   const [allRecipes, setallRecipes] = useState<[]>();
   useEffect(() => {
     dataService.getAll().then((data) => {
+      console.log(data);
       setallRecipes(data);
     });
   }, []);
@@ -37,7 +38,7 @@ export function Home() {
         <div className="Content-second">
           <p>
             This is also the place to discover more and get inspiration from, we have selected a few
-            to show you from [External API] below.
+            to show you from below.
           </p>
         </div>
       </div>
