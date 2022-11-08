@@ -1,6 +1,3 @@
-//import './mocks/dataServiceMock';
-//import './mocks/localStorageMock';
-
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
@@ -9,6 +6,8 @@ import { DisplayOne } from '../src/pages/DisplayOne';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { fireEvent } from '@testing-library/react';
+
+import { Ingredient } from '../src/DataService';
 
 let container: any = null;
 beforeEach(() => {
@@ -82,5 +81,28 @@ describe('DisplayOne page tests', () => {
     // confirm that recipe is no longer popular
     popular = container.querySelector('div h6.Recipe-popular');
     expect(popular.innerHTML).toBe('');
+  });
+
+  test('Add to cart', async () => {
+    await act(async () => {
+      await render(
+        <MemoryRouter>
+          <DisplayOne />
+        </MemoryRouter>,
+        container
+      );
+    });
+
+    // clear local storage (mocked) and check number of ingredients
+    localStorage.clear();
+    let cart: Ingredient[] = JSON.parse(localStorage.getItem('cart') as string);
+    expect(cart.length).toEqual(0);
+
+    // add ingredients to cart
+    fireEvent.click(container.querySelector("button[title='Add recipe to shopping list']"));
+
+    // check number of ingrediets again to verify addToCart function
+    cart = JSON.parse(localStorage.getItem('cart') as string);
+    expect(cart.length).toEqual(7);
   });
 });

@@ -12,7 +12,6 @@ const localStorageMock = (() => {
 
   return {
     getItem(key: string) {
-      console.log(JSON.stringify(cart));
       return JSON.stringify(cart);
     },
 
