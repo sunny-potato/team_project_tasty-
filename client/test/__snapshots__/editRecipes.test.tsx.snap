@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditRecipes page tests EditRecipes page draws correctly 1`] = `
+<div>
+  <h1>
+    Site to edit the recipes
+  </h1>
+</div>
+`;
