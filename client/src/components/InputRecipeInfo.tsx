@@ -3,80 +3,36 @@ import { RecipeInfo } from 'src/DataService';
 
 type Props = {
   recipeInfo: RecipeInfo;
-  sendUpdatedRecipeInfo: (param: RecipeInfo) => void;
-  // nameValue: string;
-  // descriptionValue: string;
-  // onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  // activeTag: string;
-  // toggleTag: (param: string) => void;
+  setRecipeInfo: (param: RecipeInfo) => void;
 };
 
 const InputRecipeInfo = (props: Props) => {
   // temporarily use tagList -> later get tagsList from the database
   let tagsList: string[] = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert'];
-
-  // const getRecipeInfo: any = () => {
-  //   console.log('getData');
-  //   return props.recipeInfo;
-  // };
-
-  const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>(props.recipeInfo); //only first-rendering
   const [activeTag, setActiveTag] = useState('');
-  const [isNameValid, setIsNameValid] = useState<boolean>(true);
-  const [isDescriptionValid, setIsDescriptionValid] = useState<boolean>(true);
-  const [isTagValid, setIsTagValid] = useState<boolean>(true);
-  const [AllValidRecipeInfo, setAllValidRecipeInfo] = useState<any>('');
 
-  //get data when page refreshed,
   useEffect(() => {
-    setRecipeInfo(props.recipeInfo);
     setActiveTag(props.recipeInfo.meal_type);
   }, []);
 
-  // console.log('child', recipeInfo);
-  useEffect(() => {
-    props.sendUpdatedRecipeInfo(recipeInfo);
-    // setAllValidRecipeInfo({
-    //   ['name']: isNameValid,
-    //   ['meal_typel']: isTagValid,
-    //   ['description']: isDescriptionValid,
-    // });
-  }, [recipeInfo]);
-
   const updateRecipeInfo = (key: string, value: any) => {
-    setRecipeInfo({
-      ...recipeInfo,
+    props.setRecipeInfo({
+      ...props.recipeInfo,
       [key]: value,
     });
   };
-  const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     updateRecipeInfo(name, value);
-    if (value === '') {
-      setIsNameValid(false); // message -> please enter title of recipe
-    } else {
-      setIsNameValid(true);
-    }
-  };
-  const onChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let { name, value } = event.target;
-    updateRecipeInfo(name, value);
-    if (value === '') {
-      setIsDescriptionValid(false); // message -> please enter description of recipe
-    } else {
-      setIsDescriptionValid(true);
-    }
   };
 
   const toggleTag = (tag: string) => {
     if (activeTag === tag) {
       setActiveTag('');
       updateRecipeInfo('meal_type', '');
-      setIsTagValid(false);
     } else {
       setActiveTag(tag);
       updateRecipeInfo('meal_type', tag);
-      setIsTagValid(true);
     }
   };
 
@@ -88,8 +44,8 @@ const InputRecipeInfo = (props: Props) => {
         <input
           type="text"
           name="name"
-          value={recipeInfo.name}
-          onChange={onChangeName}
+          value={props.recipeInfo.name}
+          onChange={onChangeValue}
           required
         ></input>
       </label>
@@ -99,6 +55,7 @@ const InputRecipeInfo = (props: Props) => {
           {tagsList.map((tag, index) => {
             return (
               <button
+                type="button"
                 key={index}
                 style={{
                   backgroundColor: activeTag === tag ? 'lightblue' : 'white',
@@ -116,8 +73,8 @@ const InputRecipeInfo = (props: Props) => {
         <input
           type="text"
           name="description"
-          value={recipeInfo.description}
-          onChange={onChangeDescription}
+          value={props.recipeInfo.description}
+          onChange={onChangeValue}
         ></input>
       </label>
     </div>

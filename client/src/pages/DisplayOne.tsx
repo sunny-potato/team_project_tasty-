@@ -1,7 +1,7 @@
 import './PageStyling.css';
 import React, { useEffect, useState, useRef, Component } from 'react';
 import dataService, { Recipe, Ingredient, RecipeInfo } from '../DataService';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
 
 export function DisplayOne() {

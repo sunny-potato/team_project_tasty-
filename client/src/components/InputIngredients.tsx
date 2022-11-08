@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import dataService, { EachUnit, Ingredient } from '../DataService';
 import SearchIngredient, { SelectedOneInfo } from './SearchIngredient';
 
-const initialIngredient: undefined = {
-  ingredients_id: undefined,
-  ingredient: undefined,
-  amount: undefined,
-  unit_id: undefined,
-  unit: undefined,
+const initialIngredient: Ingredient = {
+  ingredients_id: undefined!,
+  ingredient: '',
+  amount: null,
+  unit_id: 0,
+  unit: 'initalUnit',
 };
 
 const createOptions = () => {
@@ -28,18 +28,10 @@ type Props = {
 };
 
 const InputIngredients = (props: Props) => {
-  // const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [unitsList, setUnitsList] = useState<EachUnit[]>([]);
   const [activeRow, setActiveRow] = useState<number>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [isAmountValid, setIsAmountValid] = useState<boolean>(true);
-  // const [isUnitValid, setIsUnitValid] = useState<boolean>(true);
-  const [isIngredientValid, setIsIngredientValid] = useState<boolean>(true);
-  const [AllValidRecipeInfo, setAllValidRecipeInfo] = useState<any>('');
-
-  // console.log('child component', props.ingredients);
-  console.log('local', props.ingredients);
 
   const getUnitsList = () => {
     dataService
@@ -54,15 +46,6 @@ const InputIngredients = (props: Props) => {
     getUnitsList();
   }, []);
 
-  // useEffect(() => {
-  // setAllValidRecipeInfo({
-  //   ['amount']: isAmountValid,
-  // ['meal_typel']: isTagValid,
-  // ['description']: isDescriptionValid,
-  // });
-  // console.log(AllValidRecipeInfo);
-  // }, [props.ingredients]);
-
   const updateIngredients = (key: string, value: any, index: number, id?: number) => {
     let newIngredient;
 
@@ -76,6 +59,7 @@ const InputIngredients = (props: Props) => {
     } else {
       let keyId: string = '';
       if (key == 'ingredient') {
+        value = value.toLowerCase();
         keyId = key + 's_id';
       }
       if (key == 'unit') {
@@ -107,8 +91,9 @@ const InputIngredients = (props: Props) => {
         <input
           type="number"
           name="amount"
-          // min={0} thing to fix : show decimal number 0
-          value={ingredient.amount || ''}
+          min={0} // when value == 0, Null in the database??????????
+          step="any"
+          value={ingredient.amount || 0}
           onChange={(event) => {
             onChangeAmount(event, index);
           }}
@@ -116,27 +101,11 @@ const InputIngredients = (props: Props) => {
       </div>
     );
   };
-  // const createConditionalUnitOptions = (unitId: number) => {
-  //   if (unitId == undefined) {
-  //   } else {
-  //     return (
-  //       <option key={unit.id} value={unit.unit}>
-  //         {unit.unit}
-  //       </option>
-  //     );
-  // {unitsList.map((unit) => {
-  //   return (
-  //     <option key={unit.id} value={unit.unit}>
-  //       {unit.unit}
-  //     </option>
-  //   );
-  // })}
-  //   }
-  // };
+
   const displayUnit = (ingredient: any, index: number) => {
-    console.log('unit', ingredient); // ->>>>>>>>>>>>> from here!!
-    if (ingredient.unit === undefined) {
-      console.log('undefined');
+    // console.log('ingredient', ingredient.unit);
+    if (ingredient.unit === 'initalUnit') {
+      // return <option>choose a unit</option>;
       return (
         <div>
           <select
@@ -147,6 +116,8 @@ const InputIngredients = (props: Props) => {
               onChangeUnit(event, index, matchedId);
             }}
           >
+            {<option value={''}>--option--</option>}
+            {/* when ingredient.unit is initalUnit = no chosed unit -> unit ="" */}
             {unitsList.map((unit) => {
               return (
                 <option key={unit.id} value={unit.unit}>
@@ -188,6 +159,7 @@ const InputIngredients = (props: Props) => {
           type="text"
           name="ingredient"
           value={ingredient.ingredient || ''}
+          required
           onChange={(event) => {
             // console.log('index', index);
             setActiveRow(index);
@@ -202,12 +174,10 @@ const InputIngredients = (props: Props) => {
 
   const onChangeAmount = (event: any, index: number) => {
     let { name, value } = event.target;
-    if (value <= 0) {
-      setIsAmountValid(false);
-      alert('the amount should be bigger than 0'); // thing to fix : display message in html
-      return;
-    }
-    setIsAmountValid(true);
+    // console.log(name, value);
+    // if(name ==="initalUnit") {
+    //   name =
+    // }
     updateIngredients(name, value, index);
   };
 
@@ -218,19 +188,15 @@ const InputIngredients = (props: Props) => {
   };
 
   const onChangeIngredient = (event: any, index: number, matchedId?: number) => {
+    console.log(event.target);
     let { name, value } = event.target;
     const id = matchedId;
-    if (value == '' || value == undefined || value == null) {
-      setIsIngredientValid(false);
-      alert('Please enter ingredient'); // thing to fix : display message in html
-      return;
-    }
-    setIsIngredientValid(true);
     updateIngredients(name, value, index as number, id);
   };
 
   const addIngredient = () => {
-    const updatedIngredients: Ingredient[] = [...props.ingredients, initialIngredient!];
+    console.log('add');
+    const updatedIngredients: Ingredient[] = [...props.ingredients, initialIngredient];
     props.setIngredients(updatedIngredients);
   };
 
@@ -258,7 +224,9 @@ const InputIngredients = (props: Props) => {
               <th></th>
               <th>Ingredients</th>
               <th>
-                <button onClick={addIngredient}>+ Add</button>
+                <button type="button" onClick={addIngredient}>
+                  + Add
+                </button>
               </th>
             </tr>
             <tr className="table-headerRow">
@@ -292,7 +260,9 @@ const InputIngredients = (props: Props) => {
                     )}
                   </td>
                   <td>
-                    <button onClick={() => deleteIngredient(index)}>Delete</button>
+                    <button type="button" onClick={() => deleteIngredient(index)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );
