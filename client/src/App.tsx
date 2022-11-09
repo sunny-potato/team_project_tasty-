@@ -6,7 +6,7 @@ import { EditRecipes } from './pages/EditRecipes';
 import { Home } from './pages/Home';
 import { Navbar } from './Navbar';
 import './index.css';
-import Explore from './pages/Explore';
+import { Explore } from './pages/Explore';
 import { ShoppingCart } from './pages/ShoppingCart';
 
 function App() {

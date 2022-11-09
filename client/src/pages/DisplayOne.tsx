@@ -14,16 +14,41 @@ export function DisplayOne() {
   //To get navigation by page and id
   const params = useParams();
   const id: string = params.id;
+  const idRef: number = parseInt(params.id);
 
   // Get inital value in load, uses recipe id as source
   // Also loads values recipe and ingredients by setState
   useEffect(() => {
-    let id: string = params.id;
+    let idCheck: number[] = [];
 
-    dataService.get(id).then((data) => {
-      setRecipe(data);
-      setIngredients(data.ingredients);
-    });
+    dataService
+      .getAll()
+      .then((data) => {
+        data.map((e: any) => idCheck.push(e.id));
+      })
+      .then(() => {
+        if (idCheck.includes(idRef)) {
+          dataService.get(id).then((data) => {
+            setRecipe(data);
+            setIngredients(data.ingredients);
+          });
+        } else {
+          const check: any = localStorage.getItem('Items');
+          dataService.apiExploreData(JSON.parse(check)).then((data) => {
+            data?.map((recipe: Recipe) => {
+              if (recipe.recipeInfo.id == idRef) {
+                const rmHTML = /(<([^>]+)>)/gi;
+                const text = recipe.recipeInfo.description;
+                recipe.recipeInfo.description = text.replace(rmHTML, '');
+
+                setRecipe(recipe);
+                setIngredients(recipe.ingredients);
+                console.log(data);
+              }
+            });
+          });
+        }
+      });
   }, []);
 
   // Updates ingredients according to value chosen by user

@@ -9,6 +9,7 @@ export function Home() {
   const [allRecipes, setallRecipes] = useState<[]>();
   useEffect(() => {
     dataService.getAll().then((data) => {
+      console.log(data);
       setallRecipes(data);
     });
   }, []);
@@ -19,10 +20,6 @@ export function Home() {
       <p>
         Here you can explore your own recipes by adding new content, editing existing ones and
         deleting the ones you don't care about anymore.
-      </p>
-      <p>
-        This is also the place to discover more and get inspiration from, we have selected a few to
-        show you from [External API] below.
       </p>
       <div className="Content-second">
         <div>
@@ -38,7 +35,12 @@ export function Home() {
           )}
         </div>
 
-        <div className="Content-second"></div>
+        <div className="Content-second">
+          <p>
+            This is also the place to discover more and get inspiration from, we have selected a few
+            to show you from below.
+          </p>
+        </div>
       </div>
     </div>
   );
