@@ -261,7 +261,7 @@ exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) includ
         </svg>
       </button>
       <a
-        href="/edit/undefined"
+        href="/edit/1"
       >
         <button
           class="Button-navigation"

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { DisplayOne } from '../src/pages/DisplayOne';
 
 import { render, unmountComponentAtNode } from 'react-dom';
@@ -27,8 +27,10 @@ describe('DisplayOne page tests', () => {
   test('DisplayOne page draws correctly (snapshot) including data from test recipe 1', async () => {
     await act(async () => {
       await render(
-        <MemoryRouter>
-          <DisplayOne />
+        <MemoryRouter initialEntries={['/recipe/1']}>
+          <Routes>
+            <Route path="/recipe/:id" element={<DisplayOne />} />
+          </Routes>
         </MemoryRouter>,
         container
       );
@@ -39,8 +41,10 @@ describe('DisplayOne page tests', () => {
   test('Changing portions', async () => {
     await act(async () => {
       await render(
-        <MemoryRouter>
-          <DisplayOne />
+        <MemoryRouter initialEntries={['/recipe/1']}>
+          <Routes>
+            <Route path="/recipe/:id" element={<DisplayOne />} />
+          </Routes>
         </MemoryRouter>,
         container
       );
@@ -64,8 +68,10 @@ describe('DisplayOne page tests', () => {
   test('Like recipe', async () => {
     await act(async () => {
       await render(
-        <MemoryRouter>
-          <DisplayOne />
+        <MemoryRouter initialEntries={['/recipe/1']}>
+          <Routes>
+            <Route path="/recipe/:id" element={<DisplayOne />} />
+          </Routes>
         </MemoryRouter>,
         container
       );
@@ -86,8 +92,10 @@ describe('DisplayOne page tests', () => {
   test('Add to cart', async () => {
     await act(async () => {
       await render(
-        <MemoryRouter>
-          <DisplayOne />
+        <MemoryRouter initialEntries={['/recipe/1']}>
+          <Routes>
+            <Route path="/recipe/:id" element={<DisplayOne />} />
+          </Routes>
         </MemoryRouter>,
         container
       );
