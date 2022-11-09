@@ -1,5 +1,5 @@
 import express, { response } from 'express';
-import recipeService from './recipe-service';
+import recipeService, { Ingredient } from './recipe-service';
 
 // Express router containing recipe methods:
 const router = express.Router();
@@ -66,8 +66,12 @@ router.put('/recipe', (request, response) => {
     response.status(400).send('Recipe id is missing');
   else if (!(data.recipeInfo.name && data.recipeInfo.name.length != 0))
     response.status(400).send('Recipe name is missing');
-  else if (!(data.ingredients[0].ingredients_id && data.ingredients[0].unit_id))
-    //need to change!!!!
+  else if (
+    data.ingredients.some(
+      (ingredient: Ingredient) =>
+        ingredient.ingredients_id == undefined || ingredient.unit_id == undefined
+    )
+  )
     response.status(400).send('Ingredient or unit id is missing');
   else
     recipeService

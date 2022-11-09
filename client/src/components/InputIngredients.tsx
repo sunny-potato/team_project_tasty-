@@ -91,7 +91,7 @@ const InputIngredients = (props: Props) => {
         <input
           type="number"
           name="amount"
-          min={0} // when value == 0, Null in the database??????????
+          min={0}
           step="any"
           value={ingredient.amount || 0}
           onChange={(event) => {
@@ -103,9 +103,7 @@ const InputIngredients = (props: Props) => {
   };
 
   const displayUnit = (ingredient: any, index: number) => {
-    // console.log('ingredient', ingredient.unit);
     if (ingredient.unit === 'initalUnit') {
-      // return <option>choose a unit</option>;
       return (
         <div>
           <select
@@ -159,9 +157,9 @@ const InputIngredients = (props: Props) => {
           type="text"
           name="ingredient"
           value={ingredient.ingredient || ''}
+          autoComplete="off"
           required
           onChange={(event) => {
-            // console.log('index', index);
             setActiveRow(index);
             setIsVisible(true);
             setSearchKeyword(event.target.value);
@@ -195,7 +193,6 @@ const InputIngredients = (props: Props) => {
   };
 
   const addIngredient = () => {
-    console.log('add');
     const updatedIngredients: Ingredient[] = [...props.ingredients, initialIngredient];
     props.setIngredients(updatedIngredients);
   };
@@ -217,12 +214,10 @@ const InputIngredients = (props: Props) => {
         </select>
       </label>
       <div className="content-ingredients">
-        <table className="table-ingredients" style={{ backgroundColor: 'lightblue' }}>
+        <table className="table-ingredients">
           <tbody>
             <tr className="table-headerRow">
-              <th></th>
-              <th></th>
-              <th>Ingredients</th>
+              <th colSpan={3}>Ingredients</th>
               <th>
                 <button type="button" onClick={addIngredient}>
                   + Add

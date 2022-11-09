@@ -21,7 +21,9 @@ const InputRecipeInfo = (props: Props) => {
       [key]: value,
     });
   };
-  const onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeValue = (
+    event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     let { name, value } = event.target;
     updateRecipeInfo(name, value);
   };
@@ -37,21 +39,20 @@ const InputRecipeInfo = (props: Props) => {
   };
 
   return (
-    <div>
-      <label className="recipe-name">
-        {' '}
-        Name :{' '}
-        <input
-          type="text"
-          name="name"
-          value={props.recipeInfo.name}
-          onChange={onChangeValue}
-          required
-        ></input>
-      </label>
+    <div className="Content-recipeinfo">
+      <label className="recipe-name"> Name : </label>
+      <input
+        type="text"
+        name="name"
+        value={props.recipeInfo.name}
+        onChange={onChangeValue}
+        autoComplete="off"
+        required
+      ></input>
+
       <div className="recipe-tag">
         <div>
-          Tag :
+          <span>Tag :</span>
           {tagsList.map((tag, index) => {
             return (
               <button
@@ -70,12 +71,14 @@ const InputRecipeInfo = (props: Props) => {
       </div>
       <label className="recipe-description">
         Description :{' '}
-        <input
-          type="text"
+        <textarea
+          rows={4}
+          cols={50}
           name="description"
           value={props.recipeInfo.description}
           onChange={onChangeValue}
-        ></input>
+          autoComplete="off"
+        ></textarea>
       </label>
     </div>
   );

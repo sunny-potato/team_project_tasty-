@@ -62,6 +62,12 @@ class DataService {
   getAllIngredients(): Promise<EachIngredient[]> {
     return axios.get('/ingredient').then((response) => response.data);
   }
+  /* Create new ingredient */
+  createIngredient(ingredient: EachIngredient) {
+    return axios.post<{ id: number }>('/ingredient', { ingredient }).then((response) => {
+      return response.data.id;
+    });
+  }
 
   /* Get all units */
   getAllUnits(): Promise<EachUnit[]> {

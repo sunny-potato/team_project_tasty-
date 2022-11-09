@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import dataService, { EachIngredient } from '../DataService';
+import '../css/SearchDropdown.css';
 
 export type SelectedOneInfo = {
   id: number;
@@ -43,8 +44,9 @@ const SearchIngredient = (props: Props) => {
     })
     .map((each) => {
       return (
-        <div key={each.id}>
+        <div className="Search-dropdown" key={each.id}>
           <button
+            className="Button-search"
             onClick={() => {
               const selectedOneInfo: SelectedOneInfo = { ...each, ...{ index: props.activeRow } };
               props.sendSelectedData(selectedOneInfo);
@@ -57,7 +59,11 @@ const SearchIngredient = (props: Props) => {
       );
     });
 
-  return <div style={{ display: props.isVisible ? 'block' : 'none' }}>{disPlayAllingredients}</div>;
+  return (
+    <div className="Search-box" style={{ display: props.isVisible ? 'block' : 'none' }}>
+      {disPlayAllingredients}
+    </div>
+  );
 };
 
 export default SearchIngredient;
