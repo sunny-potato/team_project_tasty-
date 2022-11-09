@@ -59,6 +59,11 @@ router.post('/recipe', (request, response) => {
 // update given recipe
 router.put('/recipe', (request, response) => {
   const data = request.body.data;
+  const test = data.ingredients.some(
+    (ingredient: Ingredient) =>
+      ingredient.ingredients_id == undefined || ingredient.unit_id == undefined
+  );
+  console.log('test', test);
   console.log('express', data);
   if (!(data.recipeInfo && data.ingredients))
     response.status(400).send('Recipe info or ingredients list is missing');
@@ -66,12 +71,8 @@ router.put('/recipe', (request, response) => {
     response.status(400).send('Recipe id is missing');
   else if (!(data.recipeInfo.name && data.recipeInfo.name.length != 0))
     response.status(400).send('Recipe name is missing');
-  else if (
-    data.ingredients.some(
-      (ingredient: Ingredient) =>
-        ingredient.ingredients_id == undefined || ingredient.unit_id == undefined
-    )
-  )
+  // else if (test) response.status(400).send('Ingredient or unit id is missing');
+  else if (!(data.ingredients[0].ingredients_id && data.ingredients[0].unit_id))
     response.status(400).send('Ingredient or unit id is missing');
   else
     recipeService

@@ -113,6 +113,7 @@ const InputIngredients = (props: Props) => {
               const matchedId = findMachedId(event);
               onChangeUnit(event, index, matchedId);
             }}
+            autoComplete="off"
           >
             {<option value={''}>--option--</option>}
             {/* when ingredient.unit is initalUnit = no chosed unit -> unit ="" */}
@@ -136,6 +137,7 @@ const InputIngredients = (props: Props) => {
               const matchedId = findMachedId(event);
               onChangeUnit(event, index, matchedId);
             }}
+            autoComplete="off"
           >
             {unitsList.map((unit) => {
               return (
@@ -172,10 +174,6 @@ const InputIngredients = (props: Props) => {
 
   const onChangeAmount = (event: any, index: number) => {
     let { name, value } = event.target;
-    // console.log(name, value);
-    // if(name ==="initalUnit") {
-    //   name =
-    // }
     updateIngredients(name, value, index);
   };
 
@@ -186,7 +184,6 @@ const InputIngredients = (props: Props) => {
   };
 
   const onChangeIngredient = (event: any, index: number, matchedId?: number) => {
-    console.log(event.target);
     let { name, value } = event.target;
     const id = matchedId;
     updateIngredients(name, value, index as number, id);

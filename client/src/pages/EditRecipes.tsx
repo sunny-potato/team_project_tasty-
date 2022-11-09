@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import dataService, { Recipe, RecipeInfo, Ingredient, EachIngredient } from '../DataService';
 import InputRecipeInfo from '../components/InputRecipeInfo';
 import InputIngredients from '../components/InputIngredients';
@@ -11,9 +11,7 @@ export function EditRecipes() {
   // const [recipe, setRecipe] = useState<Recipe>();
   const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
-  const [updatedIngredients, setUpdatedIngredients] = useState<
-    { ingredient: string; ingredients_id: number }[]
-  >([]);
+  const [updatedIngredients, setUpdatedIngredients] = useState<{ name: string; id: number }[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // const [isIdUndefined, setIsIdUndefined] = useState<boolean>(false);
 
@@ -60,12 +58,7 @@ export function EditRecipes() {
     // else let's just say that isValid is true!
     return true;
   };
-
-  // if (undefinedID.length > 0) {
-  //   setIsIdUndefined(true);
-  // } else {
-  //   setIsIdUndefined(false);
-  // }
+  console.log(ingredients);
   const saveEditedData = () => {
     // step 1
     // find ingredients with undefined id
@@ -75,71 +68,40 @@ export function EditRecipes() {
     if (undefinedIdList.length > 0) {
       // step 1-1
       // update and get the ingredients with id
-      const updateIngredientsList = Promise.all(
+      Promise.all(
         undefinedIdList.map(async (each) => {
-          try {
-            const response = await dataService.createIngredient(each.ingredient);
-            return { ingredient: each.ingredient, id: response };
-          } catch (error) {
-            console.log(error);
-          }
+          const response = await dataService.createIngredient(each.ingredient);
+          return { name: each.ingredient, id: response };
         })
-      );
+      )
+        .then((result) => {
+          putCreatedId(result);
+        })
+        .catch((error) => console.log(error));
 
-      // updateIngredientsList();
-
-      // .then((response) =>{ for ( let i =0; i<response.length; i++) {
-      //   for (let j=0; j<ingredients.length; j++) {
-      //     if(response[i].ingredient==ingredients[j].ingredient) {
-      //       let newIngredient={...ingredients[j],  }
-      //     }
-      //   }
-
-      // }
-      // });
-
-      // undefinedIdList.map((each: Ingredient) => {
-      //   dataService
-      //     .createIngredient(each.ingredient)
-      //     .then((response) => {
-      //       const definedId = response;
-      //       // step 1-2
-      //       // update them in ingredients
-      //       ingredients.map((ingredient, index) => {
-      //         if (ingredient.ingredient == each.ingredient) {
-      //           const updateId = {
-      //             ...ingredients[index],
-      //             ingredients_id: definedId,
-      //           };
-      //           const newIngredients = [
-      //             ...ingredients.slice(0, index),
-      //             updateId,
-      //             ...ingredients.slice(index + 1),
-      //           ];
-      //           setIngredients((previousValue) => {
-      //             return newIngredients;
-      //           });
-      //           // console.log(ingredient.ingredient, updateId);
-      //         }
-      //       });
-      //     })
-      //     .catch((error) => console.log(error));
-      // });
+      const putCreatedId = (createdId: any) => {
+        createdId.map((newId: any) => {
+          ingredients.map((each) => {
+            if (newId.name == each.ingredient) {
+              each.ingredients_id = newId.id;
+            }
+          });
+        });
+        setIngredients(ingredients);
+      };
     }
 
-    console.log(ingredients);
     // step 2
     // recipe = recipeinfo + ingrediente
     const editedRecipe: Recipe = { ['recipeInfo']: recipeInfo, ['ingredients']: ingredients };
-
+    console.log(editedRecipe);
     // step 3
-    // put recipe into  the database
-    //   dataService
-    //     .edit(editedRecipe)
-    //     .then((response) => {
-    //       console.log('reseponse', response);
-    //     })
-    //     .catch((error) => console.log(error));
+    dataService
+      .edit(editedRecipe)
+      .then((response) => {
+        console.log('reseponse', response);
+      })
+      .catch((error) => console.log(error));
   };
 
   const onSubmit = (event: React.FormEvent) => {
@@ -177,7 +139,7 @@ export function EditRecipes() {
   };
   return (
     <div>
-      <h1 className="page-title">Edit recipe</h1>
+      <h1 className="Page-title">Edit recipe</h1>
       <div className="Content-main">
         <form onSubmit={onSubmit}>
           <InputRecipeInfo recipeInfo={recipeInfo} setRecipeInfo={setRecipeInfo} />
