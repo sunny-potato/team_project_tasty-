@@ -1,6 +1,5 @@
 import pool from './mysql-pool';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
-import { rejects } from 'assert';
 
 export type RecipeInfo = {
   id: number;
@@ -113,13 +112,19 @@ class RecipeService {
           recipe.recipeInfo.id,
         ],
         (error, results: ResultSetHeader) => {
-          if (error) return reject(error);
+          if (error) {
+            console.log('1');
+            return reject(error);
+          }
 
           pool.query(
             'DELETE FROM relations WHERE recipes_id=?',
             [recipe.recipeInfo.id],
             (error, results2: ResultSetHeader) => {
-              if (error) return reject(error);
+              if (error) {
+                console.log('2');
+                return reject(error);
+              }
 
               recipe.ingredients.forEach((ingredient, index, array) => {
                 pool.query(
@@ -132,6 +137,10 @@ class RecipeService {
                   ],
                   (error, results3: ResultSetHeader) => {
                     if (error) return reject(error);
+                    if (error) {
+                      console.log('3');
+                      return reject(error);
+                    }
                     if (index === array.length - 1) resolve();
                   }
                 );
