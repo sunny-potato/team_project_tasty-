@@ -44,6 +44,7 @@ const InputRecipeInfo = (props: Props) => {
       <input
         type="text"
         name="name"
+        autoFocus
         value={props.recipeInfo.name}
         onChange={onChangeValue}
         autoComplete="off"

@@ -1,6 +1,5 @@
 import pool from './mysql-pool';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
-import { rejects } from 'assert';
 
 export type RecipeInfo = {
   id: number;

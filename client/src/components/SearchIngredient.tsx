@@ -46,6 +46,7 @@ const SearchIngredient = (props: Props) => {
       return (
         <div className="Search-dropdown" key={each.id}>
           <button
+            type="button"
             className="Button-search"
             onClick={() => {
               const selectedOneInfo: SelectedOneInfo = { ...each, ...{ index: props.activeRow } };

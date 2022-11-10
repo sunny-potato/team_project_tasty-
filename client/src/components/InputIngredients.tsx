@@ -97,6 +97,7 @@ const InputIngredients = (props: Props) => {
           onChange={(event) => {
             onChangeAmount(event, index);
           }}
+          autoComplete="off"
         />
       </div>
     );
