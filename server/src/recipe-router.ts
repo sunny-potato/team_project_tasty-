@@ -71,9 +71,9 @@ router.put('/recipe', (request, response) => {
     response.status(400).send('Recipe id is missing');
   else if (!(data.recipeInfo.name && data.recipeInfo.name.length != 0))
     response.status(400).send('Recipe name is missing');
-  // else if (test) response.status(400).send('Ingredient or unit id is missing');
-  else if (!(data.ingredients[0].ingredients_id && data.ingredients[0].unit_id))
-    response.status(400).send('Ingredient or unit id is missing');
+  else if (test) response.status(400).send('Ingredient or unit id is missing');
+  // else if (!(data.ingredients[0].ingredients_id && data.ingredients[0].unit_id))
+  // response.status(400).send('Ingredient or unit id is missing');
   else
     recipeService
       .update(data)

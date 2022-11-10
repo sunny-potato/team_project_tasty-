@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import dataService, { Recipe, RecipeInfo, Ingredient, EachIngredient } from '../DataService';
+import { useParams, useNavigate } from 'react-router-dom';
+import dataService, { RecipeInfo, Ingredient } from '../DataService';
 import InputRecipeInfo from '../components/InputRecipeInfo';
 import InputIngredients from '../components/InputIngredients';
-import { useNavigate } from 'react-router-dom';
+import { ValidateData, SaveEditedData } from '../components/SaveInputData';
 
 export function EditRecipes() {
   const navigate = useNavigate();
   const id = Number(useParams().id);
-  // const [recipe, setRecipe] = useState<Recipe>();
   const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
-  const [updatedIngredients, setUpdatedIngredients] = useState<{ name: string; id: number }[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [isIdUndefined, setIsIdUndefined] = useState<boolean>(false);
 
   const getData = () => {
     dataService
       .get(id)
       .then((response) => {
-        // setRecipe(response);
         setRecipeInfo(response.recipeInfo);
         setIngredients(response.ingredients);
-        // const changedRecipeInfo = changeRecipeInfo(response.recipeInfo); -> change poritons
-        // setRecipeInfo(changedRecipeInfo);
+        //*********************//
+        // const changedRecipeInfo = changeRecipeInfo(response.recipeInfo); -> Here will be "change of poritons"
       })
       .catch((error) => console.log(error));
   };
@@ -39,92 +35,23 @@ export function EditRecipes() {
     return <div>Loading...</div>;
   }
 
-  const validateData = () => {
-    const validateIngredients = () => {
-      // validate data which are added but onchanged (=default value)
-      ingredients.map((ingredient) => {
-        if (ingredient.amount === 0) {
-          ingredient.amount = null;
-        }
-        if (ingredient.unit_id === 0 || ingredient.unit === 'initalUnit') {
-          ingredient.unit_id = 1;
-          ingredient.unit = '';
-        }
-      });
-    };
-    validateIngredients();
-    //*********************//
-    // if meal_type or  description is required, validateRecipeInfo will be added!!!!!!
-    // else let's just say that isValid is true!
-    return true;
-  };
-  console.log(ingredients);
-  const saveEditedData = () => {
-    // step 1
-    // find ingredients with undefined id
-    const undefinedIdList = ingredients.filter((ingredient) => {
-      if (ingredient.ingredients_id === undefined) return ingredient;
-    });
-    if (undefinedIdList.length > 0) {
-      // step 1-1
-      // update and get the ingredients with id
-      Promise.all(
-        undefinedIdList.map(async (each) => {
-          const response = await dataService.createIngredient(each.ingredient);
-          return { name: each.ingredient, id: response };
-        })
-      )
-        .then((result) => {
-          putCreatedId(result);
-        })
-        .catch((error) => console.log(error));
-
-      const putCreatedId = (createdId: any) => {
-        createdId.map((newId: any) => {
-          ingredients.map((each) => {
-            if (newId.name == each.ingredient) {
-              each.ingredients_id = newId.id;
-            }
-          });
-        });
-        setIngredients(ingredients);
-      };
-    }
-
-    // step 2
-    // recipe = recipeinfo + ingrediente
-    const editedRecipe: Recipe = { ['recipeInfo']: recipeInfo, ['ingredients']: ingredients };
-    console.log(editedRecipe);
-    // step 3
-    dataService
-      .edit(editedRecipe)
-      .then((response) => {
-        console.log('reseponse', response);
-      })
-      .catch((error) => console.log(error));
-  };
-
   const onSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); // not submit data
-    // changeDataBackTo4Portions(); -> change poritons
-    // setUpdatedIngredients((pre: any) => [...pre, { test: 'test', id: id }]);
-    // console.log(updatedIngredients);
-    // if (!isLoading) {
-    //   setIsLoading(true);
-    const isValid = validateData(); // current condition is always true
-    if (isValid) {
-      // console.log('onSubmit');
-      saveEditedData();
-      // step 4
-      // dispaly upated data in new page
-    }
+    event.preventDefault();
+    //*********************//
+    // changeDataBackTo4Portions(); -> Here will be "change of poritons"
 
-    // console.log(isLoading);
-    // else {
-    //   alert('something wrong');
-    // }
-    // setIsLoading(false);
-    // }
+    if (!isLoading) {
+      setIsLoading(true);
+      const isValid = ValidateData({ ingredients }); // current condition is always true
+      if (isValid) {
+        SaveEditedData({ ingredients, recipeInfo, id });
+      }
+    } else {
+      alert('something wrong');
+      //*********************//
+      //here will be added f meal_type or description is required
+    }
+    setIsLoading(false);
   };
 
   const deleteData = () => {

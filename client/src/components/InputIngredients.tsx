@@ -116,7 +116,6 @@ const InputIngredients = (props: Props) => {
             autoComplete="off"
           >
             {<option value={''}>--option--</option>}
-            {/* when ingredient.unit is initalUnit = no chosed unit -> unit ="" */}
             {unitsList.map((unit) => {
               return (
                 <option key={unit.id} value={unit.unit}>

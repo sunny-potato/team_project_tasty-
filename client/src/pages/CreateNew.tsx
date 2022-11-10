@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import dataService, { Recipe, RecipeInfo, Ingredient, EachIngredient } from '../DataService';
+import React, { useState } from 'react';
+import { RecipeInfo, Ingredient } from '../DataService';
 import InputRecipeInfo from '../components/InputRecipeInfo';
 import InputIngredients from '../components/InputIngredients';
 import { useNavigate } from 'react-router-dom';
+import { ValidateData, SaveEditedData } from '../components/SaveInputData';
 
 const initialRecipeInfo: RecipeInfo = {
   id: undefined!,
@@ -30,7 +31,20 @@ export function CreateNew() {
   // console.log(recipeInfo);
   // console.log(ingredients);
   const onSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); // not submit data
+    event.preventDefault();
+
+    if (!isLoading) {
+      setIsLoading(true);
+      const isValid = ValidateData({ ingredients }); // current condition is always true
+      if (isValid) {
+        SaveEditedData({ ingredients, recipeInfo });
+      }
+    } else {
+      alert('something wrong');
+      //*********************//
+      //here will be added f meal_type or description is required
+    }
+    setIsLoading(false);
   };
 
   return (
