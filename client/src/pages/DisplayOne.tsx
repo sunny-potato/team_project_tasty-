@@ -1,10 +1,9 @@
-import './PageStyling.css';
+import '../css/PageStyling.css';
 import React, { useEffect, useState, useRef, Component } from 'react';
 import dataService, { Recipe, Ingredient, RecipeInfo } from '../DataService';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { BsHandThumbsUp, BsHandThumbsUpFill, BsPrinter } from 'react-icons/bs';
 import { RiShoppingCart2Line } from 'react-icons/ri';
-
 
 export function DisplayOne() {
   const [recipe, setRecipe] = useState<Recipe>();
@@ -41,10 +40,8 @@ export function DisplayOne() {
                 const rmHTML = /(<([^>]+)>)/gi;
                 const text = recipe.recipeInfo.description;
                 recipe.recipeInfo.description = text.replace(rmHTML, '');
-
                 setRecipe(recipe);
                 setIngredients(recipe.ingredients);
-                console.log(data);
               }
             });
           });
@@ -56,10 +53,10 @@ export function DisplayOne() {
   function changePortions(portions: number) {
     let newAmounts: Ingredient[];
     let defaultAmounts: Ingredient[] = recipe!.ingredients;
-    console.log(defaultAmounts);
+
     newAmounts = defaultAmounts?.map((i) => ({
       ...i,
-      amount: parseFloat(((i.amount / 4) * portions).toFixed(1)),
+      amount: parseFloat(((i.amount! / 4) * portions).toFixed(1)),
     }));
     setIngredients(newAmounts);
   }
@@ -85,7 +82,7 @@ export function DisplayOne() {
             ingredients_id,
             ingredient,
             amount: parseFloat(
-              (upd[ingredients_id] ? upd[ingredients_id].amount : 0 + amount).toFixed(1)
+              (upd[ingredients_id] ? upd[ingredients_id].amount : 0 + amount!)!.toFixed(1)
             ),
             unit_id,
             unit,

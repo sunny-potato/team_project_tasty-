@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import dataService from '../DataService';
-import './PageStyling.css';
+import '../css/PageStyling.css';
 import { RecipeInfo } from '../DataService';
 
 export function Home() {
