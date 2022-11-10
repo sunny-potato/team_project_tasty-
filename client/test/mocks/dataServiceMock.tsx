@@ -104,13 +104,38 @@ jest.mock('../../src/DataService', () => {
       return Promise.resolve(3); // Same as: return new Promise((resolve) => resolve(3));
     }
 
+    // Edit recipe
     edit() {
       return Promise.resolve();
     }
 
-    delete() {
+    // Delete recipe with given id
+    delete(id: number) {
       return Promise.resolve();
     }
+
+    // Get all ingredients
+    getAllIngredients() {
+      return Promise.resolve([
+        {id: 1, ingredient: 'whole milk'},
+        {id: 2, ingredient: 'water'}
+      ]);
+    }
+
+    // Create new ingredient
+    createIngredient(ingredient: string){
+      return Promise.resolve(8);
+    }
+
+    // Get all units
+    getAllUnits() {
+      return Promise.resolve([
+        {id: 1, unit: 'cup'},
+        {id: 2, unit: 'package'}
+      ])
+    }
+
+    
   }
   return new DataService();
 });
