@@ -5,6 +5,7 @@ import { Link, useParams, useLocation } from 'react-router-dom';
 import { BsHandThumbsUp, BsHandThumbsUpFill, BsPrinter } from 'react-icons/bs';
 import { RiShoppingCart2Line } from 'react-icons/ri';
 
+
 export function DisplayOne() {
   const [recipe, setRecipe] = useState<Recipe>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
@@ -55,7 +56,7 @@ export function DisplayOne() {
   function changePortions(portions: number) {
     let newAmounts: Ingredient[];
     let defaultAmounts: Ingredient[] = recipe!.ingredients;
-
+    console.log(defaultAmounts);
     newAmounts = defaultAmounts?.map((i) => ({
       ...i,
       amount: parseFloat(((i.amount / 4) * portions).toFixed(1)),

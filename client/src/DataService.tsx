@@ -14,15 +14,21 @@ export type RecipeInfo = {
 export type Ingredient = {
   ingredients_id: number;
   ingredient: string;
-  amount: number;
+  amount: number | null;
   unit_id: number;
   unit: string;
 };
-
 export type Recipe = {
   recipeInfo: RecipeInfo;
   ingredients: Ingredient[];
 };
+
+export type EachIngredient = {
+  id: number;
+  ingredient: string;
+};
+
+export type EachUnit = { id: number; unit: string };
 
 export type ApiRecipeInfo = {
   id: number;
@@ -51,29 +57,7 @@ export type ApiRecipe = {
 class DataService {
   /* Get a specific recipe with known id */
 
-  get(id: string) {
-    // Use this for testing locally only
-    // return new Promise<Recipe>((resolve, reject) => {
-    //   resolve({
-    //     recipeInfo: {
-    //       id: 1,
-    //       name: 'The best pasta in the world',
-    //       meal_type: 'Vegan',
-    //       new: true,
-    //       popular: true,
-    //       description:
-    //         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, corporis. Distinctio deserunt aperiam hic voluptatum, ut a molestias cumque tenetur consequatur, ad dolores voluptatem provident eveniet, porro magnam est veritatis.',
-    //     },
-    //     ingredients: [
-    //       { name: 'Olive oil', amount: 3, unit: 'tbsp' },
-    //       { name: 'Onion', amount: 1, unit: 'pcs' },
-    //       { name: 'Garlic', amount: 3, unit: 'cloves' },
-    //       { name: 'Chopped Tomato', amount: 400, unit: 'g' },
-    //       { name: 'Dried spaghetti', amount: 300, unit: 'g' },
-    //     ],
-    //   });
-    // });
-
+  get(id: number | string) {
     return axios.get<Recipe>('/recipe/' + id).then((response) => response.data);
   }
   // Get an array of all recipes
@@ -88,7 +72,10 @@ class DataService {
   /* Edit an existing recipe by known id */
 
   edit(data: Recipe) {
-    return axios.put<void>('/recipe', data).then((response) => response.statusText);
+    return axios.put<Recipe>('/recipe', { data }).then((response) => {
+      console.log('axios', response);
+      return response.statusText;
+    });
 
     /* Delete a recipe known id */
   }
@@ -96,6 +83,22 @@ class DataService {
     return axios.delete('/recipe/' + id).then((response) => response.data);
   }
 
+  /* Get all ingredients */
+  getAllIngredients(): Promise<EachIngredient[]> {
+    return axios.get('/ingredient').then((response) => response.data);
+  }
+  /* Create new ingredient */
+  createIngredient(ingredient: EachIngredient) {
+    return axios.post<{ id: number }>('/ingredient', { ingredient }).then((response) => {
+      return response.data.id;
+    });
+  }
+
+  /* Get all units */
+  getAllUnits(): Promise<EachUnit[]> {
+    return axios.get<[]>('/unit').then((response) => response.data);
+
+  }
   //External API ---------->
 
   //get key to Explore
@@ -113,6 +116,7 @@ class DataService {
   //get data to Home
   apiHomeData(data: any) {
     return axios.post('/', data).then((response) => response.data);
+
   }
 }
 
