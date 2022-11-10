@@ -16,6 +16,7 @@ export function EditRecipes() {
       .get(id)
       .then((response) => {
         setRecipeInfo(response.recipeInfo);
+        setIngredients(response.ingredients);
         //*********************//
         // const changedRecipeInfo = changeRecipeInfo(response.recipeInfo); -> Here will be "change of poritons"
       })

@@ -23,7 +23,6 @@ const initialIngredient: Ingredient = {
 
 export function CreateNew() {
   const navigate = useNavigate();
-  const id = Number(useParams().id);
   const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>(initialRecipeInfo);
   const [ingredients, setIngredients] = useState<Ingredient[]>([initialIngredient]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
