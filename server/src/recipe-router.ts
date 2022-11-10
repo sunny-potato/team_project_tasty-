@@ -1,5 +1,6 @@
 import express, { response } from 'express';
-import recipeService, { Ingredient } from './recipe-service';
+import recipeService, {Ingredient} from './recipe-service';
+import externalService from './external-service';
 
 // Express router containing recipe methods:
 const router = express.Router();
@@ -171,6 +172,48 @@ router.delete('/unit/:id', (request, response) => {
     .deleteUnit(Number(request.params.id))
     .then((_result) => response.send())
     .catch((error) => response.status(500).send(error));
+});
+
+//External API------------------------------------------------------------------------------
+
+//get key to Explore
+router.get('/explore', (request, response) => {
+  externalService
+    .apiKey()
+    .then((data) => response.send(data))
+    .catch((error) => response.status(500).send(error));
+});
+
+//get key to Home
+router.get('/', (request, response) => {
+  externalService
+    .apiKey()
+    .then((data) => response.send(data))
+    .catch((error) => response.status(500).send(error));
+});
+
+//get data to Explore
+router.post('/explore', (request, response) => {
+  const data = request.body;
+  if (data.lenght != 0)
+    externalService
+      .apiData(data)
+      .then((data) => response.send(data))
+      .catch((error) => response.status(500).send(error));
+  //needs request errors here
+  else response.status(400).send('Api data does not exist');
+});
+
+//get data to Home
+router.post('/', (request, response) => {
+  const data = request.body;
+  if (data.lenght != 0)
+    externalService
+      .apiData(data)
+      .then((data) => response.send(data))
+      .catch((error) => response.status(500).send(error));
+  //needs request errors here
+  else response.status(400).send('Api data does not exist');
 });
 
 export default router;

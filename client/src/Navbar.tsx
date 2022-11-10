@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
+import { RiShoppingCart2Line } from 'react-icons/ri';
 
 export function Navbar() {
+  const [cartEmpty, setcartEmpty] = useState<boolean>();
+  const [state, setState] = useState<boolean>();
+  const [amount, setamount] = useState<number>();
+
+  //Listen for changes in cart/localstorage and update notification on Navbar
+  document.addEventListener(
+    'storage',
+    () => {
+      const cartMemory: [] = JSON.parse(localStorage.getItem('cart')!);
+
+      if (cartMemory.length >= 1) {
+        setcartEmpty(false);
+        setamount(cartMemory.length);
+      } else {
+        setcartEmpty(true);
+      }
+    },
+    false
+  );
+  //Update navbar and amount in the cart
+  useEffect(() => {
+    const cartMemory: [] = JSON.parse(localStorage.getItem('cart')!);
+
+    if (cartMemory && cartMemory.length > 1) {
+      setcartEmpty(false);
+    } else {
+      setcartEmpty(true);
+    }
+  }, []);
+  useEffect(() => {
+    setState(!cartEmpty);
+  }, [cartEmpty]);
+
   return (
     <nav className="NavMain">
       <Link to="/" className="Logo_title">
@@ -26,7 +60,14 @@ export function Navbar() {
         </li>
         <li>
           <Link to="cart" className="Link">
-            Shopping list
+            {state ? (
+              <div className="Cart-shopping-list">
+                <RiShoppingCart2Line className="Shopping-cart" title="Shopping list" />
+                <div className="Cart-notification">{amount}</div>
+              </div>
+            ) : (
+              <RiShoppingCart2Line className="Shopping-cart" title="Your shopping list is empty" />
+            )}
           </Link>
         </li>
       </ul>

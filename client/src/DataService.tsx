@@ -30,6 +30,30 @@ export type EachIngredient = {
 
 export type EachUnit = { id: number; unit: string };
 
+export type ApiRecipeInfo = {
+  id: number;
+  name: string;
+  meal_type: string;
+  new: boolean;
+  popular: boolean;
+  description: string;
+  servings: number;
+  image: string;
+};
+
+export type ApiIngredient = {
+  ingredients_id: number;
+  ingredient: string;
+  amount: number;
+  unit_id: number;
+  unit: string;
+};
+
+export type ApiRecipe = {
+  recipeInfo: ApiRecipeInfo;
+  ingredients: ApiIngredient[];
+};
+
 class DataService {
   /* Get a specific recipe with known id */
 
@@ -58,6 +82,7 @@ class DataService {
   delete(id: number) {
     return axios.delete('/recipe/' + id).then((response) => response.data);
   }
+
   /* Get all ingredients */
   getAllIngredients(): Promise<EachIngredient[]> {
     return axios.get('/ingredient').then((response) => response.data);
@@ -72,6 +97,26 @@ class DataService {
   /* Get all units */
   getAllUnits(): Promise<EachUnit[]> {
     return axios.get<[]>('/unit').then((response) => response.data);
+
+  }
+  //External API ---------->
+
+  //get key to Explore
+  apiExploreKey() {
+    return axios.get('/explore').then((response) => response.data);
+  }
+  //get key to Home
+  apiHomeKey() {
+    return axios.get('/').then((response) => response.data);
+  }
+  //get data to Explore
+  apiExploreData(data: any) {
+    return axios.post('/explore', data).then((response) => response.data);
+  }
+  //get data to Home
+  apiHomeData(data: any) {
+    return axios.post('/', data).then((response) => response.data);
+
   }
 }
 

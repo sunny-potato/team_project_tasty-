@@ -1,0 +1,383 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNew page tests CreateNew page draws correctly 1`] = `
+<div>
+  <div
+    className="Content-main"
+  >
+    <h1
+      className="Content-title"
+    >
+      Create new recipe
+    </h1>
+    <p>
+      Instructions Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur placeat quasi dolor illum? Assumenda magni architecto velit aspernatur consequuntur cupiditate fugit vero tenetur rem perspiciatis exercitationem harum, ratione quas corrupti.
+    </p>
+    <div
+      className="User-input"
+    >
+      <input
+        placeholder="Enter recipe title"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="User-input"
+    >
+      <textarea
+        cols={50}
+        placeholder="Enter description of recipe"
+        rows={12}
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) including data from test recipe 1 1`] = `
+<div>
+  <div
+    class="Content-main"
+  >
+    <h1
+      class="Recipe-title"
+    >
+      One-Pot Mac and Cheese
+    </h1>
+    <h5
+      class="Recipe-tags"
+    >
+      Tags: 
+      Dinner
+    </h5>
+    <h6
+      class="Recipe-new"
+    >
+      This is a new recipe!
+    </h6>
+    <h6
+      class="Recipe-popular"
+    >
+      This item is popular right now!
+    </h6>
+    <p
+      class="Recipe-description>"
+    >
+      Who likes cleaning up after making mac and cheese? 
+              Not this girl. This one-pot mac and cheese is a family favorite, 
+              and my 3-year-old is thrilled to see it coming to the dinner table. 
+              We love to add sliced smoked sausage to this creamy mac recipe!
+    </p>
+    <div>
+      <div>
+        <label>
+          Number of portions: 
+        </label>
+        <select
+          name="portions"
+        >
+          <option
+            value="1"
+          >
+            1
+          </option>
+          <option
+            value="2"
+          >
+            2
+          </option>
+          <option
+            value="3"
+          >
+            3
+          </option>
+          <option
+            selected=""
+            value="4"
+          >
+            4
+          </option>
+          <option
+            value="5"
+          >
+            5
+          </option>
+          <option
+            value="6"
+          >
+            6
+          </option>
+          <option
+            value="7"
+          >
+            7
+          </option>
+          <option
+            value="8"
+          >
+            8
+          </option>
+          <option
+            value="9"
+          >
+            9
+          </option>
+          <option
+            value="10"
+          >
+            10
+          </option>
+        </select>
+      </div>
+      <table
+        class="Ingredients-main"
+      >
+        <tbody>
+          <tr>
+            <th
+              class="Ingredients-header"
+            >
+              Ingredients:
+            </th>
+            <th />
+          </tr>
+          <tr
+            class="Ingredients-row"
+          >
+            <td
+              class="Ingredients-cell"
+            >
+              1.5
+               
+              cup
+            </td>
+            <td
+              class="Ingredients-name"
+            >
+              whole milk
+            </td>
+          </tr>
+          <tr
+            class="Ingredients-row"
+          >
+            <td
+              class="Ingredients-cell"
+            >
+              3
+               
+              cup
+            </td>
+            <td
+              class="Ingredients-name"
+            >
+              water
+            </td>
+          </tr>
+          <tr
+            class="Ingredients-row"
+          >
+            <td
+              class="Ingredients-cell"
+            >
+              1
+               
+              package
+            </td>
+            <td
+              class="Ingredients-name"
+            >
+              elbow macaroni (16 ounces)
+            </td>
+          </tr>
+          <tr
+            class="Ingredients-row"
+          >
+            <td
+              class="Ingredients-cell"
+            >
+              4
+               
+              ounce
+            </td>
+            <td
+              class="Ingredients-name"
+            >
+              velveeta, cubed
+            </td>
+          </tr>
+          <tr
+            class="Ingredients-row"
+          >
+            <td
+              class="Ingredients-cell"
+            >
+              2
+               
+              cup
+            </td>
+            <td
+              class="Ingredients-name"
+            >
+              shredded sharp cheddar cheese
+            </td>
+          </tr>
+          <tr
+            class="Ingredients-row"
+          >
+            <td
+              class="Ingredients-cell"
+            >
+              0.5
+               
+              teaspoon
+            </td>
+            <td
+              class="Ingredients-name"
+            >
+              salt
+            </td>
+          </tr>
+          <tr
+            class="Ingredients-row"
+          >
+            <td
+              class="Ingredients-cell"
+            >
+              0.5
+               
+              teaspoon
+            </td>
+            <td
+              class="Ingredients-name"
+            >
+              coarsely ground pepper
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a
+        href="/edit/undefined"
+      >
+        <button
+          class="Button-navigation"
+        >
+          Edit recipe
+        </button>
+      </a>
+      <button
+        class="Button-navigation"
+      >
+        Add to shopping list
+      </button>
+      <button
+        class="Button-navigation"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 16 16"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div>
+      <a
+        href="/"
+      >
+        <button
+          class="Button-navigation"
+        >
+          Back
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EditRecipes page tests EditRecipes page draws correctly 1`] = `
+<div>
+  <h1>
+    Site to edit the recipes
+  </h1>
+</div>
+`;
+
+exports[`Explore page tests Explore page draws correctly 1`] = `
+<div
+  className="Content-main"
+>
+  <h1>
+    A place to discover new recipes, API or other
+  </h1>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, perferendis illo nam consectetur adipisci quas quaerat omnis dolore repellendus deserunt, at placeat, laudantium quod? Facilis, nam soluta voluptates modi odio, nostrum deleniti cupiditate molestias debitis iste, error laboriosam? Officia fugit quos officiis voluptatem iure laboriosam perferendis libero sit sapiente impedit.
+  </p>
+</div>
+`;
+
+exports[`Home page tests Home page draws correctly (snapshot) including list of buttons 1`] = `
+<div>
+  <div
+    class="Content-main"
+  >
+    <h1>
+      Welcome to the Tasty
+    </h1>
+    <p>
+      Here you can explore your own recipes by adding new content, editing existing ones and deleting the ones you don't care about anymore.
+    </p>
+    <p>
+      This is also the place to discover more and get inspiration from, we have selected a few to show you from [External API] below.
+    </p>
+    <div
+      class="Content-second"
+    >
+      <ul>
+        <a
+          href="/recipe/1"
+        >
+          <button
+            class="Button-recipe-navigation"
+          >
+            One-Pot Mac and Cheese
+          </button>
+        </a>
+        <a
+          href="/recipe/2"
+        >
+          <button
+            class="Button-recipe-navigation"
+          >
+            Easy Marinated Grilled Flank Steak
+          </button>
+        </a>
+      </ul>
+      <div
+        class="Content-second"
+      >
+        <h5>
+          [Place for external API recipes here]
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ShoppingCart page tests ShoppingCart page draws correctly 1`] = `
+<div>
+  <h1>
+    This is your shopping cart to be....
+  </h1>
+</div>
+`;
