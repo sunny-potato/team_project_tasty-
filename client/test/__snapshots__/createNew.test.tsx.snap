@@ -205,6 +205,9 @@ exports[`CreateNew page tests Create new, page draws correctly (snapshot) 1`] = 
                           --option--
                         </option>
                         <option
+                          value=""
+                        />
+                        <option
                           value="cup"
                         >
                           cup
@@ -213,6 +216,11 @@ exports[`CreateNew page tests Create new, page draws correctly (snapshot) 1`] = 
                           value="package"
                         >
                           package
+                        </option>
+                        <option
+                          value="ounce"
+                        >
+                          ounce
                         </option>
                       </select>
                     </div>

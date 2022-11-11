@@ -96,7 +96,7 @@ describe('CreateNew page tests', () => {
   });
 
   
-  test('Save ingredient', async () => {
+  test('Save recipe', async () => {
     await act(async () => {
       await render(
         <MemoryRouter>

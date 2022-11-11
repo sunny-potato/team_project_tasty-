@@ -153,8 +153,10 @@ jest.mock('../../src/DataService', () => {
     // Get all units
     getAllUnits() {
       return Promise.resolve([
-        { id: 1, unit: 'cup' },
-        { id: 2, unit: 'package' },
+        { id: 1, unit: '' },
+        { id: 2, unit: 'cup' },
+        { id: 3, unit: 'package' },
+        { id: 3, unit: 'ounce' },
       ]);
     }
 

@@ -205,6 +205,9 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                         name="unit"
                       >
                         <option
+                          value=""
+                        />
+                        <option
                           value="cup"
                         >
                           cup
@@ -213,6 +216,11 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                           value="package"
                         >
                           package
+                        </option>
+                        <option
+                          value="ounce"
+                        >
+                          ounce
                         </option>
                       </select>
                     </div>
@@ -258,6 +266,9 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                         name="unit"
                       >
                         <option
+                          value=""
+                        />
+                        <option
                           value="cup"
                         >
                           cup
@@ -266,6 +277,11 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                           value="package"
                         >
                           package
+                        </option>
+                        <option
+                          value="ounce"
+                        >
+                          ounce
                         </option>
                       </select>
                     </div>
@@ -311,6 +327,9 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                         name="unit"
                       >
                         <option
+                          value=""
+                        />
+                        <option
                           value="cup"
                         >
                           cup
@@ -319,6 +338,11 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                           value="package"
                         >
                           package
+                        </option>
+                        <option
+                          value="ounce"
+                        >
+                          ounce
                         </option>
                       </select>
                     </div>
@@ -364,6 +388,9 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                         name="unit"
                       >
                         <option
+                          value=""
+                        />
+                        <option
                           value="cup"
                         >
                           cup
@@ -372,6 +399,11 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                           value="package"
                         >
                           package
+                        </option>
+                        <option
+                          value="ounce"
+                        >
+                          ounce
                         </option>
                       </select>
                     </div>
@@ -417,6 +449,9 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                         name="unit"
                       >
                         <option
+                          value=""
+                        />
+                        <option
                           value="cup"
                         >
                           cup
@@ -425,6 +460,11 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                           value="package"
                         >
                           package
+                        </option>
+                        <option
+                          value="ounce"
+                        >
+                          ounce
                         </option>
                       </select>
                     </div>
@@ -470,6 +510,9 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                         name="unit"
                       >
                         <option
+                          value=""
+                        />
+                        <option
                           value="cup"
                         >
                           cup
@@ -478,6 +521,11 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                           value="package"
                         >
                           package
+                        </option>
+                        <option
+                          value="ounce"
+                        >
+                          ounce
                         </option>
                       </select>
                     </div>
@@ -523,6 +571,9 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                         name="unit"
                       >
                         <option
+                          value=""
+                        />
+                        <option
                           value="cup"
                         >
                           cup
@@ -531,6 +582,11 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                           value="package"
                         >
                           package
+                        </option>
+                        <option
+                          value="ounce"
+                        >
+                          ounce
                         </option>
                       </select>
                     </div>
