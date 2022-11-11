@@ -45,7 +45,7 @@ router.get('/recipe', (request, response) => {
 router.post('/recipe', (request, response) => {
   const data = request.body.data;
   console.log('express', data);
-  if (!(data.recipeInfo && data.ingredients))
+  if (!(data && data.recipeInfo && data.ingredients))
     response.status(400).send('Recipe info or ingredients list is missing');
   else if (!(data.recipeInfo.name && data.recipeInfo.name.length != 0))
     response.status(400).send('Recipe name is missing');
@@ -66,7 +66,7 @@ router.post('/recipe', (request, response) => {
 // update given recipe
 router.put('/recipe', (request, response) => {
   const data = request.body.data;
-  if (!(data.recipeInfo && data.ingredients))
+  if (!(data && data.recipeInfo && data.ingredients ))
     response.status(400).send('Recipe info or ingredients list is missing');
   else if (!(data.recipeInfo.id && typeof data.recipeInfo.id == 'number'))
     response.status(400).send('Recipe id is missing');
@@ -106,7 +106,7 @@ router.get('/ingredient', (request, response) => {
 // ex. request body: { ingredient : "New ingredient" }
 // ex. response body: { id : 26 }
 router.post('/ingredient', (request, response) => {
-  const data = request.body;
+  const data = request.body.data;
   if (data && data.ingredient && data.ingredient.length != 0)
     recipeService
       .createIngredient(data.ingredient)
@@ -117,7 +117,7 @@ router.post('/ingredient', (request, response) => {
 
 // update ingredient
 router.put('/ingredient', (request, response) => {
-  const data = request.body;
+  const data = request.body.data;
   if (data && typeof data.id == 'number' && typeof data.ingredient == 'string')
     recipeService
       .updateIngredient(data.id, data.ingredient)
