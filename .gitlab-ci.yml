@@ -34,12 +34,12 @@ test:
     # Create database
     - mysqladmin create $MYSQL_DATABASE
     # Create database table
-    - >
-      echo "CREATE TABLE cart (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, recipes_id INT);" | mysql $MYSQL_DATABASE
-      echo "CREATE TABLE ingredients (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ingredient VARCHAR(255));" | mysql $MYSQL_DATABASE
-      echo "CREATE TABLE recipes (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL, meal_type VARCHAR(255), new BOOLEAN, popular BOOLEAN, description TEXT);" | mysql $MYSQL_DATABASE
-      echo "CREATE TABLE relations (recipes_id INT, ingredients_id INT, unit_id INT, amount FLOAT);" | mysql $MYSQL_DATABASE
-      echo "CREATE TABLE units (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, unit VARCHAR(255));" | mysql $MYSQL_DATABASE
+    
+    - echo "CREATE TABLE cart (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, recipes_id INT);" | mysql $MYSQL_DATABASE
+    - echo "CREATE TABLE ingredients (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ingredient VARCHAR(255));" | mysql $MYSQL_DATABASE
+    - echo "CREATE TABLE recipes (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL, meal_type VARCHAR(255), new BOOLEAN, popular BOOLEAN, description TEXT);" | mysql $MYSQL_DATABASE
+    - echo "CREATE TABLE relations (recipes_id INT, ingredients_id INT, unit_id INT, amount FLOAT);" | mysql $MYSQL_DATABASE
+    - echo "CREATE TABLE units (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, unit VARCHAR(255));" | mysql $MYSQL_DATABASE
     # Add test user and grant access
     - >
       echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; GRANT ALL PRIVILEGES ON
