@@ -82,6 +82,7 @@ export function EditRecipes() {
 
       Promise.all(
         isMissingIngredientId.map(async (each: Ingredient) => {
+          //@ts-ignore
           const response = await dataService.createIngredient(each.ingredient);
           return { name: each.ingredient, id: response };
         })
@@ -140,13 +141,19 @@ export function EditRecipes() {
           <InputRecipeInfo recipeInfo={recipeInfo} setRecipeInfo={setRecipeInfo} />
           <InputIngredients ingredients={ingredients} setIngredients={setIngredients} />
           <div className="btn-group">
-            <button type="submit" style={{ opacity: isLoading ? 0.3 : 1 }}>
+            <button
+              className="Button-navigation"
+              type="submit"
+              style={{ opacity: isLoading ? 0.3 : 1 }}
+            >
               {isLoading ? 'Saving' : 'Save'}
             </button>
-            <button type="button" className="cancelButton" onClick={() => navigate(-1)}>
+            <button type="button" className="Button-navigation" onClick={() => navigate(-1)}>
               Cancel
             </button>
-            <button onClick={deleteData}>Delete</button>
+            <button className="Button-navigation" onClick={deleteData}>
+              Delete
+            </button>
           </div>
         </form>
       </div>

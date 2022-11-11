@@ -80,7 +80,7 @@ const InputIngredients = (props: Props) => {
   };
 
   const findMachedId = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const matchedUnit: EachUnit = unitsList.find((unit) => unit.unit === event.target.value);
+    const matchedUnit: EachUnit = unitsList.find((unit) => unit.unit === event.target.value)!;
     const matchedId: number = matchedUnit.id as number;
     return matchedId;
   };
@@ -204,23 +204,27 @@ const InputIngredients = (props: Props) => {
 
   return (
     <div>
-      <label className="content-portions">
-        Number of portions :{' '}
-        <select name="portions" defaultValue={4}>
-          {createOptions()}
-        </select>
-      </label>
-      <div className="content-ingredients">
+      <div className="row">
+        <label className="content-portions">
+          Number of portions :{' '}
+          <select name="portions" defaultValue={4}>
+            {createOptions()}
+          </select>
+        </label>
+      </div>
+
+      <div className="row">
         <table className="table-ingredients">
           <tbody>
             <tr className="table-headerRow">
               <th colSpan={3}>Ingredients</th>
               <th>
-                <button type="button" onClick={addIngredient}>
+                <button className="Button-choice-add" type="button" onClick={addIngredient}>
                   + Add
                 </button>
               </th>
             </tr>
+
             <tr className="table-headerRow">
               <th>Amount</th>
               <th>Unit</th>
@@ -230,7 +234,7 @@ const InputIngredients = (props: Props) => {
             {props.ingredients.map((ingredient, index) => {
               return (
                 <tr className="table-contentRow" key={index}>
-                  <td>{displayAmount(ingredient, index)}</td>
+                  <td className="Table-amount">{displayAmount(ingredient, index)}</td>
                   <td>{displayUnit(ingredient, index)}</td>
                   <td>
                     {displayIngredient(ingredient, index)}
@@ -252,7 +256,11 @@ const InputIngredients = (props: Props) => {
                     )}
                   </td>
                   <td>
-                    <button type="button" onClick={() => deleteIngredient(index)}>
+                    <button
+                      className="Button-choice-delete"
+                      type="button"
+                      onClick={() => deleteIngredient(index)}
+                    >
                       Delete
                     </button>
                   </td>

@@ -39,40 +39,41 @@ const InputRecipeInfo = (props: Props) => {
   };
 
   return (
-    <div className="Content-recipeinfo">
-      <label className="recipe-name"> Name : </label>
-      <input
-        type="text"
-        name="name"
-        autoFocus
-        value={props.recipeInfo.name}
-        onChange={onChangeValue}
-        autoComplete="off"
-        required
-      ></input>
-
-      <div className="recipe-tag">
-        <div>
-          <span>Tag :</span>
-          {tagsList.map((tag, index) => {
-            return (
-              <button
-                type="button"
-                key={index}
-                style={{
-                  backgroundColor: activeTag === tag ? 'lightblue' : 'white',
-                }}
-                onClick={() => toggleTag(tag)}
-              >
-                {tag}
-              </button>
-            );
-          })}
-        </div>
+    <div className="Content-input-container">
+      <div className="row">
+        <input
+          type="text"
+          name="name"
+          placeholder="Name of the recipe"
+          autoFocus
+          value={props.recipeInfo.name}
+          onChange={onChangeValue}
+          autoComplete="off"
+          required
+        ></input>
       </div>
-      <label className="recipe-description">
-        Description :{' '}
+      <div className="row">
+        {tagsList.map((tag, index) => {
+          return (
+            <button
+              type="button"
+              className="Button-select-option"
+              key={index}
+              style={{
+                backgroundColor: activeTag === tag ? 'rgb(41, 211, 118)' : 'white',
+                color: activeTag === tag ? 'white' : 'black',
+                border: activeTag === tag ? ' 1px solid black' : '1px solid lightgrey',
+              }}
+              onClick={() => toggleTag(tag)}
+            >
+              {tag}
+            </button>
+          );
+        })}
+      </div>
+      <div className="row">
         <textarea
+          placeholder="Describe your recipe and how you make it delicious"
           rows={4}
           cols={50}
           name="description"
@@ -80,7 +81,7 @@ const InputRecipeInfo = (props: Props) => {
           onChange={onChangeValue}
           autoComplete="off"
         ></textarea>
-      </label>
+      </div>
     </div>
   );
 };
