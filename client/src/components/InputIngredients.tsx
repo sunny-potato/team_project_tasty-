@@ -224,7 +224,6 @@ const InputIngredients = (props: Props) => {
                 </button>
               </th>
             </tr>
-
             <tr className="table-headerRow">
               <th>Amount</th>
               <th>Unit</th>

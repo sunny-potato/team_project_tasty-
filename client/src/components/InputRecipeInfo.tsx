@@ -53,27 +53,30 @@ const InputRecipeInfo = (props: Props) => {
         ></input>
       </div>
       <div className="row">
-        {tagsList.map((tag, index) => {
-          return (
-            <button
-              type="button"
-              className="Button-select-option"
-              key={index}
-              style={{
-                backgroundColor: activeTag === tag ? 'rgb(41, 211, 118)' : 'white',
-                color: activeTag === tag ? 'white' : 'black',
-                border: activeTag === tag ? ' 1px solid black' : '1px solid lightgrey',
-              }}
-              onClick={() => toggleTag(tag)}
-            >
-              {tag}
-            </button>
-          );
-        })}
+        <p className="Tag">Choose a tag</p>
+        <p className="Tag">
+          {tagsList.map((tag, index) => {
+            return (
+              <button
+                type="button"
+                className="Button-select-option"
+                key={index}
+                style={{
+                  backgroundColor: activeTag === tag ? 'rgb(41, 211, 118)' : 'white',
+                  color: activeTag === tag ? 'white' : 'black',
+                  border: activeTag === tag ? ' 1px solid black' : '1px solid lightgrey',
+                }}
+                onClick={() => toggleTag(tag)}
+              >
+                {tag}
+              </button>
+            );
+          })}
+        </p>
       </div>
       <div className="row">
         <textarea
-          placeholder="Describe your recipe and how you make it delicious"
+          placeholder="Describe your recipe and how to make it delicious"
           rows={4}
           cols={50}
           name="description"

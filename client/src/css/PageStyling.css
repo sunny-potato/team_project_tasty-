@@ -253,6 +253,12 @@ td {
   padding: 0.2rem;
   margin: 0.1rem;
 }
+.Tag {
+  margin: 0;
+}
+.table-ingredients {
+  margin: 1rem;
+}
 
 @media (max-width: 700px) {
 }
