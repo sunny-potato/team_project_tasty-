@@ -5,7 +5,7 @@ import { DisplayOne } from './pages/DisplayOne';
 import { EditRecipes } from './pages/EditRecipes';
 import { Home } from './pages/Home';
 import { Navbar } from './Navbar';
-import './index.css';
+import './css/index.css';
 import { Explore } from './pages/Explore';
 import { ShoppingCart } from './pages/ShoppingCart';
 

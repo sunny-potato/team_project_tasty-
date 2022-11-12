@@ -78,6 +78,7 @@ export function CreateNew() {
 
       Promise.all(
         isMissingIngredientId.map(async (each: Ingredient) => {
+          //@ts-ignore
           const response = await dataService.createIngredient(each.ingredient);
           return { name: each.ingredient, id: response };
         })
@@ -122,14 +123,19 @@ export function CreateNew() {
     <div>
       <h1 className="Page-title">Create new recipe</h1>
       <div className="Content-main">
+        <div className="Input-new"></div>
         <form onSubmit={onSubmit}>
           <InputRecipeInfo recipeInfo={recipeInfo} setRecipeInfo={setRecipeInfo} />
           <InputIngredients ingredients={ingredients} setIngredients={setIngredients} />
-          <div className="btn-group">
-            <button type="submit" style={{ opacity: isLoading ? 0.3 : 1 }}>
+          <div className="Content-second">
+            <button
+              className="Button-navigation"
+              type="submit"
+              style={{ opacity: isLoading ? 0.3 : 1 }}
+            >
               {isLoading ? 'Saving' : 'Save'}
             </button>
-            <button type="button" className="cancelButton" onClick={() => navigate('/')}>
+            <button type="button" className="Button-navigation" onClick={() => navigate('/')}>
               Cancel
             </button>
           </div>

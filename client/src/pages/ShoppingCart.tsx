@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Ingredient } from 'src/DataService';
 import { Link } from 'react-router-dom';
-import './PageStyling.css';
+import '../css/PageStyling.css';
 import { IoMdAddCircleOutline, IoMdRemoveCircleOutline } from 'react-icons/io';
 import { CiSquareRemove } from 'react-icons/ci';
 import { BsPrinter } from 'react-icons/bs';
@@ -29,7 +29,7 @@ export function ShoppingCart() {
   function increaseAmount(id: number) {
     let index: number = cart!.findIndex((e) => e.ingredients_id === id);
 
-    cart![index].amount = parseFloat((cart![index].amount + 0.1).toFixed(1));
+    cart![index].amount = parseFloat((cart![index].amount! + 0.1).toFixed(1));
     setCart(cart);
     setData(!data);
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -40,7 +40,7 @@ export function ShoppingCart() {
   function decreaseAmount(id: number) {
     let index: number = cart!.findIndex((e) => e.ingredients_id === id);
 
-    cart![index].amount = parseFloat((cart![index].amount - 0.1).toFixed(1));
+    cart![index].amount = parseFloat((cart![index].amount! - 0.1).toFixed(1));
     setCart(cart);
     setData(!data);
     localStorage.setItem('cart', JSON.stringify(cart));
