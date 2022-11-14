@@ -115,8 +115,8 @@ describe('Fetching Recipies (GET)', () => {
 });
 
 describe('Create new recipe (POST)', () => {
-  let newRecipe = testRecipe;
-  newRecipe.recipeInfo.name = 'New Recipe';
+  let newRecipe = { data: testRecipe };
+  newRecipe.data.recipeInfo.name = 'New Recipe';
   test('Create one new recipe (200 OK)', (done) => {
     axios.post('/recipe', newRecipe).then((response) => {
       expect(response.status).toEqual(200);
@@ -126,15 +126,15 @@ describe('Create new recipe (POST)', () => {
   });
 
   test('Create new with missing info (400)', (done) => {
-    axios.post('/recipe', newRecipe.ingredients).catch((error) => {
+    axios.post('/recipe', newRecipe.data.ingredients).catch((error) => {
       expect(error.message).toEqual('Request failed with status code 400');
       done();
     });
   });
 
   test('Create new with missing name (400)', (done) => {
-    let missingNameRecipe = newRecipe;
-    missingNameRecipe.recipeInfo.name = '';
+    let missingNameRecipe = {data: testRecipe};
+    missingNameRecipe.data.recipeInfo.name = '';
     axios.post('/recipe', missingNameRecipe).catch((error) => {
       expect(error.message).toEqual('Request failed with status code 400');
       done();
@@ -145,7 +145,7 @@ describe('Create new recipe (POST)', () => {
 describe('Update recipe (PUT)', () => {
   test('Update recipe (200 OK)', (done) => {
     testRecipe.recipeInfo.name = 'Updated recipe name';
-    axios.put('/recipe', testRecipe).then((response) => {
+    axios.put('/recipe', {data: testRecipe}).then((response) => {
       expect(response.status).toEqual(200);
       done();
     });
@@ -179,7 +179,7 @@ describe('Fetching Ingredients (GET)', () => {
 
 describe('Add new ingredient (POST)', () => {
   test('Add new ingredient (200 OK)', (done) => {
-    axios.post('/ingredient', { ingredient: 'new ingredient' }).then((response) => {
+    axios.post('/ingredient', { data: { ingredient: 'new ingredient' } }).then((response) => {
       expect(response.status).toEqual(200);
       expect(response.data).toEqual({ id: 3 });
       done();
@@ -195,10 +195,12 @@ describe('Add new ingredient (POST)', () => {
 
 describe('Update ingredient (PUT)', () => {
   test('Update ingredient (200 OK)', (done) => {
-    axios.put('/ingredient', { id: 1, ingredient: 'updated ingredient' }).then((response) => {
-      expect(response.status).toEqual(200);
-      done();
-    });
+    axios
+      .put('/ingredient', { data: { id: 1, ingredient: 'updated ingredient' } })
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        done();
+      });
   });
   test('Update ingredient with wrong info (400)', (done) => {
     axios

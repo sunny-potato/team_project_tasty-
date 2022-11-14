@@ -1,41 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CreateNew page tests CreateNew page draws correctly 1`] = `
-<div>
-  <div
-    className="Content-main"
-  >
-    <h1
-      className="Content-title"
-    >
-      Create new recipe
-    </h1>
-    <p>
-      Instructions Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur placeat quasi dolor illum? Assumenda magni architecto velit aspernatur consequuntur cupiditate fugit vero tenetur rem perspiciatis exercitationem harum, ratione quas corrupti.
-    </p>
-    <div
-      className="User-input"
-    >
-      <input
-        placeholder="Enter recipe title"
-        type="text"
-        value=""
-      />
-    </div>
-    <div
-      className="User-input"
-    >
-      <textarea
-        cols={50}
-        placeholder="Enter description of recipe"
-        rows={12}
-        value=""
-      />
-    </div>
-  </div>
-</div>
-`;
-
 exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) including data from test recipe 1 1`] = `
 <div>
   <div
@@ -60,8 +24,28 @@ exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) includ
     <h6
       class="Recipe-popular"
     >
-      This item is popular right now!
+      This item is popular
     </h6>
+    <svg
+      class="Icon-print"
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      stroke-width="0"
+      viewBox="0 0 16 16"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title>
+        Print the shopping list
+      </title>
+      <path
+        d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"
+      />
+      <path
+        d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"
+      />
+    </svg>
     <p
       class="Recipe-description>"
     >
@@ -77,6 +61,7 @@ exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) includ
         </label>
         <select
           name="portions"
+          title="Number of portions"
         >
           <option
             value="1"
@@ -257,22 +242,9 @@ exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) includ
           </tr>
         </tbody>
       </table>
-      <a
-        href="/edit/undefined"
-      >
-        <button
-          class="Button-navigation"
-        >
-          Edit recipe
-        </button>
-      </a>
       <button
         class="Button-navigation"
-      >
-        Add to shopping list
-      </button>
-      <button
-        class="Button-navigation"
+        title="Like the recipe"
       >
         <svg
           fill="currentColor"
@@ -288,6 +260,45 @@ exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) includ
           />
         </svg>
       </button>
+      <a
+        href="/edit/1"
+      >
+        <button
+          class="Button-navigation"
+          title="Edit recipe"
+        >
+          Edit recipe
+        </button>
+      </a>
+      <a
+        href="/cart"
+      >
+        <button
+          class="Button-navigation"
+          title="Add recipe to shopping list"
+        >
+          <svg
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+              <path
+                d="M4 6.414L.757 3.172l1.415-1.415L5.414 5h15.242a1 1 0 0 1 .958 1.287l-2.4 8a1 1 0 0 1-.958.713H6v2h11v2H5a1 1 0 0 1-1-1V6.414zM6 7v6h11.512l1.8-6H6zm-.5 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm12 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
+              />
+            </g>
+          </svg>
+           
+        </button>
+      </a>
     </div>
     <div>
       <a
@@ -295,89 +306,12 @@ exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) includ
       >
         <button
           class="Button-navigation"
+          title="Back"
         >
           Back
         </button>
       </a>
     </div>
   </div>
-</div>
-`;
-
-exports[`EditRecipes page tests EditRecipes page draws correctly 1`] = `
-<div>
-  <h1>
-    Site to edit the recipes
-  </h1>
-</div>
-`;
-
-exports[`Explore page tests Explore page draws correctly 1`] = `
-<div
-  className="Content-main"
->
-  <h1>
-    A place to discover new recipes, API or other
-  </h1>
-  <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, perferendis illo nam consectetur adipisci quas quaerat omnis dolore repellendus deserunt, at placeat, laudantium quod? Facilis, nam soluta voluptates modi odio, nostrum deleniti cupiditate molestias debitis iste, error laboriosam? Officia fugit quos officiis voluptatem iure laboriosam perferendis libero sit sapiente impedit.
-  </p>
-</div>
-`;
-
-exports[`Home page tests Home page draws correctly (snapshot) including list of buttons 1`] = `
-<div>
-  <div
-    class="Content-main"
-  >
-    <h1>
-      Welcome to the Tasty
-    </h1>
-    <p>
-      Here you can explore your own recipes by adding new content, editing existing ones and deleting the ones you don't care about anymore.
-    </p>
-    <p>
-      This is also the place to discover more and get inspiration from, we have selected a few to show you from [External API] below.
-    </p>
-    <div
-      class="Content-second"
-    >
-      <ul>
-        <a
-          href="/recipe/1"
-        >
-          <button
-            class="Button-recipe-navigation"
-          >
-            One-Pot Mac and Cheese
-          </button>
-        </a>
-        <a
-          href="/recipe/2"
-        >
-          <button
-            class="Button-recipe-navigation"
-          >
-            Easy Marinated Grilled Flank Steak
-          </button>
-        </a>
-      </ul>
-      <div
-        class="Content-second"
-      >
-        <h5>
-          [Place for external API recipes here]
-        </h5>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`ShoppingCart page tests ShoppingCart page draws correctly 1`] = `
-<div>
-  <h1>
-    This is your shopping cart to be....
-  </h1>
 </div>
 `;
