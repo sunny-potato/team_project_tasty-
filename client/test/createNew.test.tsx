@@ -57,7 +57,7 @@ describe('CreateNew page tests', () => {
     let dinnerButton = container.querySelector('button');
     expect(dinnerButton.style.backgroundColor).toEqual('white');
     fireEvent.click(dinnerButton);
-    expect(dinnerButton.style.backgroundColor).toEqual('lightblue');
+    expect(dinnerButton.style.backgroundColor).toEqual('rgb(41, 211, 118)');
 
     // write desctiption, and check that value gets updated
     let desctiption = container.querySelector("textarea[name='description']");

@@ -51,7 +51,9 @@ describe('DisplayOne page tests', () => {
     });
 
     // get hold of the current amount on ingredient 1
-    let amount1 = container.querySelector('div table td')?.innerHTML.substring(0, 3);
+    let amount1 = container.querySelector('div table td')?.innerHTML;
+    let indexOfAND = amount1.indexOf('&');
+    amount1 = amount1.substring(0, indexOfAND);
     expect(amount1).toBe('1.5');
 
     // get hold of selector
@@ -61,8 +63,10 @@ describe('DisplayOne page tests', () => {
     fireEvent.change(selector, { target: { value: 6 } });
 
     // update and check new amount on ingredient 1
-    amount1 = container.querySelector('div table td')?.innerHTML.substring(0, 3);
-    expect(amount1).toBe('2.3');
+    amount1 = container.querySelector('div table td')?.innerHTML;
+    indexOfAND = amount1.indexOf('&');
+    amount1 = amount1.substring(0, indexOfAND);
+    expect(amount1).toBe('2.25');
   });
 
   test('Like recipe', async () => {

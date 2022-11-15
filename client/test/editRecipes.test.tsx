@@ -57,12 +57,12 @@ describe('EditRecipes page tests', () => {
     expect(name.value).toEqual('Mac and Cheese');
 
     // select meal type 'lunch' (second button) and check type changed
-    let tagButtons = container.querySelectorAll('div.recipe-tag div button');
-    expect(tagButtons[0].style.backgroundColor).toEqual('lightblue');
+    let tagButtons = container.querySelectorAll('div.row button');
+    expect(tagButtons[0].style.backgroundColor).toEqual('rgb(41, 211, 118)');
     expect(tagButtons[1].style.backgroundColor).toEqual('white');
     fireEvent.click(tagButtons[1]);
     expect(tagButtons[0].style.backgroundColor).toEqual('white');
-    expect(tagButtons[1].style.backgroundColor).toEqual('lightblue');
+    expect(tagButtons[1].style.backgroundColor).toEqual('rgb(41, 211, 118)');
 
     // update desctiption, and check that value gets updated
     let desctiption = container.querySelector("textarea[name='description']");

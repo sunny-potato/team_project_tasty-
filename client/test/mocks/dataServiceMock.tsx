@@ -156,7 +156,7 @@ jest.mock('../../src/DataService', () => {
         { id: 1, unit: '' },
         { id: 2, unit: 'cup' },
         { id: 3, unit: 'package' },
-        { id: 3, unit: 'ounce' },
+        { id: 4, unit: 'ounce' },
       ]);
     }
 
