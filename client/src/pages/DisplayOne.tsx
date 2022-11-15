@@ -4,12 +4,14 @@ import dataService, { Recipe, Ingredient, RecipeInfo } from '../DataService';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { BsHandThumbsUp, BsHandThumbsUpFill, BsPrinter } from 'react-icons/bs';
 import { RiShoppingCart2Line } from 'react-icons/ri';
+import { calculateAmounts } from '../components/ChangePortions';
 
 export function DisplayOne() {
   const [recipe, setRecipe] = useState<Recipe>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
   const [liked, setliked] = useState<Element | any>();
   const [list, setList] = useState<Ingredient[]>([]);
+  const [currentPortions, setCurrentPortions] = useState<number>(4);
 
   //To get navigation by page and id
   const params = useParams();
@@ -50,16 +52,13 @@ export function DisplayOne() {
   }, []);
 
   // Updates ingredients according to value chosen by user
-  function changePortions(portions: number) {
-    let newAmounts: Ingredient[];
-    let defaultAmounts: Ingredient[] = recipe!.ingredients;
+  const changePortions = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newPortions = Number(event.target.value);
+    const changedAmounts = calculateAmounts(ingredients!, currentPortions, newPortions);
+    setCurrentPortions(newPortions);
+    setIngredients(changedAmounts);
+  };
 
-    newAmounts = defaultAmounts?.map((i) => ({
-      ...i,
-      amount: parseFloat(((i.amount! / 4) * portions).toFixed(1)),
-    }));
-    setIngredients(newAmounts);
-  }
   // useEffect to load contents of cart on load
   useEffect(() => {
     const cartMemory = JSON.parse(localStorage.getItem('cart')!);
@@ -125,19 +124,40 @@ export function DisplayOne() {
           <select
             title="Number of portions"
             name="portions"
-            defaultValue={4}
-            onChange={(e) => changePortions(parseInt(e.currentTarget.value))}
+            value={currentPortions}
+            onChange={changePortions}
           >
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
-            <option value={6}>6</option>
-            <option value={7}>7</option>
-            <option value={8}>8</option>
-            <option value={9}>9</option>
-            <option value={10}>10</option>
+            {/* // to remove warning message for missing key, use key here. */}
+            <option key={1} value={1}>
+              1
+            </option>
+            <option key={2} value={2}>
+              2
+            </option>
+            <option key={3} value={3}>
+              3
+            </option>
+            <option key={4} value={4}>
+              4
+            </option>
+            <option key={5} value={5}>
+              5
+            </option>
+            <option key={6} value={6}>
+              6
+            </option>
+            <option key={7} value={7}>
+              7
+            </option>
+            <option key={8} value={8}>
+              8
+            </option>
+            <option key={9} value={9}>
+              9
+            </option>
+            <option key={10} value={10}>
+              10
+            </option>
           </select>
         </div>
         <table className="Ingredients-main">
@@ -146,8 +166,9 @@ export function DisplayOne() {
               <th className="Ingredients-header">Ingredients:</th>
               <th></th>
             </tr>
-            {ingredients?.map((content) => (
-              <tr className="Ingredients-row" key={content.ingredients_id}>
+            {ingredients?.map((content, index) => (
+              // to remove warning message for same key, use index as key here.
+              <tr className="Ingredients-row" key={index}>
                 <td className="Ingredients-cell">
                   {content.amount}&nbsp;{content.unit}
                 </td>

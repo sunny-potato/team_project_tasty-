@@ -7,7 +7,6 @@ type Props = {
 };
 
 const InputRecipeInfo = (props: Props) => {
-  // temporarily use tagList -> later get tagsList from the database
   let tagsList: string[] = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert'];
   const [activeTag, setActiveTag] = useState('');
 

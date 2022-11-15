@@ -9,7 +9,6 @@ export function Home() {
   const [allRecipes, setallRecipes] = useState<[]>();
   useEffect(() => {
     dataService.getAll().then((data) => {
-      console.log(data);
       setallRecipes(data);
     });
   }, []);

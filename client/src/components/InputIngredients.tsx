@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dataService, { EachUnit, Ingredient } from '../DataService';
 import SearchIngredient, { SelectedOneInfo } from './SearchIngredient';
+import { calculateAmounts } from './ChangePortions';
 
 const initialIngredient: Ingredient = {
   ingredients_id: undefined!,
@@ -25,6 +26,7 @@ const createOptions = () => {
 type Props = {
   ingredients: Ingredient[];
   setIngredients: (param: Ingredient[]) => void;
+  portionsInfo: (param: number) => void;
 };
 
 const InputIngredients = (props: Props) => {
@@ -32,6 +34,7 @@ const InputIngredients = (props: Props) => {
   const [activeRow, setActiveRow] = useState<number>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [currentPortions, setCurrentPortions] = useState<number>(4);
 
   const getUnitsList = () => {
     dataService
@@ -95,7 +98,7 @@ const InputIngredients = (props: Props) => {
           step="any"
           value={ingredient.amount || 0}
           onChange={(event) => {
-            onChangeAmount(event, index);
+            handleOnchange(event, index);
           }}
           autoComplete="off"
         />
@@ -112,7 +115,7 @@ const InputIngredients = (props: Props) => {
             value={ingredient.unit}
             onChange={(event) => {
               const matchedId = findMachedId(event);
-              onChangeUnit(event, index, matchedId);
+              handleOnchange(event, index, matchedId);
             }}
             autoComplete="off"
           >
@@ -135,7 +138,7 @@ const InputIngredients = (props: Props) => {
             value={ingredient.unit}
             onChange={(event) => {
               const matchedId = findMachedId(event);
-              onChangeUnit(event, index, matchedId);
+              handleOnchange(event, index, matchedId);
             }}
             autoComplete="off"
           >
@@ -165,28 +168,29 @@ const InputIngredients = (props: Props) => {
             setActiveRow(index);
             setIsVisible(true);
             setSearchKeyword(event.target.value);
-            onChangeIngredient(event, index);
+            handleOnchange(event, index);
           }}
         />
       </div>
     );
   };
 
-  const onChangeAmount = (event: any, index: number) => {
-    let { name, value } = event.target;
-    updateIngredients(name, value, index);
+  const changePortions = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newPortions = Number(event.target.value);
+    const changedAmounts = calculateAmounts(props.ingredients, currentPortions, newPortions);
+    props.setIngredients(changedAmounts);
+    setCurrentPortions(newPortions);
+    props.portionsInfo(newPortions);
   };
 
-  const onChangeUnit = (event: any, index: number, matchedId: number) => {
+  const handleOnchange = (event: any, index: number, matchedId?: number) => {
     let { name, value } = event.target;
-    const id = matchedId;
-    updateIngredients(name, value, index as number, id);
-  };
-
-  const onChangeIngredient = (event: any, index: number, matchedId?: number) => {
-    let { name, value } = event.target;
-    const id = matchedId;
-    updateIngredients(name, value, index as number, id);
+    if (name == 'amount') {
+      return updateIngredients(name, Number(value), index);
+    } else {
+      const id = matchedId;
+      return updateIngredients(name, value, index as number, id);
+    }
   };
 
   const addIngredient = () => {
@@ -207,7 +211,7 @@ const InputIngredients = (props: Props) => {
       <div className="row">
         <label className="content-portions">
           Number of portions :{' '}
-          <select name="portions" defaultValue={4}>
+          <select name="portions" value={currentPortions} onChange={changePortions}>
             {createOptions()}
           </select>
         </label>
