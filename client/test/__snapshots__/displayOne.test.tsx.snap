@@ -79,7 +79,6 @@ exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) includ
             3
           </option>
           <option
-            selected=""
             value="4"
           >
             4

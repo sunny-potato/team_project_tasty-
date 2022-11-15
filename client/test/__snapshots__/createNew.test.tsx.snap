@@ -11,138 +11,152 @@ exports[`CreateNew page tests Create new, page draws correctly (snapshot) 1`] = 
     <div
       class="Content-main"
     >
+      <div
+        class="Input-new"
+      />
       <form>
         <div
-          class="Content-recipeinfo"
+          class="Content-input-container"
         >
-          <label
-            class="recipe-name"
-          >
-             Name : 
-          </label>
-          <input
-            autocomplete="off"
-            name="name"
-            required=""
-            type="text"
-            value=""
-          />
           <div
-            class="recipe-tag"
+            class="row"
           >
-            <div>
-              <span>
-                Tag :
-              </span>
+            <input
+              autocomplete="off"
+              name="name"
+              placeholder="Name of the recipe"
+              required=""
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            class="row"
+          >
+            <p
+              class="Tag"
+            >
+              Choose a tag
+            </p>
+            <p
+              class="Tag"
+            >
               <button
-                style="background-color: white;"
+                class="Button-select-option"
+                style="background-color: white; color: black; border: 1px solid lightgrey;"
                 type="button"
               >
                 Dinner
               </button>
               <button
-                style="background-color: white;"
+                class="Button-select-option"
+                style="background-color: white; color: black; border: 1px solid lightgrey;"
                 type="button"
               >
                 Lunch
               </button>
               <button
-                style="background-color: white;"
+                class="Button-select-option"
+                style="background-color: white; color: black; border: 1px solid lightgrey;"
                 type="button"
               >
                 Breakfast
               </button>
               <button
-                style="background-color: white;"
+                class="Button-select-option"
+                style="background-color: white; color: black; border: 1px solid lightgrey;"
                 type="button"
               >
                 Snack
               </button>
               <button
-                style="background-color: white;"
+                class="Button-select-option"
+                style="background-color: white; color: black; border: 1px solid lightgrey;"
                 type="button"
               >
                 Dessert
               </button>
-            </div>
+            </p>
           </div>
-          <label
-            class="recipe-description"
+          <div
+            class="row"
           >
-            Description :
-             
             <textarea
               autocomplete="off"
               cols="50"
               name="description"
+              placeholder="Describe your recipe and how to make it delicious"
               rows="4"
             />
-          </label>
+          </div>
         </div>
         <div>
-          <label
-            class="content-portions"
-          >
-            Number of portions :
-             
-            <select
-              name="portions"
-            >
-              <option
-                value="1"
-              >
-                1
-              </option>
-              <option
-                value="2"
-              >
-                2
-              </option>
-              <option
-                value="3"
-              >
-                3
-              </option>
-              <option
-                selected=""
-                value="4"
-              >
-                4
-              </option>
-              <option
-                value="5"
-              >
-                5
-              </option>
-              <option
-                value="6"
-              >
-                6
-              </option>
-              <option
-                value="7"
-              >
-                7
-              </option>
-              <option
-                value="8"
-              >
-                8
-              </option>
-              <option
-                value="9"
-              >
-                9
-              </option>
-              <option
-                value="10"
-              >
-                10
-              </option>
-            </select>
-          </label>
           <div
-            class="content-ingredients"
+            class="row"
+          >
+            <label
+              class="content-portions"
+            >
+              Number of portions :
+               
+              <select
+                name="portions"
+              >
+                <option
+                  value="1"
+                >
+                  1
+                </option>
+                <option
+                  value="2"
+                >
+                  2
+                </option>
+                <option
+                  value="3"
+                >
+                  3
+                </option>
+                <option
+                  value="4"
+                >
+                  4
+                </option>
+                <option
+                  value="5"
+                >
+                  5
+                </option>
+                <option
+                  value="6"
+                >
+                  6
+                </option>
+                <option
+                  value="7"
+                >
+                  7
+                </option>
+                <option
+                  value="8"
+                >
+                  8
+                </option>
+                <option
+                  value="9"
+                >
+                  9
+                </option>
+                <option
+                  value="10"
+                >
+                  10
+                </option>
+              </select>
+            </label>
+          </div>
+          <div
+            class="row"
           >
             <table
               class="table-ingredients"
@@ -158,6 +172,7 @@ exports[`CreateNew page tests Create new, page draws correctly (snapshot) 1`] = 
                   </th>
                   <th>
                     <button
+                      class="Button-choice-add"
                       type="button"
                     >
                       + Add
@@ -181,7 +196,9 @@ exports[`CreateNew page tests Create new, page draws correctly (snapshot) 1`] = 
                 <tr
                   class="table-contentRow"
                 >
-                  <td>
+                  <td
+                    class="Table-amount"
+                  >
                     <div>
                       <input
                         autocomplete="off"
@@ -238,6 +255,7 @@ exports[`CreateNew page tests Create new, page draws correctly (snapshot) 1`] = 
                   </td>
                   <td>
                     <button
+                      class="Button-choice-delete"
                       type="button"
                     >
                       Delete
@@ -249,16 +267,17 @@ exports[`CreateNew page tests Create new, page draws correctly (snapshot) 1`] = 
           </div>
         </div>
         <div
-          class="btn-group"
+          class="Content-second"
         >
           <button
+            class="Button-navigation"
             style="opacity: 1;"
             type="submit"
           >
             Save
           </button>
           <button
-            class="cancelButton"
+            class="Button-navigation"
             type="button"
           >
             Cancel
