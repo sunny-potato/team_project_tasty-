@@ -1,19 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Explore page tests Explore page draws correctly 1`] = `
-<div
-  className="Content-main"
->
-  <h1>
-    Explore new recipes
-  </h1>
-  <p>
-    This is the place to gather new inspiration for your next adventure in the kitchen!
-  </p>
+<div>
   <div
-    className="Content-second"
+    class="Content-main"
   >
-     
+    <h1>
+      Explore new recipes
+    </h1>
+    <p>
+      This is the place to gather new inspiration for your next adventure in the kitchen!
+    </p>
+    <div
+      class="Content-second"
+    >
+       
+      <div
+        class="Picture-link"
+      >
+        <div>
+          <a
+            href="/recipe/715378"
+          >
+            <img
+              src="https://spoonacular.com/recipeImages/715378-556x370.jpg"
+              title="Strawberry and Nutella Cobbler"
+            />
+          </a>
+        </div>
+        <div
+          class="Picture-link-text"
+        >
+          Strawberry and Nutella Cobbler
+        </div>
+      </div>
+      <div
+        class="Picture-link"
+      >
+        <div>
+          <a
+            href="/recipe/652819"
+          >
+            <img
+              src="https://spoonacular.com/recipeImages/652819-556x370.jpg"
+              title="My "Secret" Bolognese Sauce"
+            />
+          </a>
+        </div>
+        <div
+          class="Picture-link-text"
+        >
+          My "Secret" Bolognese Sauce
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
