@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import dataService, { RecipeInfo, Ingredient, Recipe } from '../DataService';
 import InputRecipeInfo from '../components/InputRecipeInfo';
 import InputIngredients from '../components/InputIngredients';
+import { calculateAmounts } from '../components/ChangePortions';
 
 const initialRecipeInfo: RecipeInfo = {
   id: undefined!,
@@ -26,30 +27,9 @@ export function CreateNew() {
   const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>(initialRecipeInfo);
   const [ingredients, setIngredients] = useState<Ingredient[]>([initialIngredient]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [portionsInfo, setPortionsInfo] = useState<number>(4);
 
-  const validateData = () => {
-    const validateIngredients = () => {
-      // validate data which are added but onchanged (=default value)
-      ingredients.map((ingredient: Ingredient) => {
-        if (ingredient.amount === 0) {
-          ingredient.amount = null;
-        }
-        if (ingredient.unit_id === 0 || ingredient.unit === 'initalUnit') {
-          ingredient.unit_id = 1;
-          ingredient.unit = '';
-        }
-      });
-    };
-    validateIngredients();
-
-    //*********************//
-    // if meal_type or description is required, validateRecipeInfo will be added!!!!!!
-    // otherwise let's just say that isValid is true!
-    //*********************//
-    return true;
-  };
-
-  const saveEditedData = () => {
+  const saveEditedData = (defaultIngredients: Ingredient[]) => {
     const sendPutRequest = (newRecipe: Recipe) => {
       dataService
         .create(newRecipe)
@@ -60,20 +40,20 @@ export function CreateNew() {
         .catch((error) => console.log(error));
     };
 
-    const isMissingIngredientId = ingredients.filter((ingredient: Ingredient) => {
+    const isMissingIngredientId = defaultIngredients.filter((ingredient: Ingredient) => {
       if (ingredient.ingredients_id === undefined) return ingredient;
     });
 
     if (isMissingIngredientId.length > 0) {
       const updateNewId = (newIdList: any) => {
         newIdList.map((newId: any) => {
-          ingredients.map((each) => {
+          defaultIngredients.map((each) => {
             if (newId.name == each.ingredient) {
               each.ingredients_id = newId.id;
             }
           });
         });
-        return ingredients;
+        return defaultIngredients;
       };
 
       Promise.all(
@@ -84,10 +64,10 @@ export function CreateNew() {
         })
       )
         .then((result) => {
-          const newIngredients = updateNewId(result);
+          const validIngredients = updateNewId(result);
           const editedRecipe: Recipe = {
             ['recipeInfo']: recipeInfo,
-            ['ingredients']: newIngredients,
+            ['ingredients']: validIngredients,
           };
           sendPutRequest(editedRecipe);
         })
@@ -95,7 +75,7 @@ export function CreateNew() {
     } else {
       const editedRecipe: Recipe = {
         ['recipeInfo']: recipeInfo,
-        ['ingredients']: ingredients,
+        ['ingredients']: defaultIngredients,
       };
       sendPutRequest(editedRecipe);
     }
@@ -103,18 +83,23 @@ export function CreateNew() {
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    //*********************//
-    // changeDataBackTo4Portions(); -> Here will be "change of poritons"
     if (!isLoading) {
       setIsLoading(true);
-      const isValid = validateData(); // current condition is always true
-      if (isValid) {
-        saveEditedData();
-      }
-    } else {
-      alert('something wrong');
-      //*********************//
-      //here will be added if meal_type or description is required
+
+      // make ingredients with defaultAmounts(=4 portions)
+      const defaultIngredients = calculateAmounts(ingredients, portionsInfo);
+
+      // manipulate data of ingredients to be valid in the database
+      defaultIngredients.map((ingredient: Ingredient) => {
+        if (ingredient.amount === 0) {
+          ingredient.amount = null;
+        }
+        if (ingredient.unit_id === 0 || ingredient.unit === 'initalUnit') {
+          ingredient.unit_id = 1;
+          ingredient.unit = '';
+        }
+      });
+      saveEditedData(defaultIngredients);
     }
     setIsLoading(false);
   };
@@ -126,7 +111,11 @@ export function CreateNew() {
         <div className="Input-new"></div>
         <form onSubmit={onSubmit}>
           <InputRecipeInfo recipeInfo={recipeInfo} setRecipeInfo={setRecipeInfo} />
-          <InputIngredients ingredients={ingredients} setIngredients={setIngredients} />
+          <InputIngredients
+            ingredients={ingredients}
+            setIngredients={setIngredients}
+            portionsInfo={(currentPortions: number) => setPortionsInfo(currentPortions)}
+          />
           <div className="Content-second">
             <button
               className="Button-navigation"

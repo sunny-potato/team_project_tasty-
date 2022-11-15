@@ -1,5 +1,5 @@
 import express, { response } from 'express';
-import recipeService, {Ingredient} from './recipe-service';
+import recipeService, { Ingredient } from './recipe-service';
 import externalService from './external-service';
 
 // Express router containing recipe methods:
@@ -44,7 +44,6 @@ router.get('/recipe', (request, response) => {
    Ex. response body: { id: 6 }*/
 router.post('/recipe', (request, response) => {
   const data = request.body.data;
-  console.log('express', data);
   if (!(data && data.recipeInfo && data.ingredients))
     response.status(400).send('Recipe info or ingredients list is missing');
   else if (!(data.recipeInfo.name && data.recipeInfo.name.length != 0))
@@ -66,7 +65,7 @@ router.post('/recipe', (request, response) => {
 // update given recipe
 router.put('/recipe', (request, response) => {
   const data = request.body.data;
-  if (!(data && data.recipeInfo && data.ingredients ))
+  if (!(data && data.recipeInfo && data.ingredients))
     response.status(400).send('Recipe info or ingredients list is missing');
   else if (!(data.recipeInfo.id && typeof data.recipeInfo.id == 'number'))
     response.status(400).send('Recipe id is missing');
@@ -106,7 +105,7 @@ router.get('/ingredient', (request, response) => {
 // ex. request body: { ingredient : "New ingredient" }
 // ex. response body: { id : 26 }
 router.post('/ingredient', (request, response) => {
-  const data = request.body.data;
+  const data = request.body;
   if (data && data.ingredient && data.ingredient.length != 0)
     recipeService
       .createIngredient(data.ingredient)

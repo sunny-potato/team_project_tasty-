@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import dataService, { RecipeInfo, Ingredient, Recipe } from '../DataService';
 import InputRecipeInfo from '../components/InputRecipeInfo';
 import InputIngredients from '../components/InputIngredients';
+import { calculateAmounts } from '../components/ChangePortions';
 
 export function EditRecipes() {
   const navigate = useNavigate();
@@ -10,6 +11,9 @@ export function EditRecipes() {
   const [recipeInfo, setRecipeInfo] = useState<RecipeInfo>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [portionsInfo, setPortionsInfo] = useState<number>(4);
+
+  console.log(ingredients);
 
   const getData = () => {
     dataService
@@ -17,8 +21,6 @@ export function EditRecipes() {
       .then((response) => {
         setRecipeInfo(response.recipeInfo);
         setIngredients(response.ingredients);
-        //*********************//
-        // const changedRecipeInfo = changeRecipeInfo(response.recipeInfo); -> Here will be "change of poritons"
       })
       .catch((error) => console.log(error));
   };
@@ -31,29 +33,7 @@ export function EditRecipes() {
     return <div>Loading...</div>;
   }
 
-  const validateData = () => {
-    const validateIngredients = () => {
-      // validate data which are added but onchanged (=default value)
-      ingredients.map((ingredient: Ingredient) => {
-        if (ingredient.amount === 0) {
-          ingredient.amount = null;
-        }
-        if (ingredient.unit_id === 0 || ingredient.unit === 'initalUnit') {
-          ingredient.unit_id = 1;
-          ingredient.unit = '';
-        }
-      });
-    };
-    validateIngredients();
-
-    //*********************//
-    // if meal_type or description is required, validateRecipeInfo will be added!!!!!!
-    // otherwise let's just say that isValid is true!
-    //*********************//
-    return true;
-  };
-
-  const saveEditedData = () => {
+  const saveEditedData = (defaultIngredients: Ingredient[]) => {
     const sendPutRequest = (newRecipe: Recipe) => {
       dataService
         .edit(newRecipe)
@@ -64,22 +44,21 @@ export function EditRecipes() {
         .catch((error) => console.log(error));
     };
 
-    const isMissingIngredientId = ingredients.filter((ingredient: Ingredient) => {
+    const isMissingIngredientId = defaultIngredients.filter((ingredient: Ingredient) => {
       if (ingredient.ingredients_id === undefined) return ingredient;
     });
 
     if (isMissingIngredientId.length > 0) {
       const updateNewId = (newIdList: any) => {
         newIdList.map((newId: any) => {
-          ingredients.map((each) => {
+          defaultIngredients.map((each) => {
             if (newId.name == each.ingredient) {
               each.ingredients_id = newId.id;
             }
           });
         });
-        return ingredients;
+        return defaultIngredients;
       };
-
       Promise.all(
         isMissingIngredientId.map(async (each: Ingredient) => {
           //@ts-ignore
@@ -88,10 +67,10 @@ export function EditRecipes() {
         })
       )
         .then((result) => {
-          const newIngredients = updateNewId(result);
+          const validIngredients = updateNewId(result);
           const editedRecipe: Recipe = {
             ['recipeInfo']: recipeInfo,
-            ['ingredients']: newIngredients,
+            ['ingredients']: validIngredients,
           };
           sendPutRequest(editedRecipe);
         })
@@ -99,7 +78,7 @@ export function EditRecipes() {
     } else {
       const editedRecipe: Recipe = {
         ['recipeInfo']: recipeInfo,
-        ['ingredients']: ingredients,
+        ['ingredients']: defaultIngredients,
       };
       sendPutRequest(editedRecipe);
     }
@@ -107,19 +86,23 @@ export function EditRecipes() {
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    //*********************//
-    // changeDataBackTo4Portions(); -> Here will be "change of poritons"
-
     if (!isLoading) {
       setIsLoading(true);
-      const isValid = validateData(); // current condition is always true
-      if (isValid) {
-        saveEditedData();
-      }
-    } else {
-      alert('something wrong');
-      //*********************//
-      //here will be added f meal_type or description is required
+
+      // make ingredients with defaultAmounts(=4 portions)
+      const defaultIngredients = calculateAmounts(ingredients, portionsInfo);
+
+      // manipulate data of ingredients to be valid in the database
+      defaultIngredients.map((ingredient: Ingredient) => {
+        if (ingredient.amount === 0) {
+          ingredient.amount = null;
+        }
+        if (ingredient.unit_id === 0 || ingredient.unit === 'initalUnit') {
+          ingredient.unit_id = 1;
+          ingredient.unit = '';
+        }
+      });
+      saveEditedData(defaultIngredients);
     }
     setIsLoading(false);
   };
@@ -128,8 +111,8 @@ export function EditRecipes() {
     dataService
       .delete(id)
       .then(() => {
-        alert('The recipe has been deleted!');
-        navigate('/');
+        alert('The recipe deleted');
+        navigate(-2);
       })
       .catch((error) => console.log(error));
   };
@@ -139,7 +122,11 @@ export function EditRecipes() {
       <div className="Content-main">
         <form onSubmit={onSubmit}>
           <InputRecipeInfo recipeInfo={recipeInfo} setRecipeInfo={setRecipeInfo} />
-          <InputIngredients ingredients={ingredients} setIngredients={setIngredients} />
+          <InputIngredients
+            ingredients={ingredients}
+            setIngredients={setIngredients}
+            portionsInfo={(currentPortions: number) => setPortionsInfo(currentPortions)}
+          />
           <div className="btn-group">
             <button
               className="Button-navigation"
