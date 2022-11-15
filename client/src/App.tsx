@@ -4,7 +4,7 @@ import { CreateNew } from './pages/CreateNew';
 import { DisplayOne } from './pages/DisplayOne';
 import { EditRecipes } from './pages/EditRecipes';
 import { Home } from './pages/Home';
-import { Navbar } from './Navbar';
+import { Navbar } from './components/Navbar';
 import './css/index.css';
 import { Explore } from './pages/Explore';
 import { ShoppingCart } from './pages/ShoppingCart';
