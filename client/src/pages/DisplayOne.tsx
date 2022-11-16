@@ -54,7 +54,11 @@ export function DisplayOne() {
   // Updates ingredients according to value chosen by user
   const changePortions = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newPortions = Number(event.target.value);
-    const changedAmounts = calculateAmounts(ingredients!, currentPortions, newPortions);
+    const changedAmounts: Ingredient[] | any = calculateAmounts(
+      ingredients!,
+      currentPortions,
+      newPortions
+    );
     setCurrentPortions(newPortions);
     setIngredients(changedAmounts);
   };

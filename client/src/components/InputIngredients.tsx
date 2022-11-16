@@ -119,7 +119,7 @@ const InputIngredients = (props: Props) => {
             }}
             autoComplete="off"
           >
-            {<option value={''}>--option--</option>}
+            {<option value={''}>select</option>}
             {unitsList.map((unit) => {
               return (
                 <option key={unit.id} value={unit.unit}>
@@ -159,6 +159,7 @@ const InputIngredients = (props: Props) => {
     return (
       <div>
         <input
+          placeholder="Ingredient"
           type="text"
           name="ingredient"
           value={ingredient.ingredient || ''}
@@ -177,7 +178,11 @@ const InputIngredients = (props: Props) => {
 
   const changePortions = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newPortions = Number(event.target.value);
-    const changedAmounts = calculateAmounts(props.ingredients, currentPortions, newPortions);
+    const changedAmounts: Ingredient[] | any = calculateAmounts(
+      props.ingredients,
+      currentPortions,
+      newPortions
+    );
     props.setIngredients(changedAmounts);
     setCurrentPortions(newPortions);
     props.portionsInfo(newPortions);

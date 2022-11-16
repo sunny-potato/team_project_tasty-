@@ -4,38 +4,25 @@ import '../css/index.css';
 import { RiShoppingCart2Line } from 'react-icons/ri';
 
 export function Navbar() {
-  const [cartEmpty, setcartEmpty] = useState<boolean>();
   const [state, setState] = useState<boolean>();
   const [amount, setamount] = useState<number>();
 
   //Listen for changes in cart/localstorage and update notification on Navbar
-  document.addEventListener(
-    'storage',
-    () => {
-      const cartMemory: [] = JSON.parse(localStorage.getItem('cart')!);
+  document.addEventListener('storage', () => {
+    setState(!state);
+  });
 
-      if (cartMemory.length >= 1) {
-        setcartEmpty(false);
-        setamount(cartMemory.length);
-      } else {
-        setcartEmpty(true);
-      }
-    },
-    false
-  );
-  //Update navbar and amount in the cart
+  // Update amount of shopping list on change and initial load
   useEffect(() => {
     const cartMemory: [] = JSON.parse(localStorage.getItem('cart')!);
 
-    if (cartMemory && cartMemory.length > 1) {
-      setcartEmpty(false);
+    if (cartMemory.length >= 1) {
+      setState(true);
+      setamount(cartMemory.length);
     } else {
-      setcartEmpty(true);
+      setState(false);
     }
-  }, []);
-  useEffect(() => {
-    setState(!cartEmpty);
-  }, [cartEmpty]);
+  }, [state]);
 
   return (
     <nav className="NavMain">
@@ -63,7 +50,7 @@ export function Navbar() {
             {state ? (
               <div className="Cart-shopping-list">
                 <RiShoppingCart2Line className="Shopping-cart" title="Shopping list" />
-                <div className="Cart-notification">{amount}</div>
+                <div className="Cart-notification">{amount! > 0 ? amount : ''}</div>
               </div>
             ) : (
               <RiShoppingCart2Line className="Shopping-cart" title="Your shopping list is empty" />
