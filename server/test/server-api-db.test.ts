@@ -133,7 +133,7 @@ describe('Create new recipe (POST)', () => {
   });
 
   test('Create new with missing name (400)', (done) => {
-    let missingNameRecipe = {data: testRecipe};
+    let missingNameRecipe = { data: testRecipe };
     missingNameRecipe.data.recipeInfo.name = '';
     axios.post('/recipe', missingNameRecipe).catch((error) => {
       expect(error.message).toEqual('Request failed with status code 400');
@@ -145,7 +145,7 @@ describe('Create new recipe (POST)', () => {
 describe('Update recipe (PUT)', () => {
   test('Update recipe (200 OK)', (done) => {
     testRecipe.recipeInfo.name = 'Updated recipe name';
-    axios.put('/recipe', {data: testRecipe}).then((response) => {
+    axios.put('/recipe', { data: testRecipe }).then((response) => {
       expect(response.status).toEqual(200);
       done();
     });
@@ -179,7 +179,7 @@ describe('Fetching Ingredients (GET)', () => {
 
 describe('Add new ingredient (POST)', () => {
   test('Add new ingredient (200 OK)', (done) => {
-    axios.post('/ingredient', { data: { ingredient: 'new ingredient' } }).then((response) => {
+    axios.post('/ingredient', { ingredient: 'new ingredient' }).then((response) => {
       expect(response.status).toEqual(200);
       expect(response.data).toEqual({ id: 3 });
       done();

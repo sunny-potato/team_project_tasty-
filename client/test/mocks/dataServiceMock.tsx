@@ -156,7 +156,7 @@ jest.mock('../../src/DataService', () => {
         { id: 1, unit: '' },
         { id: 2, unit: 'cup' },
         { id: 3, unit: 'package' },
-        { id: 3, unit: 'ounce' },
+        { id: 4, unit: 'ounce' },
       ]);
     }
 
@@ -174,7 +174,32 @@ jest.mock('../../src/DataService', () => {
     
     //get data to Explore
     apiExploreData(data: any) {
-      return Promise.resolve();
+      return Promise.resolve([
+        {recipeInfo: {
+          id: 715378,
+          image: 'https://spoonacular.com/recipeImages/715378-556x370.jpg',
+          meal_type: ['lacto ovo vegetarian'],
+          name: 'Strawberry and Nutella Cobbler',
+          new: false,
+          popular: true,
+          servings: 3,
+        }, ingredients: [
+          {ingredients_id: 18371, ingredient: 'baking power', amount: 1.5, unit_id: 1, unit: 'tsps'},
+          {ingredients_id: 20027, ingredient: 'cornstarch', amount: 2, unit_id: 1, unit: 'Tbsps'}
+        ]},
+        {recipeInfo: {
+          id: 652819,
+          image: 'https://spoonacular.com/recipeImages/652819-556x370.jpg',
+          meal_type: ['gluten free', 'daire free'],
+          name: "My \"Secret\" Bolognese Sauce",
+          new: false,
+          popular: false,
+          servings: 12,
+        }, ingredients: [
+          {ingredients_id: 4053, ingredient: 'olive oil', amount: 2, unit_id: 1, unit: 'Tbsps'},
+          {ingredients_id: 17142, ingredient: 'ground veal', amount: 1, unit_id: 1, unit: 'lb'}
+        ]}
+      ]);
     }
     
     //get data to Home
