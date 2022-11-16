@@ -259,8 +259,20 @@ td {
 .table-ingredients {
   margin: 1rem;
 }
-
+.Input-search {
+  max-width: 40%;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.363);
+  margin-bottom: 1rem;
+}
+::placeholder {
+  text-align: center;
+}
 @media (max-width: 700px) {
+  .Input-search {
+    max-width: 100%;
+  }
 }
 @media (max-width: 550px) {
   .Content-input-container {

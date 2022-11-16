@@ -87,10 +87,10 @@ export function CreateNew() {
       setIsLoading(true);
 
       // make ingredients with defaultAmounts(=4 portions)
-      const defaultIngredients = calculateAmounts(ingredients, portionsInfo);
+      const defaultIngredients: Ingredient[] | any = calculateAmounts(ingredients, portionsInfo);
 
       // manipulate data of ingredients to be valid in the database
-      defaultIngredients.map((ingredient: Ingredient) => {
+      defaultIngredients.map((ingredient: Ingredient | any) => {
         if (ingredient.amount === 0) {
           ingredient.amount = null;
         }

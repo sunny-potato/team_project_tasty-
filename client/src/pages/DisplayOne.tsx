@@ -26,7 +26,7 @@ export function DisplayOne() {
     dataService
       .getAll()
       .then((data) => {
-        data.map((e: any) => idCheck.push(e.id));
+        data.map((e: Recipe) => idCheck.push(e.recipeInfo.id));
       })
       .then(() => {
         if (idCheck.includes(idRef)) {

@@ -63,7 +63,7 @@ class DataService {
   // Get an array of all recipes
 
   getAll() {
-    return axios.get<[]>('/recipe/').then((response) => response.data);
+    return axios.get<Recipe[]>('/recipe/').then((response) => response.data);
   }
   /* Post new recepie */
   create(data: Recipe) {
@@ -97,7 +97,6 @@ class DataService {
   /* Get all units */
   getAllUnits(): Promise<EachUnit[]> {
     return axios.get<[]>('/unit').then((response) => response.data);
-
   }
   //External API ---------->
 
@@ -116,7 +115,6 @@ class DataService {
   //get data to Home
   apiHomeData(data: any) {
     return axios.post('/', data).then((response) => response.data);
-
   }
 }
 
