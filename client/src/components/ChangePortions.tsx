@@ -12,8 +12,9 @@ export const calculateAmounts = (
     } else {
       return {
         ...each,
-        amount:
-          (Number(((each.amount * 100) / previousPortions).toFixed(3)) / 100) * currentPortions,
+        amount: ((Number((each.amount * 100) / previousPortions) / 100) * currentPortions).toFixed(
+          1
+        ),
       };
     }
   });

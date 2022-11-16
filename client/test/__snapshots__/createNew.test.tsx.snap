@@ -219,7 +219,7 @@ exports[`CreateNew page tests Create new, page draws correctly (snapshot) 1`] = 
                         <option
                           value=""
                         >
-                          --option--
+                          select
                         </option>
                         <option
                           value=""
@@ -247,6 +247,7 @@ exports[`CreateNew page tests Create new, page draws correctly (snapshot) 1`] = 
                       <input
                         autocomplete="off"
                         name="ingredient"
+                        placeholder="Ingredient"
                         required=""
                         type="text"
                         value=""

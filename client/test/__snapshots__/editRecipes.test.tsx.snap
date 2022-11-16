@@ -244,6 +244,7 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                       <input
                         autocomplete="off"
                         name="ingredient"
+                        placeholder="Ingredient"
                         required=""
                         type="text"
                         value="whole milk"
@@ -308,6 +309,7 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                       <input
                         autocomplete="off"
                         name="ingredient"
+                        placeholder="Ingredient"
                         required=""
                         type="text"
                         value="water"
@@ -372,6 +374,7 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                       <input
                         autocomplete="off"
                         name="ingredient"
+                        placeholder="Ingredient"
                         required=""
                         type="text"
                         value="elbow macaroni (16 ounces)"
@@ -436,6 +439,7 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                       <input
                         autocomplete="off"
                         name="ingredient"
+                        placeholder="Ingredient"
                         required=""
                         type="text"
                         value="velveeta, cubed"
@@ -500,6 +504,7 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                       <input
                         autocomplete="off"
                         name="ingredient"
+                        placeholder="Ingredient"
                         required=""
                         type="text"
                         value="shredded sharp cheddar cheese"
@@ -564,6 +569,7 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                       <input
                         autocomplete="off"
                         name="ingredient"
+                        placeholder="Ingredient"
                         required=""
                         type="text"
                         value="salt"
@@ -628,6 +634,7 @@ exports[`EditRecipes page tests Edit Recipe, page draws correctly (snapshot) 1`]
                       <input
                         autocomplete="off"
                         name="ingredient"
+                        placeholder="Ingredient"
                         required=""
                         type="text"
                         value="coarsely ground pepper"

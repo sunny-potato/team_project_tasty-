@@ -22,7 +22,7 @@ export function Explore() {
     } else {
       dataService.apiExploreKey().then(async (key: string) => {
         const api: Response = await fetch(
-          `https://api.spoonacular.com/recipes/random?apiKey=${key}&number=6`
+          `https://api.spoonacular.com/recipes/random?apiKey=${key}&number=9`
         );
         const data = await api.json();
         localStorage.setItem('Items', JSON.stringify(data.recipes));
