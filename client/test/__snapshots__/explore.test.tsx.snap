@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Explore page tests Explore page draws correctly 1`] = `
+<div
+  className="Content-main"
+>
+  <h1>
+    Explore new recipes
+  </h1>
+  <p>
+    This is the place to gather new inspiration for your next adventure in the kitchen!
+  </p>
+  <div
+    className="Content-second"
+  >
+     
+  </div>
+</div>
+`;
