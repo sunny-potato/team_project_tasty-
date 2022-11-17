@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import dataService, { RecipeInfo, Ingredient, Recipe } from '../DataService';
 import InputRecipeInfo from '../components/InputRecipeInfo';

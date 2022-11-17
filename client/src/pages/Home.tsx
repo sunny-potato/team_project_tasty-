@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import dataService from '../DataService';
 import '../css/PageStyling.css';
-import { RecipeInfo, Recipe } from '../DataService';
+import { Recipe } from '../DataService';
 import { ImCross } from 'react-icons/im';
-import InputIngredients from 'src/components/InputIngredients';
 
 export function Home() {
   //Get all recipes and update variable allRecipes with data

@@ -1,7 +1,7 @@
 import '../css/PageStyling.css';
 import React, { useEffect, useState } from 'react';
-import dataService, { ApiRecipe, ApiIngredient, ApiRecipeInfo } from '../DataService';
-import { Link, NavLink } from 'react-router-dom';
+import dataService, { ApiRecipe } from '../DataService';
+import { Link } from 'react-router-dom';
 
 export function Explore() {
   const [items, setItems] = useState<ApiRecipe[]>([]);
