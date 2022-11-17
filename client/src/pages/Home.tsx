@@ -22,7 +22,7 @@ export function Home() {
     if (query === '' || null || undefined) {
       setFilterList(allRecipes);
     } else {
-      let search: Recipe[] | undefined = filterList?.filter(
+      let search: Recipe[] | any = filterList?.filter(
         (m) =>
           m.recipeInfo.name.toLowerCase().includes(query) ||
           m.recipeInfo.description.toLowerCase().includes(query) ||
