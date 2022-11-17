@@ -111,7 +111,6 @@ export function EditRecipes() {
     dataService
       .delete(id)
       .then(() => {
-        alert('The recipe deleted');
         navigate(-2);
       })
       .catch((error) => console.log(error));

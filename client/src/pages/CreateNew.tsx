@@ -34,7 +34,6 @@ export function CreateNew() {
       dataService
         .create(newRecipe)
         .then((response) => {
-          alert('The recipe updated');
           navigate(`/recipe/${response}`);
         })
         .catch((error) => console.log(error));

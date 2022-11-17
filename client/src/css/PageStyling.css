@@ -269,6 +269,23 @@ td {
 ::placeholder {
   text-align: center;
 }
+.Button-filter {
+  background-color: white;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 10%;
+  color: black;
+  border: 2px solid rgb(41, 211, 118);
+}
+.Button-filter-active {
+  background-color: rgb(41, 211, 118);
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 10%;
+  color: black;
+  border: none;
+}
+
 @media (max-width: 700px) {
   .Input-search {
     max-width: 100%;
