@@ -42,9 +42,9 @@ export function Explore() {
         {' '}
         {items ? (
           items.map((recipe: ApiRecipe) => (
-            <div className="Picture-link">
+            <div className="Picture-link" key={recipe.recipeInfo.id}>
               <div>
-                <Link key={recipe.recipeInfo.id} to={'/recipe/' + recipe.recipeInfo.id}>
+                <Link to={'/recipe/' + recipe.recipeInfo.id}>
                   <img title={recipe.recipeInfo.name} src={recipe.recipeInfo.image}></img>
                 </Link>
               </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import dataService, { RecipeInfo, Ingredient, Recipe } from '../DataService';
 import InputRecipeInfo from '../components/InputRecipeInfo';
@@ -12,8 +12,6 @@ export function EditRecipes() {
   const [ingredients, setIngredients] = useState<Ingredient[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [portionsInfo, setPortionsInfo] = useState<number>(4);
-
-  console.log(ingredients);
 
   const getData = () => {
     dataService
@@ -38,7 +36,6 @@ export function EditRecipes() {
       dataService
         .edit(newRecipe)
         .then(() => {
-          alert('The recipe updated');
           navigate(`/recipe/${id}`);
         })
         .catch((error) => console.log(error));
@@ -111,7 +108,7 @@ export function EditRecipes() {
     dataService
       .delete(id)
       .then(() => {
-        navigate(-2);
+        navigate('/');
       })
       .catch((error) => console.log(error));
   };

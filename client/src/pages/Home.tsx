@@ -25,15 +25,7 @@ export function Home() {
 
   useEffect(() => {
     if (query.length === 0 || null || undefined) {
-      // setQueryList(allRecipes);
     } else {
-      // if (query.includes('popular')) {
-      //   let search: Recipe[] | any = filterList?.filter((m) => m.recipeInfo.popular === true);
-      //   setFilterList(search);
-      // } else if (query.includes('new')) {
-      //   let search: Recipe[] | any = filterList?.filter((m) => m.recipeInfo.new === true);
-      //   setFilterList(search);
-      // } else {
       let search: Recipe[] | any = filterList?.filter(
         (m) =>
           m.recipeInfo.name.toLowerCase().includes(query) ||
@@ -43,7 +35,6 @@ export function Home() {
 
       setQueryList(search);
     }
-    // }
   }, [query]);
 
   useEffect(() => {
@@ -76,12 +67,12 @@ export function Home() {
           Here you can explore your own recipes by adding new content, editing existing ones and
           deleting the ones you don't care about anymore.
         </p>
-        <p>Use the search and filtering function to narrow your search.</p>
+        <p>Use the search and filtering function to narrow down your search.</p>
       </div>
       <input
         className="Input-search"
         type="text"
-        placeholder="Search recipes for name, ingredients and description...."
+        placeholder="Search recipes by name, ingredients or description..."
         value={query}
         onChange={(e) => {
           setQuery(e.currentTarget.value.toLowerCase());
@@ -122,7 +113,7 @@ export function Home() {
       <div className="Content-second">
         {' '}
         {queryList ? (
-          queryList.slice(0, 8).map((recipe: Recipe) => (
+          queryList.slice(0, 6).map((recipe: Recipe) => (
             <Link key={recipe.recipeInfo.id} to={'/recipe/' + recipe.recipeInfo.id}>
               <button className="Button-recipe-navigation">{recipe.recipeInfo.name}</button>
             </Link>
