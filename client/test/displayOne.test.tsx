@@ -90,7 +90,7 @@ describe('DisplayOne page tests', () => {
 
     // confirm that recipe is no longer popular
     popular = container.querySelector('div h6.Recipe-popular');
-    expect(popular.innerHTML).toBe('');
+    expect(popular.innerHTML).toBe(' ');
   });
 
   test('Add to cart', async () => {

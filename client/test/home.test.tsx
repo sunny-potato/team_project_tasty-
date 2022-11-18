@@ -35,12 +35,8 @@ describe('Home page tests', () => {
             Here you can explore your own recipes by adding new content, editing existing ones and
             deleting the ones you don't care about anymore.
           </p>,
-          <div className="Content-second">
-            <p>
-              This is also the place to discover more and get inspiration from, we have selected a
-              few to show you from below.
-            </p>
-          </div>,
+          <p>Use the search and filtering function to narrow down your search.</p>,
+          <h5 className="Extra-information">Filters:</h5>,
         ])
       ).toEqual(true);
       done();

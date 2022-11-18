@@ -50,9 +50,9 @@ exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) includ
       class="Recipe-description>"
     >
       Who likes cleaning up after making mac and cheese? 
-              Not this girl. This one-pot mac and cheese is a family favorite, 
-              and my 3-year-old is thrilled to see it coming to the dinner table. 
-              We love to add sliced smoked sausage to this creamy mac recipe!
+          Not this girl. This one-pot mac and cheese is a family favorite, 
+          and my 3-year-old is thrilled to see it coming to the dinner table. 
+          We love to add sliced smoked sausage to this creamy mac recipe!
     </p>
     <div>
       <div>
@@ -298,18 +298,18 @@ exports[`DisplayOne page tests DisplayOne page draws correctly (snapshot) includ
            
         </button>
       </a>
-    </div>
-    <div>
-      <a
-        href="/"
-      >
-        <button
-          class="Button-navigation"
-          title="Back"
+      <div>
+        <a
+          href="/"
         >
-          Back
-        </button>
-      </a>
+          <button
+            class="Button-navigation"
+            title="Back"
+          >
+            Back
+          </button>
+        </a>
+      </div>
     </div>
   </div>
 </div>
