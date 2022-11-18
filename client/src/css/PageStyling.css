@@ -259,8 +259,40 @@ td {
 .table-ingredients {
   margin: 1rem;
 }
+.Input-search {
+  max-width: 40%;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.363);
+  margin-bottom: 1rem;
+}
+::placeholder {
+  text-align: center;
+}
+.Button-filter {
+  background-color: white;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 10%;
+  color: black;
+  border: 2px solid rgb(41, 211, 118);
+}
+.Button-filter-active {
+  background-color: rgb(41, 211, 118);
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 10%;
+  color: black;
+  border: none;
+}
+#Image-focus {
+  margin: 1rem;
+}
 
 @media (max-width: 700px) {
+  .Input-search {
+    max-width: 100%;
+  }
 }
 @media (max-width: 550px) {
   .Content-input-container {

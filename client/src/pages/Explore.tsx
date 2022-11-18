@@ -1,7 +1,7 @@
 import '../css/PageStyling.css';
 import React, { useEffect, useState } from 'react';
-import dataService, { ApiRecipe, ApiIngredient, ApiRecipeInfo } from '../DataService';
-import { Link, NavLink } from 'react-router-dom';
+import dataService, { ApiRecipe } from '../DataService';
+import { Link } from 'react-router-dom';
 
 export function Explore() {
   const [items, setItems] = useState<ApiRecipe[]>([]);
@@ -42,9 +42,9 @@ export function Explore() {
         {' '}
         {items ? (
           items.map((recipe: ApiRecipe) => (
-            <div className="Picture-link">
+            <div className="Picture-link" key={recipe.recipeInfo.id}>
               <div>
-                <Link key={recipe.recipeInfo.id} to={'/recipe/' + recipe.recipeInfo.id}>
+                <Link to={'/recipe/' + recipe.recipeInfo.id}>
                   <img title={recipe.recipeInfo.name} src={recipe.recipeInfo.image}></img>
                 </Link>
               </div>

@@ -11,8 +11,6 @@ import { ShoppingCart } from './pages/ShoppingCart';
 
 function App() {
   return (
-    /*Don't like the use of Hashrouter but i necessary to get the page to keep state and refresh
-    Without changing the server side*/
     <div>
       <Navbar />
       <Routes basename="/">

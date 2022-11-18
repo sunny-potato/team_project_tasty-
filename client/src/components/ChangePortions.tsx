@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import dataService, { EachUnit, Ingredient } from '../DataService';
+import { Ingredient } from '../DataService';
 
 export const calculateAmounts = (
   ingredients: Ingredient[],

@@ -13,8 +13,6 @@ export function EditRecipes() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [portionsInfo, setPortionsInfo] = useState<number>(4);
 
-  console.log(ingredients);
-
   const getData = () => {
     dataService
       .get(id)
@@ -38,7 +36,6 @@ export function EditRecipes() {
       dataService
         .edit(newRecipe)
         .then(() => {
-          alert('The recipe updated');
           navigate(`/recipe/${id}`);
         })
         .catch((error) => console.log(error));
@@ -60,8 +57,7 @@ export function EditRecipes() {
         return defaultIngredients;
       };
       Promise.all(
-        isMissingIngredientId.map(async (each: Ingredient) => {
-          //@ts-ignore
+        isMissingIngredientId.map(async (each: any) => {
           const response = await dataService.createIngredient(each.ingredient);
           return { name: each.ingredient, id: response };
         })
@@ -111,8 +107,7 @@ export function EditRecipes() {
     dataService
       .delete(id)
       .then(() => {
-        alert('The recipe deleted');
-        navigate(-2);
+        navigate('/');
       })
       .catch((error) => console.log(error));
   };
