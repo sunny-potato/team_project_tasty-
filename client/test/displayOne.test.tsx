@@ -66,7 +66,7 @@ describe('DisplayOne page tests', () => {
     amount1 = container.querySelector('div table td')?.innerHTML;
     indexOfAND = amount1.indexOf('&');
     amount1 = amount1.substring(0, indexOfAND);
-    expect(amount1).toBe('2.25');
+    expect(amount1).toBe('2.3');
   });
 
   test('Like recipe', async () => {

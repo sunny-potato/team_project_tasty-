@@ -29,7 +29,8 @@ describe('Home page tests', () => {
     setTimeout(() => {
       expect(
         wrapper.containsAllMatchingElements([
-          <h1>Welcome to the Tasty</h1>,
+          <h1>Welcome to Tasty!</h1>,
+          <h4>The home of recipes...</h4>,
           <p>
             Here you can explore your own recipes by adding new content, editing existing ones and
             deleting the ones you don't care about anymore.
