@@ -11,7 +11,7 @@ const testRecipe1: Recipe = {
     name: 'One-Pot Mac and Cheese',
     meal_type: 'Dinner',
     new: true,
-    popular: true,
+    popular: false,
     description: `Who likes cleaning up after making mac and cheese? 
           Not this girl. This one-pot mac and cheese is a family favorite, 
           and my 3-year-old is thrilled to see it coming to the dinner table. 
@@ -76,7 +76,7 @@ const testRecipe2 = {
     name: 'Easy Marinated Grilled Flank Steak',
     meal_type: 'Dinner',
     new: false,
-    popular: false,
+    popular: true,
     description: `Friends shared this three-ingredient marinade years ago, 
           and it’s been a favorite since. Serve the steak with salad and 
           grilled potatoes for a quick meal.`,

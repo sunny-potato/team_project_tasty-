@@ -81,16 +81,16 @@ describe('DisplayOne page tests', () => {
       );
     });
 
-    // confirm that this is a popular recipe
+    // confirm that this is not yet a popular recipe
     let popular = container.querySelector('div h6.Recipe-popular');
-    expect(popular.innerHTML).toBe('This item is popular');
+    expect(popular.innerHTML).toBe(' ');
 
     // click on popular icon (firing event using react test library)
     fireEvent.click(container.querySelector("div button[title='Like the recipe']"));
 
-    // confirm that recipe is no longer popular
+    // confirm that recipe now is popular
     popular = container.querySelector('div h6.Recipe-popular');
-    expect(popular.innerHTML).toBe(' ');
+    expect(popular.innerHTML).toBe('This item is popular');
   });
 
   test('Add to cart', async () => {
