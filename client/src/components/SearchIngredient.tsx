@@ -34,7 +34,6 @@ const SearchIngredient = (props: Props) => {
   const disPlayAllingredients = allIngredients
     .filter((each) => {
       if (props.searchKeyword == '') {
-        // props.setIsVisible(true);
         return each;
       } else {
         if (each.ingredient.includes(props.searchKeyword.toLowerCase())) {

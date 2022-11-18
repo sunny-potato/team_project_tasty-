@@ -56,17 +56,6 @@ class RecipeService {
       });
     });
   }
-
-  // Get all recipies OLD
-  // getAllRecipies() {
-  //   return new Promise<RecipeInfo[]>((resolve, reject) => {
-  //     pool.query('SELECT * FROM recipes', (error, results: RowDataPacket[]) => {
-  //       if (error) return reject(error);
-
-  //       resolve(results as RecipeInfo[]);
-  //     });
-  //   });
-  // }
   getAllRecipes() {
     return new Promise<Recipe[]>((resolve, reject) => {
       let recipies: Recipe[] = [];

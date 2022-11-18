@@ -12,12 +12,6 @@ import fs from 'fs';
 // Serve client files
 app.use(express.static(path.join(__dirname, '/../../client/public')));
 
-/* Old solution without reload 
- const port = 3000;
- app.listen(port, () => {
-   console.info(`Server running on port ${port}`);
- }); */
-
 const server = http.createServer(app);
 
 reload(app).then((reloader) => {

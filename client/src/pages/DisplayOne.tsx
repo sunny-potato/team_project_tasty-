@@ -1,17 +1,19 @@
 import '../css/PageStyling.css';
-import React, { useEffect, useState, useRef, Component } from 'react';
-import dataService, { Recipe, Ingredient, RecipeInfo } from '../DataService';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import dataService, { Recipe, Ingredient, ApiRecipe } from '../DataService';
+import { Link, useParams } from 'react-router-dom';
 import { BsHandThumbsUp, BsHandThumbsUpFill, BsPrinter } from 'react-icons/bs';
 import { RiShoppingCart2Line } from 'react-icons/ri';
 import { calculateAmounts } from '../components/ChangePortions';
 
 export function DisplayOne() {
   const [recipe, setRecipe] = useState<Recipe>();
+  const [api, setApi] = useState<ApiRecipe | any>();
   const [ingredients, setIngredients] = useState<Ingredient[]>();
   const [liked, setliked] = useState<Element | any>();
   const [list, setList] = useState<Ingredient[]>([]);
   const [currentPortions, setCurrentPortions] = useState<number>(4);
+  const [idCheck, setIdCheck] = useState<number[]>([]);
 
   //To get navigation by page and id
   const params = useParams();
@@ -19,37 +21,36 @@ export function DisplayOne() {
   const idRef: number = parseInt(params.id);
 
   // Get inital value in load, uses recipe id as source
-  // Also loads values recipe and ingredients by setState
+  // Also loads values recipe and ingredients by state
   useEffect(() => {
-    let idCheck: number[] = [];
-
-    dataService
-      .getAll()
-      .then((data) => {
-        data.map((e: Recipe) => idCheck.push(e.recipeInfo.id));
-      })
-      .then(() => {
-        if (idCheck.includes(idRef)) {
-          dataService.get(id).then((data) => {
-            setRecipe(data);
-            setIngredients(data.ingredients);
-          });
-        } else {
-          const check: any = localStorage.getItem('Items');
-          dataService.apiExploreData(JSON.parse(check)).then((data) => {
-            data?.map((recipe: Recipe) => {
-              if (recipe.recipeInfo.id == idRef) {
-                const rmHTML = /(<([^>]+)>)/gi;
-                const text = recipe.recipeInfo.description;
-                recipe.recipeInfo.description = text.replace(rmHTML, '');
-                setRecipe(recipe);
-                setIngredients(recipe.ingredients);
-              }
-            });
-          });
-        }
-      });
+    dataService.getAll().then((data) => {
+      let idAvail: number[] = data.map((e: Recipe) => e.recipeInfo.id);
+      setIdCheck(idAvail);
+    });
   }, []);
+
+  useEffect(() => {
+    if (idCheck.includes(idRef)) {
+      dataService.get(id).then((data) => {
+        setRecipe(data);
+        setIngredients(data.ingredients);
+      });
+    } else {
+      const check: any = localStorage.getItem('Items');
+      dataService.apiExploreData(JSON.parse(check)).then((data) => {
+        data?.map((recipe: Recipe) => {
+          if (recipe.recipeInfo.id == idRef) {
+            const rmHTML = /(<([^>]+)>)/gi;
+            const text = recipe.recipeInfo.description;
+            recipe.recipeInfo.description = text.replace(rmHTML, '');
+            setRecipe(recipe);
+            setIngredients(recipe.ingredients);
+            setApi(recipe);
+          }
+        });
+      });
+    }
+  }, [idCheck]);
 
   // Updates ingredients according to value chosen by user
   const changePortions = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -95,7 +96,6 @@ export function DisplayOne() {
         []
       )
     );
-    //ingredients?.map((e) => cart.push(e));
 
     localStorage.setItem('cart', JSON.stringify(addToCart));
     document.dispatchEvent(new Event('storage'));
@@ -108,14 +108,27 @@ export function DisplayOne() {
     thisRecipe.recipeInfo.popular = !thisRecipe.recipeInfo.popular;
     dataService.edit(thisRecipe);
   }
+
   return (
     <div className="Content-main">
       <h1 className="Recipe-title">{recipe?.recipeInfo.name}</h1>
-      <h5 className="Recipe-tags">Tags: {recipe?.recipeInfo.meal_type}</h5>
-      <h6 className="Recipe-new">{recipe?.recipeInfo.new ? 'This is a new recipe!' : null}</h6>
-      <h6 className="Recipe-popular">
-        {recipe?.recipeInfo.popular ? 'This item is popular' : null}
-      </h6>
+      {recipe?.recipeInfo.meal_type.length ? (
+        <h5 className="Recipe-tags">Tags: {recipe?.recipeInfo.meal_type}</h5>
+      ) : (
+        ''
+      )}
+
+      {idCheck.includes(idRef) ? (
+        <>
+          <h6 className="Recipe-new">{recipe?.recipeInfo.new ? 'This is a new recipe!' : ' '}</h6>
+          <h6 className="Recipe-popular">
+            {recipe?.recipeInfo.popular ? 'This item is popular' : ' '}
+          </h6>
+        </>
+      ) : (
+        <img id="Image-focus" src={api?.recipeInfo.image}></img>
+      )}
+
       <BsPrinter
         className="Icon-print"
         title="Print the shopping list"
@@ -131,7 +144,6 @@ export function DisplayOne() {
             value={currentPortions}
             onChange={changePortions}
           >
-            {/* // to remove warning message for missing key, use key here. */}
             <option key={1} value={1}>
               1
             </option>
@@ -171,7 +183,6 @@ export function DisplayOne() {
               <th></th>
             </tr>
             {ingredients?.map((content, index) => (
-              // to remove warning message for same key, use index as key here.
               <tr className="Ingredients-row" key={index}>
                 <td className="Ingredients-cell">
                   {content.amount}&nbsp;{content.unit}
@@ -182,25 +193,32 @@ export function DisplayOne() {
             ))}
           </tbody>
         </table>
-        <button
-          title="Like the recipe"
-          className="Button-navigation"
-          onClick={() => {
-            likeRecipe();
-            if (!recipe?.recipeInfo.popular) {
-              setliked(<BsHandThumbsUpFill />);
-            } else {
-              setliked(<BsHandThumbsUp />);
-            }
-          }}
-        >
-          {recipe?.recipeInfo.popular ? <BsHandThumbsUpFill /> : <BsHandThumbsUp />}
-        </button>
-        <Link to={'/edit/' + params.id}>
-          <button title="Edit recipe" className="Button-navigation">
-            Edit recipe
-          </button>
-        </Link>
+
+        {idCheck.includes(idRef) ? (
+          <>
+            <button
+              title="Like the recipe"
+              className="Button-navigation"
+              onClick={() => {
+                likeRecipe();
+                if (!recipe?.recipeInfo.popular) {
+                  setliked(<BsHandThumbsUpFill />);
+                } else {
+                  setliked(<BsHandThumbsUp />);
+                }
+              }}
+            >
+              {recipe?.recipeInfo.popular ? <BsHandThumbsUpFill /> : <BsHandThumbsUp />}
+            </button>
+            <Link to={'/edit/' + params.id}>
+              <button title="Edit recipe" className="Button-navigation">
+                Edit recipe
+              </button>
+            </Link>
+          </>
+        ) : (
+          ''
+        )}
         <Link to={'/cart'}>
           <button
             title="Add recipe to shopping list"
@@ -212,13 +230,24 @@ export function DisplayOne() {
             <RiShoppingCart2Line />{' '}
           </button>
         </Link>
-      </div>
-      <div>
-        <Link to="/">
-          <button title="Back" className="Button-navigation">
-            Back
-          </button>
-        </Link>
+
+        {idCheck.includes(idRef) ? (
+          <div>
+            <Link to="/">
+              <button title="Back" className="Button-navigation">
+                Back
+              </button>
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <Link to="/explore">
+              <button title="Back" className="Button-navigation">
+                Back
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -13,7 +13,10 @@ export function Home() {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('');
   const [isClicked, setIsClicked] = useState(false);
+
   const tagKeys = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert', 'Popular', 'New'];
+
+  //Initial load of state variables
   useEffect(() => {
     dataService.getAll().then((data) => {
       setAllRecipes(data);
@@ -22,6 +25,7 @@ export function Home() {
     });
   }, []);
 
+  //Update during search
   useEffect(() => {
     if (query.length === 0 || null || undefined) {
     } else {
@@ -36,6 +40,7 @@ export function Home() {
     }
   }, [query]);
 
+  //Use to create filtered list while using filter button
   useEffect(() => {
     if (filter === '' || filter === undefined || filter === null) {
       setFilterList(allRecipes);

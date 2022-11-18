@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
 axios.defaults.baseURL = 'http://localhost:3000/api/v2';
 
 export type RecipeInfo = {

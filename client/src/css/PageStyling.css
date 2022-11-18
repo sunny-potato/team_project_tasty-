@@ -285,6 +285,9 @@ td {
   color: black;
   border: none;
 }
+#Image-focus {
+  margin: 1rem;
+}
 
 @media (max-width: 700px) {
   .Input-search {

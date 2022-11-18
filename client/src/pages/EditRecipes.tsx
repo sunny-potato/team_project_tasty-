@@ -57,8 +57,7 @@ export function EditRecipes() {
         return defaultIngredients;
       };
       Promise.all(
-        isMissingIngredientId.map(async (each: Ingredient) => {
-          //@ts-ignore
+        isMissingIngredientId.map(async (each: any) => {
           const response = await dataService.createIngredient(each.ingredient);
           return { name: each.ingredient, id: response };
         })
