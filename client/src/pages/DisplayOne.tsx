@@ -17,7 +17,9 @@ export function DisplayOne() {
 
   //To get navigation by page and id
   const params = useParams();
+  // @ts-ignore, because setting id to "string | undefined", will make problems at line 35 where it will try to use it as "string | number".
   const id: string = params.id;
+  // @ts-ignore, because using a function that needs a "string" and using an input as a "string | undefined" is not valid in Typescripts eyes
   const idRef: number = parseInt(params.id);
 
   // Get inital value in load, uses recipe id as source

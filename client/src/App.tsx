@@ -13,6 +13,7 @@ function App() {
   return (
     <div>
       <Navbar />
+      {/* @ts-ignore*/}
       <Routes basename="/">
         <Route path="/" element={<Home />} />
         <Route path="/recipe/:id" element={<DisplayOne />} />
