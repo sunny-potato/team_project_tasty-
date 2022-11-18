@@ -19,7 +19,7 @@ router.get('/recipe/:id', (request, response) => {
 // get all recipies
 router.get('/recipe', (request, response) => {
   recipeService
-    .getAllRecipies()
+    .getAllRecipes()
     .then((recipes) => response.send(recipes))
     .catch((error) => response.status(500).send(error));
 });

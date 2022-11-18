@@ -2,48 +2,129 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import dataService from '../DataService';
 import '../css/PageStyling.css';
-import { RecipeInfo } from '../DataService';
+import { Recipe } from '../DataService';
+import { ImCross } from 'react-icons/im';
 
 export function Home() {
   //Get all recipes and update variable allRecipes with data
-  const [allRecipes, setallRecipes] = useState<[]>();
+  const [allRecipes, setAllRecipes] = useState<Recipe[]>();
+  const [queryList, setQueryList] = useState<Recipe[]>();
+  const [filterList, setFilterList] = useState<Recipe[]>();
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState('');
+  const [isClicked, setIsClicked] = useState(false);
 
+  const tagKeys = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert', 'Popular', 'New'];
+
+  //Initial load of state variables
   useEffect(() => {
     dataService.getAll().then((data) => {
-      setallRecipes(data);
+      setAllRecipes(data);
+      setFilterList(data);
+      setQueryList(data);
     });
   }, []);
 
+  //Update during search
+  useEffect(() => {
+    if (query.length === 0 || null || undefined) {
+    } else {
+      let search: Recipe[] | any = filterList?.filter(
+        (m) =>
+          m.recipeInfo.name.toLowerCase().includes(query) ||
+          m.recipeInfo.description.toLowerCase().includes(query) ||
+          m.ingredients.some((i) => i.ingredient.includes(query))
+      );
+
+      setQueryList(search);
+    }
+  }, [query]);
+
+  //Use to create filtered list while using filter button
+  useEffect(() => {
+    if (filter === '' || filter === undefined || filter === null) {
+      setFilterList(allRecipes);
+      setQueryList(allRecipes);
+    } else if (filter.includes('popular')) {
+      let filtered: Recipe[] | any = allRecipes?.filter((m) => m.recipeInfo.popular === true);
+      setFilterList(filtered);
+      setQueryList(filtered);
+    } else if (filter.includes('new')) {
+      let filtered: Recipe[] | any = allRecipes?.filter((m) => m.recipeInfo.new === true);
+      setFilterList(filtered);
+      setQueryList(filtered);
+    } else {
+      let filtered: Recipe[] | any = allRecipes?.filter((t) =>
+        t.recipeInfo.meal_type.toLowerCase().includes(filter)
+      );
+      setFilterList(filtered);
+      setQueryList(filtered);
+    }
+  }, [isClicked]);
+
   return (
     <div className="Content-main">
-      <h1>Welcome to Tasty!</h1>
-      <h4>The home of recipes...</h4>
-      <p>
-        Here you can explore your own recipes by adding new content, editing existing ones and
-        deleting the ones you don't care about anymore.
-      </p>
-      <p>Use the search and filtering function to narrow your search.</p>
-
+      <div>
+        <h1>Welcome to Tasty!</h1>
+        <h4>The home of recipes...</h4>
+        <p>
+          Here you can explore your own recipes by adding new content, editing existing ones and
+          deleting the ones you don't care about anymore.
+        </p>
+        <p>Use the search and filtering function to narrow down your search.</p>
+      </div>
+      <input
+        className="Input-search"
+        type="text"
+        placeholder="Search recipes by name, ingredients or description..."
+        value={query}
+        onChange={(e) => {
+          setQuery(e.currentTarget.value.toLowerCase());
+        }}
+      ></input>
+      <h5 className="Extra-information">Filters:</h5>
+      <div>
+        {isClicked ? (
+          <button
+            className="Button-filter-active"
+            key={filter}
+            value={''}
+            onClick={(e) => {
+              setFilter('');
+              setIsClicked(!isClicked);
+            }}
+          >
+            <ImCross />
+            &nbsp;{filter}
+          </button>
+        ) : (
+          tagKeys.map((e) => (
+            <button
+              className="Button-filter"
+              key={e}
+              value={e}
+              onClick={(e) => {
+                setQuery('');
+                setFilter(e.currentTarget.value.toLowerCase());
+                setIsClicked(!isClicked);
+              }}
+            >
+              {e}
+            </button>
+          ))
+        )}
+      </div>
       <div className="Content-second">
-        <div>
-          {' '}
-          {allRecipes ? (
-            allRecipes.slice(0, 10).map((recipe: RecipeInfo) => (
-              <Link key={recipe.id} to={'/recipe/' + recipe.id}>
-                <button className="Button-recipe-navigation">{recipe.name}</button>
-              </Link>
-            ))
-          ) : (
-            <b>Oops...You have no recipes to show here</b>
-          )}
-        </div>
-
-        <div className="Content-second">
-          <p>
-            This is also the place to discover more and get inspiration from, we have selected a few
-            to show you from below.
-          </p>
-        </div>
+        {' '}
+        {queryList ? (
+          queryList.slice(0, 6).map((recipe: Recipe) => (
+            <Link key={recipe.recipeInfo.id} to={'/recipe/' + recipe.recipeInfo.id}>
+              <button className="Button-recipe-navigation">{recipe.recipeInfo.name}</button>
+            </Link>
+          ))
+        ) : (
+          <b>Oops...You have no recipes to show here</b>
+        )}
       </div>
     </div>
   );

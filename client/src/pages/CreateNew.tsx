@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import dataService, { RecipeInfo, Ingredient, Recipe } from '../DataService';
 import InputRecipeInfo from '../components/InputRecipeInfo';
 import InputIngredients from '../components/InputIngredients';
@@ -34,7 +34,6 @@ export function CreateNew() {
       dataService
         .create(newRecipe)
         .then((response) => {
-          alert('The recipe updated');
           navigate(`/recipe/${response}`);
         })
         .catch((error) => console.log(error));
@@ -57,8 +56,7 @@ export function CreateNew() {
       };
 
       Promise.all(
-        isMissingIngredientId.map(async (each: Ingredient) => {
-          //@ts-ignore
+        isMissingIngredientId.map(async (each: any) => {
           const response = await dataService.createIngredient(each.ingredient);
           return { name: each.ingredient, id: response };
         })
@@ -87,10 +85,10 @@ export function CreateNew() {
       setIsLoading(true);
 
       // make ingredients with defaultAmounts(=4 portions)
-      const defaultIngredients = calculateAmounts(ingredients, portionsInfo);
+      const defaultIngredients: Ingredient[] | any = calculateAmounts(ingredients, portionsInfo);
 
       // manipulate data of ingredients to be valid in the database
-      defaultIngredients.map((ingredient: Ingredient) => {
+      defaultIngredients.map((ingredient: Ingredient | any) => {
         if (ingredient.amount === 0) {
           ingredient.amount = null;
         }

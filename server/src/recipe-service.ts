@@ -56,14 +56,33 @@ class RecipeService {
       });
     });
   }
+  getAllRecipes() {
+    return new Promise<Recipe[]>((resolve, reject) => {
+      let recipies: Recipe[] = [];
 
-  // Get all recipies
-  getAllRecipies() {
-    return new Promise<RecipeInfo[]>((resolve, reject) => {
       pool.query('SELECT * FROM recipes', (error, results: RowDataPacket[]) => {
         if (error) return reject(error);
 
-        resolve(results as RecipeInfo[]);
+        (results as RecipeInfo[]).forEach((recipeInfo, index, array) => {
+          pool.query(
+            `SELECT ingredients_id, ingredient, amount, unit_id, unit 
+                FROM ((relations INNER JOIN ingredients ON 
+                    relations.ingredients_id = ingredients.id) 
+                    INNER JOIN units ON
+                    relations.unit_id = units.id)
+                    WHERE relations.recipes_id = ?`,
+            [recipeInfo.id],
+            (error, results: RowDataPacket[]) => {
+              if (error) return reject(error);
+
+              let ingredients = results as Ingredient[];
+              let recipe: Recipe = { recipeInfo, ingredients };
+              recipies.push(recipe);
+
+              if (index === array.length - 1) resolve(recipies);
+            }
+          );
+        });
       });
     });
   }
