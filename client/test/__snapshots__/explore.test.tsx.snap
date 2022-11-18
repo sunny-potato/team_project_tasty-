@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Explore page tests Explore page draws correctly 1`] = `
+exports[`Explore page tests Explore page draws correctly (snapshot), getting items from local storage mock 1`] = `
 <div>
   <div
     class="Content-main"

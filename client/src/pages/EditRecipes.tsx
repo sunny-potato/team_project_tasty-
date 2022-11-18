@@ -13,8 +13,6 @@ export function EditRecipes() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [portionsInfo, setPortionsInfo] = useState<number>(4);
 
-  console.log(ingredients);
-
   const getData = () => {
     dataService
       .get(id)
