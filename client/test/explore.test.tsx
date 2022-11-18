@@ -23,8 +23,6 @@ afterEach(() => {
 
 global.fetch = jest.fn();
 
-
-
 describe('Explore page tests', () => {
   test('Explore page draws correctly', async () => {
     await act(async () => {

@@ -51,6 +51,6 @@ describe('testing explore service functions', () => {
     const response = await axios.post('api/v2/explore', [testItem]);
     expect(response.status).toEqual(200);
     expect(response.data[0].recipeInfo.name).toEqual('Strawberry and Nutella Cobbler');
-    expect(response.data[0].ingredients[0].ingredient).toEqual('baking powder')
+    expect(response.data[0].ingredients[0].ingredient).toEqual('baking powder');
   });
 });

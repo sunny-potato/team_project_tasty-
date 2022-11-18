@@ -30,7 +30,7 @@ prettier:
     - cd server
     - ./node_modules/.bin/prettier --check ./src/* ./test/*
     - cd ../client
-    - ./node_modules/.bin/prettier --check ./src/* ./test/*
+    - ./node_modules/.bin/prettier --check ./src/* ./test/ --ignore-path ../.prettierignore
 
 typescript:
   stage: test # The typescript job will run in parallel with the prettier and test jobs

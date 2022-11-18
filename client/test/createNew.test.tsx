@@ -95,7 +95,6 @@ describe('CreateNew page tests', () => {
     expect(name1.value).toEqual('new ingredient');
   });
 
-  
   test('Save recipe', async () => {
     await act(async () => {
       await render(

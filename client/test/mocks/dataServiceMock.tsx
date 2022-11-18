@@ -27,7 +27,8 @@ jest.mock('../../src/DataService', () => {
             },
           ],
         });
-      } else { // else return test recipe 1
+      } else {
+        // else return test recipe 1
         return Promise.resolve({
           recipeInfo: {
             id: 1,
@@ -166,47 +167,64 @@ jest.mock('../../src/DataService', () => {
     apiExploreKey() {
       return Promise.resolve('key');
     }
-    
+
     //get key to Home
     apiHomeKey() {
       return Promise.resolve('key');
     }
-    
+
     //get data to Explore
     apiExploreData(data: any) {
       return Promise.resolve([
-        {recipeInfo: {
-          id: 715378,
-          image: 'https://spoonacular.com/recipeImages/715378-556x370.jpg',
-          meal_type: ['lacto ovo vegetarian'],
-          name: 'Strawberry and Nutella Cobbler',
-          new: false,
-          popular: true,
-          servings: 3,
-        }, ingredients: [
-          {ingredients_id: 18371, ingredient: 'baking power', amount: 1.5, unit_id: 1, unit: 'tsps'},
-          {ingredients_id: 20027, ingredient: 'cornstarch', amount: 2, unit_id: 1, unit: 'Tbsps'}
-        ]},
-        {recipeInfo: {
-          id: 652819,
-          image: 'https://spoonacular.com/recipeImages/652819-556x370.jpg',
-          meal_type: ['gluten free', 'daire free'],
-          name: "My \"Secret\" Bolognese Sauce",
-          new: false,
-          popular: false,
-          servings: 12,
-        }, ingredients: [
-          {ingredients_id: 4053, ingredient: 'olive oil', amount: 2, unit_id: 1, unit: 'Tbsps'},
-          {ingredients_id: 17142, ingredient: 'ground veal', amount: 1, unit_id: 1, unit: 'lb'}
-        ]}
+        {
+          recipeInfo: {
+            id: 715378,
+            image: 'https://spoonacular.com/recipeImages/715378-556x370.jpg',
+            meal_type: ['lacto ovo vegetarian'],
+            name: 'Strawberry and Nutella Cobbler',
+            new: false,
+            popular: true,
+            servings: 3,
+          },
+          ingredients: [
+            {
+              ingredients_id: 18371,
+              ingredient: 'baking power',
+              amount: 1.5,
+              unit_id: 1,
+              unit: 'tsps',
+            },
+            {
+              ingredients_id: 20027,
+              ingredient: 'cornstarch',
+              amount: 2,
+              unit_id: 1,
+              unit: 'Tbsps',
+            },
+          ],
+        },
+        {
+          recipeInfo: {
+            id: 652819,
+            image: 'https://spoonacular.com/recipeImages/652819-556x370.jpg',
+            meal_type: ['gluten free', 'daire free'],
+            name: 'My "Secret" Bolognese Sauce',
+            new: false,
+            popular: false,
+            servings: 12,
+          },
+          ingredients: [
+            { ingredients_id: 4053, ingredient: 'olive oil', amount: 2, unit_id: 1, unit: 'Tbsps' },
+            { ingredients_id: 17142, ingredient: 'ground veal', amount: 1, unit_id: 1, unit: 'lb' },
+          ],
+        },
       ]);
     }
-    
+
     //get data to Home
     apiHomeData(data: any) {
       return Promise.resolve();
     }
-    
   }
   return new DataService();
 });
