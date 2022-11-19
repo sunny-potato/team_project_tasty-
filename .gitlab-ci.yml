@@ -6,7 +6,7 @@ variables:
   MYSQL_USER: test
   MYSQL_PASSWORD: test
   MYSQL_DATABASE: test
-  REACT_API_KEY : 7859d90a7de34b15afed1a781d9e38c9
+  REACT_API_KEY : test_key
 
 stages:
   - build # Jobs placed in build stage will run first

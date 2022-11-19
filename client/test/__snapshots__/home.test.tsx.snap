@@ -5,49 +5,97 @@ exports[`Home page tests Home page draws correctly (snapshot) including list of 
   <div
     class="Content-main"
   >
-    <h1>
-      Welcome to Tasty!
-    </h1>
-    <h4>
-      The home of recipes...
-    </h4>
-    <p>
-      Here you can explore your own recipes by adding new content, editing existing ones and deleting the ones you don't care about anymore.
-    </p>
-    <p>
-      Use the search and filtering function to narrow your search.
-    </p>
+    <div>
+      <h1>
+        Welcome to Tasty!
+      </h1>
+      <h4>
+        The home of recipes...
+      </h4>
+      <p>
+        Here you can explore your own recipes by adding new content, editing existing ones and deleting the ones you don't care about anymore.
+      </p>
+      <p>
+        Use the search and filtering function to narrow down your search.
+      </p>
+    </div>
+    <input
+      class="Input-search"
+      placeholder="Search recipes by name, ingredients or description..."
+      type="text"
+      value=""
+    />
+    <h5
+      class="Extra-information"
+    >
+      Filters:
+    </h5>
+    <div>
+      <button
+        class="Button-filter"
+        value="Dinner"
+      >
+        Dinner
+      </button>
+      <button
+        class="Button-filter"
+        value="Lunch"
+      >
+        Lunch
+      </button>
+      <button
+        class="Button-filter"
+        value="Breakfast"
+      >
+        Breakfast
+      </button>
+      <button
+        class="Button-filter"
+        value="Snack"
+      >
+        Snack
+      </button>
+      <button
+        class="Button-filter"
+        value="Dessert"
+      >
+        Dessert
+      </button>
+      <button
+        class="Button-filter"
+        value="Popular"
+      >
+        Popular
+      </button>
+      <button
+        class="Button-filter"
+        value="New"
+      >
+        New
+      </button>
+    </div>
     <div
       class="Content-second"
     >
-      <div>
-         
-        <a
-          href="/recipe/1"
-        >
-          <button
-            class="Button-recipe-navigation"
-          >
-            One-Pot Mac and Cheese
-          </button>
-        </a>
-        <a
-          href="/recipe/2"
-        >
-          <button
-            class="Button-recipe-navigation"
-          >
-            Easy Marinated Grilled Flank Steak
-          </button>
-        </a>
-      </div>
-      <div
-        class="Content-second"
+       
+      <a
+        href="/recipe/1"
       >
-        <p>
-          This is also the place to discover more and get inspiration from, we have selected a few to show you from below.
-        </p>
-      </div>
+        <button
+          class="Button-recipe-navigation"
+        >
+          One-Pot Mac and Cheese
+        </button>
+      </a>
+      <a
+        href="/recipe/2"
+      >
+        <button
+          class="Button-recipe-navigation"
+        >
+          Easy Marinated Grilled Flank Steak
+        </button>
+      </a>
     </div>
   </div>
 </div>

@@ -132,7 +132,6 @@ class RecipeService {
         ],
         (error, results: ResultSetHeader) => {
           if (error) {
-            console.log('1');
             return reject(error);
           }
 
@@ -141,7 +140,6 @@ class RecipeService {
             [recipe.recipeInfo.id],
             (error, results2: ResultSetHeader) => {
               if (error) {
-                console.log('2');
                 return reject(error);
               }
 
@@ -157,7 +155,6 @@ class RecipeService {
                   (error, results3: ResultSetHeader) => {
                     if (error) return reject(error);
                     if (error) {
-                      console.log('3');
                       return reject(error);
                     }
                     if (index === array.length - 1) resolve();

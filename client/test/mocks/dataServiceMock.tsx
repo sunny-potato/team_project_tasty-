@@ -1,6 +1,125 @@
 /* istanbul ignore file */
 // ^ignore file in test report
 
+import { Recipe } from 'src/DataService';
+
+// define two test recipies
+// test recipe 1
+const testRecipe1: Recipe = {
+  recipeInfo: {
+    id: 1,
+    name: 'One-Pot Mac and Cheese',
+    meal_type: 'Dinner',
+    new: true,
+    popular: false,
+    description: `Who likes cleaning up after making mac and cheese? 
+          Not this girl. This one-pot mac and cheese is a family favorite, 
+          and my 3-year-old is thrilled to see it coming to the dinner table. 
+          We love to add sliced smoked sausage to this creamy mac recipe!`,
+  },
+  ingredients: [
+    {
+      ingredients_id: 1,
+      ingredient: 'whole milk',
+      amount: 1.5,
+      unit_id: 2,
+      unit: 'cup',
+    },
+    {
+      ingredients_id: 2,
+      ingredient: 'water',
+      amount: 3,
+      unit_id: 2,
+      unit: 'cup',
+    },
+    {
+      ingredients_id: 3,
+      ingredient: 'elbow macaroni (16 ounces)',
+      amount: 1,
+      unit_id: 3,
+      unit: 'package',
+    },
+    {
+      ingredients_id: 4,
+      ingredient: 'velveeta, cubed',
+      amount: 4,
+      unit_id: 4,
+      unit: 'ounce',
+    },
+    {
+      ingredients_id: 5,
+      ingredient: 'shredded sharp cheddar cheese',
+      amount: 2,
+      unit_id: 2,
+      unit: 'cup',
+    },
+    {
+      ingredients_id: 6,
+      ingredient: 'salt',
+      amount: 0.5,
+      unit_id: 5,
+      unit: 'teaspoon',
+    },
+    {
+      ingredients_id: 7,
+      ingredient: 'coarsely ground pepper',
+      amount: 0.5,
+      unit_id: 5,
+      unit: 'teaspoon',
+    },
+  ],
+};
+// test recipe 2
+const testRecipe2 = {
+  recipeInfo: {
+    id: 2,
+    name: 'Easy Marinated Grilled Flank Steak',
+    meal_type: 'Dinner',
+    new: false,
+    popular: true,
+    description: `Friends shared this three-ingredient marinade years ago, 
+          and it’s been a favorite since. Serve the steak with salad and 
+          grilled potatoes for a quick meal.`,
+  },
+  ingredients: [
+    {
+      ingredients_id: 8,
+      ingredient: 'barbecue sauce',
+      amount: 1,
+      unit_id: 2,
+      unit: 'cup',
+    },
+    {
+      ingredients_id: 9,
+      ingredient: 'burgundy wine or beef broth',
+      amount: 0.5,
+      unit_id: 2,
+      unit: 'cup',
+    },
+    {
+      ingredients_id: 10,
+      ingredient: 'lemon juice',
+      amount: 0.25,
+      unit_id: 2,
+      unit: 'cup',
+    },
+    {
+      ingredients_id: 11,
+      ingredient: 'beef flank steak (2 pounds)',
+      amount: 1,
+      unit_id: 7,
+      unit: 'pound',
+    },
+    {
+      ingredients_id: 7,
+      ingredient: 'coarsely ground pepper',
+      amount: 5,
+      unit_id: 5,
+      unit: 'teaspoon',
+    },
+  ],
+};
+
 // mock axios api to server
 jest.mock('../../src/DataService', () => {
   class DataService {
@@ -29,98 +148,13 @@ jest.mock('../../src/DataService', () => {
         });
       } else {
         // else return test recipe 1
-        return Promise.resolve({
-          recipeInfo: {
-            id: 1,
-            name: 'One-Pot Mac and Cheese',
-            meal_type: 'Dinner',
-            new: true,
-            popular: true,
-            description: `Who likes cleaning up after making mac and cheese? 
-              Not this girl. This one-pot mac and cheese is a family favorite, 
-              and my 3-year-old is thrilled to see it coming to the dinner table. 
-              We love to add sliced smoked sausage to this creamy mac recipe!`,
-          },
-          ingredients: [
-            {
-              ingredients_id: 1,
-              ingredient: 'whole milk',
-              amount: 1.5,
-              unit_id: 2,
-              unit: 'cup',
-            },
-            {
-              ingredients_id: 2,
-              ingredient: 'water',
-              amount: 3,
-              unit_id: 2,
-              unit: 'cup',
-            },
-            {
-              ingredients_id: 3,
-              ingredient: 'elbow macaroni (16 ounces)',
-              amount: 1,
-              unit_id: 3,
-              unit: 'package',
-            },
-            {
-              ingredients_id: 4,
-              ingredient: 'velveeta, cubed',
-              amount: 4,
-              unit_id: 4,
-              unit: 'ounce',
-            },
-            {
-              ingredients_id: 5,
-              ingredient: 'shredded sharp cheddar cheese',
-              amount: 2,
-              unit_id: 2,
-              unit: 'cup',
-            },
-            {
-              ingredients_id: 6,
-              ingredient: 'salt',
-              amount: 0.5,
-              unit_id: 5,
-              unit: 'teaspoon',
-            },
-            {
-              ingredients_id: 7,
-              ingredient: 'coarsely ground pepper',
-              amount: 0.5,
-              unit_id: 5,
-              unit: 'teaspoon',
-            },
-          ],
-        });
+        return Promise.resolve(testRecipe1);
       }
     }
 
     // Get an array of all recipes
     getAll() {
-      return Promise.resolve([
-        {
-          id: 1,
-          name: 'One-Pot Mac and Cheese',
-          meal_type: 'Dinner',
-          new: true,
-          popular: true,
-          description: `Who likes cleaning up after making mac and cheese? 
-          Not this girl. This one-pot mac and cheese is a family favorite, 
-          and my 3-year-old is thrilled to see it coming to the dinner table. 
-          We love to add sliced smoked sausage to this creamy mac recipe!`,
-        },
-        {
-          id: 2,
-          name: 'Easy Marinated Grilled Flank Steak',
-          meal_type: 'Dinner',
-          new: false,
-          popular: false,
-          description: `Friends shared this three-ingredient marinade years ago, 
-          and it’s been a favorite since. Serve the steak with salad and 
-          grilled potatoes for a quick meal.`,
-        },
-      ]);
+      return Promise.resolve([testRecipe1, testRecipe2]);
     }
 
     /* Post new recepie */

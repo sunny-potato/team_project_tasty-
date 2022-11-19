@@ -68,9 +68,9 @@ describe('EditRecipes page tests', () => {
     let desctiption = container.querySelector("textarea[name='description']");
     expect(desctiption.value).toEqual(
       `Who likes cleaning up after making mac and cheese? 
-              Not this girl. This one-pot mac and cheese is a family favorite, 
-              and my 3-year-old is thrilled to see it coming to the dinner table. 
-              We love to add sliced smoked sausage to this creamy mac recipe!`
+          Not this girl. This one-pot mac and cheese is a family favorite, 
+          and my 3-year-old is thrilled to see it coming to the dinner table. 
+          We love to add sliced smoked sausage to this creamy mac recipe!`
     );
     fireEvent.change(desctiption, { target: { value: 'updated description' } });
     expect(desctiption.value).toEqual('updated description');

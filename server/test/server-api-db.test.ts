@@ -108,7 +108,7 @@ describe('Fetching Recipies (GET)', () => {
   test('Fetch all (200 OK)', (done) => {
     axios.get('/recipe').then((response) => {
       expect(response.status).toEqual(200);
-      expect(response.data).toEqual([testRecipeInfo]);
+      expect(response.data).toEqual([testRecipe]);
       done();
     });
   });

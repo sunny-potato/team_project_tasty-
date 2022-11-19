@@ -183,28 +183,8 @@ router.get('/explore', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-//get key to Home
-router.get('/', (request, response) => {
-  externalService
-    .apiKey()
-    .then((data) => response.send(data))
-    .catch((error) => response.status(500).send(error));
-});
-
 //get data to Explore
 router.post('/explore', (request, response) => {
-  const data = request.body;
-  if (data.lenght != 0)
-    externalService
-      .apiData(data)
-      .then((data) => response.send(data))
-      .catch((error) => response.status(500).send(error));
-  //needs request errors here
-  else response.status(400).send('Api data does not exist');
-});
-
-//get data to Home
-router.post('/', (request, response) => {
   const data = request.body;
   if (data.lenght != 0)
     externalService
