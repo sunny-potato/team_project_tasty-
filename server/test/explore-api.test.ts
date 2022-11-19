@@ -40,11 +40,11 @@ afterAll(() => webServer.close());
 
 describe('testing explore service functions', () => {
   test('Get api key', async () => {
-    externalService.apiKey = jest.fn(() => Promise.resolve('test key'));
+    //externalService.apiKey = jest.fn(() => Promise.resolve('test key'));
 
     const response = await axios.get('/api/v2/explore');
     expect(response.status).toEqual(200);
-    expect(response.data).toEqual('test key');
+    expect(response.data).toEqual('test_key');
   });
 
   test('Get api data', async () => {

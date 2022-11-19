@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { CreateNew } from '../src/pages/CreateNew';
 import { DisplayOne } from '../src/pages/DisplayOne';
-import { MemoryRouter, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
