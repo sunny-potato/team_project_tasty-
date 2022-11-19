@@ -2,13 +2,15 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { CreateNew } from '../src/pages/CreateNew';
 import { DisplayOne } from '../src/pages/DisplayOne';
-import { MemoryRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { MemoryRouter, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { fireEvent } from '@testing-library/react';
 
-import dataService, { Ingredient } from '../src/DataService';
+import * as router from 'react-router';
+
+import SearchIngredient from '../src/components/SearchIngredient';
 
 let container: any = null;
 beforeEach(() => {
@@ -93,13 +95,66 @@ describe('CreateNew page tests', () => {
     expect(name1.value).toEqual('');
     fireEvent.change(name1, { target: { value: 'new ingredient' } });
     expect(name1.value).toEqual('new ingredient');
+
+    // add new ingredient button
+    let addButton = container.querySelector('button.Button-choice-add');
+    fireEvent.click(addButton);
+    let names = container.querySelectorAll("input[name='ingredient']");
+    expect(names.length).toEqual(2);
+    expect(names[0].value).toEqual('new ingredient');
+    expect(names[1].value).toEqual('');
+  });
+
+  test('Ingredient dropdown list (no keyword)', async () => {
+    await act(async () => {
+      await render(
+        <MemoryRouter>
+          <SearchIngredient
+            searchKeyword=""
+            isVisible={true}
+            setIsVisible={() => false}
+            activeRow={0}
+            sendSelectedData={() => false}
+          />
+        </MemoryRouter>,
+        container
+      );
+    });
+    // check if all (mocked) ingredients present when keyword is ''
+    let ingredientButtons = container.querySelectorAll('button.Button-search');
+    expect(ingredientButtons.length).toEqual(2);
+  });
+
+  test('Ingredient dropdown list (with keyword)', async () => {
+    await act(async () => {
+      await render(
+        <MemoryRouter>
+          <SearchIngredient
+            searchKeyword="milk"
+            isVisible={true}
+            setIsVisible={() => false}
+            activeRow={0}
+            sendSelectedData={() => false}
+          />
+        </MemoryRouter>,
+        container
+      );
+    });
+    // check if only ingredients with keyword 'milk' is present
+    let ingredientButtons = container.querySelectorAll('button.Button-search');
+    expect(ingredientButtons.length).toEqual(1);
+    expect(ingredientButtons[0].innerHTML).toEqual('whole milk');
   });
 
   test('Save recipe', async () => {
+    // mock navigate
+    let navigateMock = jest.spyOn(router, 'useNavigate').mockImplementation();
+
     await act(async () => {
       await render(
         <MemoryRouter>
           <CreateNew />
+          <DisplayOne />
         </MemoryRouter>,
         container
       );
@@ -117,6 +172,7 @@ describe('CreateNew page tests', () => {
     // save recipe
     fireEvent.click(container.querySelector("button[type='submit']"));
 
-    // expect ??
+    // expect navigation to displayOne after recipe saved
+    expect(navigateMock).toHaveBeenCalled();
   });
 });
