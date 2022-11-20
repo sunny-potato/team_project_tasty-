@@ -103,7 +103,6 @@ CREATE TABLE IF NOT EXISTS units (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, un
 
 CREATE TABLE IF NOT EXISTS relations (recipes_id INT, ingredients_id INT, unit_id INT, amount FLOAT);
 
-CREATE TABLE IF NOT EXISTS cart (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, recipes_id INT);
 
 /* Insert sample recipes */
 INSERT INTO `recipes`(`name`, `meal_type`, `new`, `popular`, `description`) VALUES ('One-Pot Mac and Cheese','Dinner',TRUE,FALSE,'Who likes cleaning up after making mac and cheese? Not this girl. This one-pot mac and cheese is a family favorite, and my 3-year-old is thrilled to see it coming to the dinner table. We love to add sliced smoked sausage to this creamy mac recipe!');
@@ -245,9 +244,6 @@ INSERT INTO `relations`(`recipes_id`, `ingredients_id`, `unit_id`, `amount`) VAL
 INSERT INTO `relations`(`recipes_id`, `ingredients_id`, `unit_id`, `amount`) VALUES (9,22,2,4);
 INSERT INTO `relations`(`recipes_id`, `ingredients_id`, `unit_id`, `amount`) VALUES (9,7,5,2);
 
-/* Insert sample shopping cart */
-INSERT INTO `cart`(`recipes_id`) VALUES (1);
-INSERT INTO `cart`(`recipes_id`) VALUES (2);
 ```
 
 
