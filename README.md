@@ -2,7 +2,7 @@
 
 ### Includes
 
-- Automatic refresh on save
+- Automatic refresh on save in development 
 - External API communication powered by Spoonacular
 - SQL request to NTNU database (Need to be connected via VPN to NTNU for it to work)
 
@@ -37,6 +37,7 @@ process.env.MYSQL_HOST = 'mysql.stud.ntnu.no';
 process.env.MYSQL_USER = 'username_todo';
 process.env.MYSQL_PASSWORD = 'username_todo';
 process.env.MYSQL_DATABASE = 'sondest_gruppe5_test';
+process.env.REACT_API_KEY = 'test_key';
 ```
 
 These environment variables will be used in the `server/src/mysql-pool.ts` file.
