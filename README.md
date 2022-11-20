@@ -92,7 +92,6 @@ DROP TABLE If EXISTS recipes;
 DROP TABLE If EXISTS ingredients;
 DROP TABLE If EXISTS units;
 DROP TABLE If EXISTS relations;
-DROP TABLE If EXISTS cart;
 
 /* Create tables */
 CREATE TABLE IF NOT EXISTS recipes (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL, meal_type VARCHAR(255), new BOOLEAN, popular BOOLEAN, description TEXT);
