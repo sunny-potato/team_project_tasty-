@@ -76,14 +76,12 @@ npm test
 
 ## Set up SQL-database to communicate with app or use the existing account below
 
-### User
+### User credentials
 
 ```ts
-process.env.MYSQL_HOST = 'mysql.stud.ntnu.no';
+
 process.env.MYSQL_USER = 'sondest_INFT2002';
 process.env.MYSQL_PASSWORD = 'adminpassord';
-process.env.MYSQL_DATABASE (dev) = 'sondest_gruppe5_dev';
-process.env.MYSQL_DATABASE (test) = 'sondest_gruppe5_test';
 process.env.REACT_API_KEY = '7859d90a7de34b15afed1a781d9e38c9';
 ```
 ### INFT2002 Webutvikling Prosjektoppgave SQL-commands
