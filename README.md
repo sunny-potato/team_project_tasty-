@@ -38,6 +38,8 @@ If you do not have an API key to spoonacular, press the link and create an accou
 After confirming you account with your email and logging in, press `profile`, then press `Show / Hide API Key`,
 and then copy paste the API key into `Top-secret-key-here` inside the `server/config.ts` file.
 
+If you rather want to use an existing api key, you can look at "User credentials" further down this README file 
+
 `server/test/config.ts`:
 
 ```ts
@@ -85,6 +87,7 @@ npm test
 ## Set up SQL-database to communicate with app or use the existing account below
 
 ### User credentials
+#### Only for exam purposes to gain access to example recipes already in NTNU-SQL database
 
 ```ts
 
