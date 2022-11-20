@@ -1,3 +1,11 @@
+### Video demonstration of the app (URL-link)
+
+https://youtu.be/X1sPoUpWjuo
+
+### Link to the GitLab project online
+
+https://gitlab.stud.idi.ntnu.no/fnolsson/tasty-v2
+
 # Installing and running Tasty App
 
 ### Includes
