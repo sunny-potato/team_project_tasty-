@@ -38,8 +38,14 @@ export function DisplayOne() {
         setIngredients(data.ingredients);
       });
     } else {
-      const check: any = localStorage.getItem('Items');
-      dataService.apiExploreData(JSON.parse(check)).then((data) => {
+      const check = localStorage.getItem('Items');
+      //-------error occured because the case of nothing in localstorage  was not considered-----//
+      let items = [];
+      if (check !== null) {
+        items = JSON.parse(check);
+      }
+
+      dataService.apiExploreData(items).then((data) => {
         data?.map((recipe: Recipe) => {
           if (recipe.recipeInfo.id == idRef) {
             const rmHTML = /(<([^>]+)>)/gi;

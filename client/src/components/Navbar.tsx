@@ -14,7 +14,14 @@ export function Navbar() {
 
   // Update amount of shopping list on change and initial load
   useEffect(() => {
-    const cartMemory: [] = JSON.parse(localStorage.getItem('cart')!);
+    const data = localStorage.getItem('cart');
+    //-------error occured because the case of nothing in localstorage  was not considered-----//
+    if (!data) {
+      setState(false);
+      return;
+    }
+
+    const cartMemory: [] = JSON.parse(data);
 
     if (cartMemory.length >= 1) {
       setState(true);
