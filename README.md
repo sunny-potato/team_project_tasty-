@@ -1,22 +1,31 @@
-### Video demonstration of the app (URL-link)
+# Tasty
+
+Tasty is the team project of "INFT2002 web development" in NTNU in the autumn semester 2022. Tasty
+is a website that users can create/edit/delete/search for their own recipes and provides external
+recipes using API.
+
+## Video demonstration of the app (URL-link)
+
+- ![](tasty.gif)
 
 https://youtu.be/X1sPoUpWjuo
 
-### Link to the GitLab project online
+## Link to the GitLab project online
 
 https://gitlab.stud.idi.ntnu.no/fnolsson/tasty-v2
 
-# Installing and running Tasty App
+## Installing and running Tasty App
 
 ### Includes
 
-- Automatic refresh on save in development 
+- Automatic refresh on save in development
 - External API communication powered by Spoonacular
 - SQL request to NTNU database (Need to be connected via VPN to NTNU for it to work)
 
 #### VPN
-If you are not connected to NTNU at campus, then press the link for a guide on how to
-set up a VPN connection to NTNU here https://i.ntnu.no/wiki/-/wiki/English/Install+VPN.
+
+If you are not connected to NTNU at campus, then press the link for a guide on how to set up a VPN
+connection to NTNU here https://i.ntnu.no/wiki/-/wiki/English/Install+VPN.
 
 ## Setup database connections
 
@@ -34,11 +43,14 @@ process.env.MYSQL_PASSWORD = 'username_todo';
 process.env.MYSQL_DATABASE = 'sondest_gruppe5_dev';
 process.env.REACT_API_KEY = 'Top-secret-key-here';
 ```
-If you do not have an API key to spoonacular, press the link and create an account here https://spoonacular.com/food-api/console#.
-After confirming you account with your email and logging in, press `profile`, then press `Show / Hide API Key`,
-and then copy paste the API key into `Top-secret-key-here` inside the `server/config.ts` file.
 
-If you rather want to use an existing api key, you can look at "User credentials" further down this README file 
+If you do not have an API key to spoonacular, press the link and create an account here
+https://spoonacular.com/food-api/console#. After confirming you account with your email and logging
+in, press `profile`, then press `Show / Hide API Key`, and then copy paste the API key into
+`Top-secret-key-here` inside the `server/config.ts` file.
+
+If you rather want to use an existing api key, you can look at "User credentials" further down this
+README file
 
 `server/test/config.ts`:
 
@@ -87,14 +99,15 @@ npm test
 ## Set up SQL-database to communicate with app or use the existing account below
 
 ### User credentials
+
 #### Only for exam purposes to gain access to example recipes already in NTNU-SQL database
 
 ```ts
-
 process.env.MYSQL_USER = 'sondest_INFT2002';
 process.env.MYSQL_PASSWORD = 'adminpassord';
 process.env.REACT_API_KEY = '7859d90a7de34b15afed1a781d9e38c9';
 ```
+
 ### INFT2002 Webutvikling Prosjektoppgave SQL-commands
 
 ```sql
@@ -255,6 +268,3 @@ INSERT INTO `relations`(`recipes_id`, `ingredients_id`, `unit_id`, `amount`) VAL
 INSERT INTO `relations`(`recipes_id`, `ingredients_id`, `unit_id`, `amount`) VALUES (9,7,5,2);
 
 ```
-
-
-
