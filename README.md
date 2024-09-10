@@ -8,8 +8,6 @@ recipes using API.
 
 - ![](tasty.gif)
 
-https://youtu.be/X1sPoUpWjuo
-
 ## Link to the GitLab project online
 
 https://gitlab.stud.idi.ntnu.no/fnolsson/tasty-v2
